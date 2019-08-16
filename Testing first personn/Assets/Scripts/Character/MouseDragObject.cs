@@ -59,7 +59,7 @@ public class MouseDragObject : MonoBehaviour
          if (collision.gameObject.tag == "Character")
         {
            Physics.IgnoreCollision(playerH.GetComponent<CapsuleCollider>(), GetComponent<CapsuleCollider>());
-           Debug.Log("fgfgfg");
+           
         }
     }
 

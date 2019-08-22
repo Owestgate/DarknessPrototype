@@ -42,7 +42,7 @@ public class LightRoomTest : MonoBehaviour
     
     // Kills Player if they are moving inside the room with lights on - change to take damage over time everntually
     void OnTriggerStay (Collider other){
-        if (other.gameObject.tag == "Character" && switchingOn == true && characterControlScript.moving == true){
+        if (other.gameObject.tag == "Character" && switchingOn == true /*&& characterControlScript.moving == true*/){
         //Destroy(other.gameObject);
         Debug.Log("Player in Lights");
         }

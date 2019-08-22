@@ -5,7 +5,7 @@ using UnityEngine;
 public class MouseDragObject : MonoBehaviour
 {
     public Transform onHandPosition;
-    public GameObject playerH;
+    public GameObject playerMain;
     public GameObject playerHHand;
     public bool inHand;
     
@@ -37,7 +37,7 @@ public class MouseDragObject : MonoBehaviour
         if (playerInPickupRange == true){
         GetComponent<Rigidbody>().useGravity = false;
        // this.transform.position = onHandPosition.position;
-        this.transform.parent = playerH.transform;
+        this.transform.parent = playerMain.transform;
         this.transform.parent = playerHHand.transform;
         inHand = true;
         }
@@ -58,7 +58,8 @@ public class MouseDragObject : MonoBehaviour
     {
          if (collision.gameObject.tag == "Character")
         {
-           Physics.IgnoreCollision(playerH.GetComponent<CapsuleCollider>(), GetComponent<CapsuleCollider>());
+           Physics.IgnoreCollision(playerMain.GetComponent<CharacterController>(), this.GetComponent<CapsuleCollider>());
+           Physics.IgnoreCollision(playerMain.GetComponent<CapsuleCollider>(), this.GetComponent<CapsuleCollider>());
            Debug.Log("ignire player col");
         }
     }

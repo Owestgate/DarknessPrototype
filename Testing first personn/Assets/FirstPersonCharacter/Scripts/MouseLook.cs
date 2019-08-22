@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityStandardAssets.Characters.FirstPerson;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {

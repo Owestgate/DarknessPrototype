@@ -12,7 +12,7 @@ public class DoorOpen : MonoBehaviour
     void Start()
     {
         animOpenDoor = GetComponent<Animator>();
-        animOpenDoor.enabled = false;
+        //animOpenDoor.enabled = false;
     }
 
     // Update is called once per frame
@@ -23,8 +23,8 @@ public class DoorOpen : MonoBehaviour
 
     void OnTriggerEnter (Collider keyCollision){
         if (keyCollision.gameObject.name == "Key"){
-            animOpenDoor.enabled = true;
-            animOpenDoor.Play(0, 0);
+            //animOpenDoor.enabled = true;
+            animOpenDoor.Play("DoorOpen");
             Debug.Log("bgagag");
         }
 

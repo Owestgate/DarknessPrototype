@@ -1461,7 +1461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onHandPosition: {fileID: 1739453182}
-  playerMain: {fileID: 0}
+  playerMain: {fileID: 1801718613}
   playerHHand: {fileID: 1739453181}
   inHand: 0
   rangePickUp: {fileID: 324725211}
@@ -1476,8 +1476,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.5
+  m_Radius: 0.78
+  m_Height: 3.08
   m_Direction: 1
   m_Center: {x: 0, y: -0.34, z: 0}
 --- !u!4 &324725209

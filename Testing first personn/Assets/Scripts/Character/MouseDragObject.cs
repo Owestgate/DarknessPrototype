@@ -56,11 +56,19 @@ public class MouseDragObject : MonoBehaviour
     //Ignores collision with player while holding
     void OnCollisionEnter(Collision collision)
     {
-         if (collision.gameObject.tag == "Character")
+        //Ignores Collision if pickup object has capsule collider
+        if (collision.gameObject.tag == "Character" && this.gameObject.GetComponent<CapsuleCollider>())
         {
            Physics.IgnoreCollision(playerMain.GetComponent<CharacterController>(), this.GetComponent<CapsuleCollider>());
            Physics.IgnoreCollision(playerMain.GetComponent<CapsuleCollider>(), this.GetComponent<CapsuleCollider>());
            Debug.Log("ignire player col");
+        }
+        //ignores Collision if box collider
+        if (collision.gameObject.tag == "Character" && this.gameObject.GetComponent<BoxCollider>())
+        {
+           Physics.IgnoreCollision(playerMain.GetComponent<CharacterController>(), this.GetComponent<BoxCollider>());
+           Physics.IgnoreCollision(playerMain.GetComponent<CapsuleCollider>(), this.GetComponent<BoxCollider>());
+           Debug.Log("BOX COL");
         }
     }
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - Character
+  - PuzzlePiece
   layers:
   - Default
   - TransparentFX

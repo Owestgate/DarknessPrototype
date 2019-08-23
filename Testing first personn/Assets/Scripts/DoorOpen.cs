@@ -25,7 +25,7 @@ public class DoorOpen : MonoBehaviour
         if (keyCollision.gameObject.name == "Key"){
             //animOpenDoor.enabled = true;
             animOpenDoor.Play("DoorOpen");
-            Debug.Log("bgagag");
+            Debug.Log("Door should open");
         }
 
 

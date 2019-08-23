@@ -20,6 +20,7 @@ public class MouseDragObject : MonoBehaviour
     }
 
     void Update(){
+        
         if(inHand == true){
             this.transform.position = onHandPosition.position;
             //Locking rotation/position 
@@ -40,6 +41,7 @@ public class MouseDragObject : MonoBehaviour
         this.transform.parent = playerMain.transform;
         this.transform.parent = playerHHand.transform;
         inHand = true;
+        this.gameObject.GetComponent<SphereCollider>().enabled = false;
         }
     }
     
@@ -50,6 +52,7 @@ public class MouseDragObject : MonoBehaviour
         GetComponent<Rigidbody>().useGravity = true;
         //GetComponent<CapsuleCollider>().enabled = true;
         inHand = false;
+        this.gameObject.GetComponent<SphereCollider>().enabled = true;
         
     }
 

@@ -88,7 +88,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (m_cursorIsLocked)
             {
                 Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                //Cursor.visible = false;  commented to fix cursor lock when muting game in pause menu
             }
             else if (!m_cursorIsLocked)
             {

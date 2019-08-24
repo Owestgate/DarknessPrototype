@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PickUpObjects : MonoBehaviour
 {
+
+    public Transform onHandPos;
+    public GameObject playerMainController;
+    public GameObject playerMainHand;
+    public bool thingInHand;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,13 +20,26 @@ public class PickUpObjects : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10.0f, Color.red);
+        CheckForPickup();
     }
 
     private void CheckForPickup(){
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 5.0f)){
-            if(Input.GetKey(KeyCode.Mouse0)){
-                //
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10.0f)){
+            if(Input.GetKeyDown(KeyCode.Mouse0) && hit.transform.gameObject.GetComponent<PickUpableItem>()){
+                //Destroy(hit.transform.gameObject, 0);
+                hit.transform.gameObject.transform.parent = playerMainController.transform;
+                hit.transform.gameObject.transform.parent = playerMainHand.transform;
+                hit.transform.gameObject.transform.position = playerMainHand.transform.position;
+                //hit.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                //hit.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                thingInHand = true;
+            }
+
+            if(Input.GetKeyUp(KeyCode.Mouse0)){
+                hit.transform.gameObject.transform.parent = null;
+                //hit.transform.gameObject.transform.position = hit.transform.gameObject.transform.position;
+                thingInHand = false;
             }
 
         }

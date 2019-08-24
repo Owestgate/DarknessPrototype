@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class LightRoomTest : MonoBehaviour
 {
@@ -9,13 +10,17 @@ public class LightRoomTest : MonoBehaviour
     public bool switchingOn;
     public float lightTimer;
     public GameObject player;
-    public CharacterControlTest characterControlScript;
+
+    public float walkSpeedOnStart;
+    public float runSpeedOnStart;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(LightsOnOff());
         switchingOn = true;
+        runSpeedOnStart = player.GetComponent<FirstPersonController>().m_RunSpeed;
+        walkSpeedOnStart = player.GetComponent<FirstPersonController>().m_WalkSpeed;
     }
 
     IEnumerator LightsOnOff(){
@@ -42,9 +47,16 @@ public class LightRoomTest : MonoBehaviour
     
     // Kills Player if they are moving inside the room with lights on - change to take damage over time everntually
     void OnTriggerStay (Collider other){
-        if (other.gameObject.tag == "Character" && switchingOn == true /*&& characterControlScript.moving == true*/){
-        //Destroy(other.gameObject);
-        Debug.Log("Player in Lights");
+        if (other.gameObject.tag == "Character" && switchingOn == true){
+            //other.gameObject.GetComponent<FirstPersonController>().enabled = false;
+            Debug.Log("Player in Lights");
+            player.GetComponent<FirstPersonController>().m_RunSpeed = 0;
+            player.GetComponent<FirstPersonController>().m_WalkSpeed = 0;
+        } 
+        if(other.gameObject.tag == "Character" && switchingOn == false) {
+            player.GetComponent<FirstPersonController>().m_RunSpeed = runSpeedOnStart;
+            player.GetComponent<FirstPersonController>().m_WalkSpeed = walkSpeedOnStart;
+            
         }
     }
 }

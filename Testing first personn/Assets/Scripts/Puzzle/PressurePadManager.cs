@@ -16,7 +16,7 @@ public class PressurePadManager : MonoBehaviour
     public int currentCorrectPlacements; //current no of correct placements
     public int placementsGeneral; // total number of placements
 
-    public Text canvasText;
+    //public Text canvasText;
     public UnityEvent completeEvent;
 
     private void Awake()
@@ -67,7 +67,7 @@ public class PressurePadManager : MonoBehaviour
 
     void Update()
     {
-        canvasText.text = currentCorrectPlacements.ToString();
+        //canvasText.text = currentCorrectPlacements.ToString();
     }
 
     void AssignColoursToObjects (List<GameObject> objects){

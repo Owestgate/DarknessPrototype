@@ -8,7 +8,7 @@ public class FlareBehaviour : MonoBehaviour
     public float minFlicker;
     public float maxFlicker;
     public Animator flareAnimator;
-    public MouseDragObject isHolding; // Connect parent to here
+    public GameObject itemBeingHeld; // Connect parent to here
 
     
     void Start()
@@ -26,7 +26,7 @@ public class FlareBehaviour : MonoBehaviour
         } 
         
         //Lights flare if player is holding item
-        if (Input.GetKeyDown(KeyCode.G) && isHolding.inHand == true){
+        if (Input.GetKeyDown(KeyCode.G) && itemBeingHeld.GetComponent<PickUpableItem>().itemBeingHeld == true){
             flareAnimator.Play("flareAnim");
             Destroy(transform.parent.gameObject, 6.0f);
         }

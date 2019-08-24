@@ -30,7 +30,7 @@ public class Puzzle : MonoBehaviour
     }
 
     void OnTriggerStay (Collider pieceCollider){
-        if (pieceCollider.gameObject.tag == "PuzzlePiece" && pieceCollider.gameObject.name == puzzlePieceName && puzzlePiece.GetComponent<MouseDragObject>().inHand == false){
+        if (pieceCollider.gameObject.tag == "PuzzlePiece" && pieceCollider.gameObject.name == puzzlePieceName && puzzlePiece.GetComponent<PickUpableItem>().itemBeingHeld == false){
             pieceInPosition = true;
         }
     }

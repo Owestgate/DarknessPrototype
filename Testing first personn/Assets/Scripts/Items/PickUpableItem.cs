@@ -19,12 +19,10 @@ public class PickUpableItem : MonoBehaviour
     void Update()
     {
         if (handCameraObject.GetComponent<PickUpObjects>().thingInHand == true && this.gameObject.transform.parent != null){
-            Debug.Log("first if");
             //if(this.gameObject.transform.parent.transform.parent == handCameraObject){
             this.gameObject.GetComponent<Rigidbody>().useGravity = false;
             this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             itemBeingHeld = true;
-            Debug.Log("2nd if");
             //thisObjectsCollider.enabled = false;
             //}
         } 

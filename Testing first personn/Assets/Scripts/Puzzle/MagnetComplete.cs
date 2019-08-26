@@ -6,6 +6,7 @@ public class MagnetComplete : MonoBehaviour
 {
     public GameObject mag1;
     public GameObject mag2;
+    public Animator magnetDoor;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class MagnetComplete : MonoBehaviour
     {
         if(mag1.GetComponent<MagnetPuzzle>().finishedRoute == true && mag2.GetComponent<MagnetPuzzle>().finishedRoute == true){
             Debug.Log("completion");
+            magnetDoor.Play("PressurePuzzleDoorDown");
         }
     }
 }

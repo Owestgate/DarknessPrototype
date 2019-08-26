@@ -24,7 +24,6 @@ public class PickUpableItem : MonoBehaviour
             this.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             itemBeingHeld = true;
             //thisObjectsCollider.enabled = false;
-            //}
         } 
         if (handCameraObject.GetComponent<PickUpObjects>().thingInHand == false){
             itemBeingHeld = false;

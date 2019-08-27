@@ -7,7 +7,9 @@ public class Puzzle : MonoBehaviour
     public GameObject puzzlePiece;
     public GameObject pieceOnWall;
 
-    public Collider sphereRangeCollider;
+    public Material puzzleMaterial;
+
+    private Collider sphereRangeCollider;
     public string puzzlePieceName;
     public bool pieceInPosition;
 
@@ -17,15 +19,17 @@ public class Puzzle : MonoBehaviour
     {
         sphereRangeCollider = this.gameObject.GetComponent<SphereCollider>();
         pieceInPosition = false;
-        pieceOnWall.SetActive(false);
+        //pieceOnWall.SetActive(false);
+        sphereRangeCollider = GetComponent<SphereCollider>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if(pieceInPosition == true){
-           pieceOnWall.SetActive(true);
+           //pieceOnWall.SetActive(true);
            Destroy(puzzlePiece, 0);
+           pieceOnWall.GetComponent<MeshRenderer>().material = puzzleMaterial;
         }
     }
 

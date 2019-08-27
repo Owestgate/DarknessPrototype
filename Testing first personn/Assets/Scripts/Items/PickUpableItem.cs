@@ -42,12 +42,12 @@ public class PickUpableItem : MonoBehaviour
     void OnCollisionEnter(Collision other){
         if (other.gameObject.tag != "Character" && other.gameObject.tag != "MainCamera" && itemBeingHeld == true)
         {
-           Debug.Log("ignore this sumbitch");
+
            Physics.IgnoreCollision(other.gameObject.GetComponent<Collider>(), thisObjectsCollider);
         }
         if (other.gameObject.tag == "Character"){
             Physics.IgnoreCollision(other.gameObject.GetComponent<CharacterController>(), thisObjectsCollider);
-            Debug.Log("fucking player colliser");
+
         }
     }
 }

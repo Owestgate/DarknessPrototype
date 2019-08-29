@@ -12,7 +12,8 @@ public class PickUpableItem : MonoBehaviour
     
     void Start()
     {
-        
+        Physics.IgnoreCollision(GameObject.Find("FPSController").GetComponent<CharacterController>(), thisObjectsCollider);
+        Physics.IgnoreCollision(GameObject.Find("FPSController").GetComponent<CharacterController>(), thisObjectsCollider);
     }
 
     // Update is called once per frame
@@ -39,6 +40,7 @@ public class PickUpableItem : MonoBehaviour
         
     }
 
+    /*
     void OnCollisionEnter(Collision other){
         if (other.gameObject.tag != "Character" && other.gameObject.tag != "MainCamera" && itemBeingHeld == true)
         {
@@ -49,5 +51,5 @@ public class PickUpableItem : MonoBehaviour
             Physics.IgnoreCollision(other.gameObject.GetComponent<CharacterController>(), thisObjectsCollider);
 
         }
-    }
+    }*/
 }

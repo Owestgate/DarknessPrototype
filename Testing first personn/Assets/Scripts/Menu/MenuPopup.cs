@@ -10,19 +10,17 @@ public class MenuPopup : MonoBehaviour
 
     public GameObject menuPopup; // Menu Canvas Object - menu hidden on start
     public bool menuOpen; //check if menu already open
-    public AudioListener listener; //Attack camera to this in inspector
-    public bool muted; //check if muted
 
     public bool cursorLock;
     //public Script firstPerson;
     
-   // public Button muteButton; //trying to change color through script, not working
+
    // public ColorBlock colorChange;
     
     
     void Start()
     {
-       muted = false;
+ 
        Cursor.lockState = CursorLockMode.Locked;
        cursorLock = true;
        
@@ -39,26 +37,6 @@ public class MenuPopup : MonoBehaviour
             this.gameObject.GetComponent<FirstPersonController>().enabled = true; // Enables character to move again
         }
 
-    }
-
-    // Mutes game - applied to mute button in pause menu, checks if game is already muted
-    public void MuteGame(){
-        if(muted == false){
-           //colorChange.pressedColor = Color.green; //trying to change color through script, not working
-           //colorChange.selectedColor = Color.green;    //
-           //colorChange.normalColor = Color.green;      //
-           //colorChange.disabledColor = Color.green;    //
-           //colorChange.highlightedColor = Color.green; //
-           //colorChange.colorMultiplier = 1.0f;         //
-           //muteButton.colors = colorChange; //trying to change color through script, not working
-            AudioListener.volume = 0f;
-            muted = true;
-        }
-    
-        else if(muted == true){
-        AudioListener.volume = 1f; // resets volume
-        muted = false;
-        }        
     }
 
     void Update()

@@ -19,7 +19,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float m_JumpSpeed;
         [SerializeField] private float m_StickToGroundForce;
         [SerializeField] private float m_GravityMultiplier;
-        [SerializeField] private MouseLook m_MouseLook;
+        //[SerializeField] private MouseLook m_MouseLook;
+        public MouseLook m_MouseLook;
         [SerializeField] private bool m_UseFovKick;
         [SerializeField] private FOVKick m_FovKick = new FOVKick();
         [SerializeField] private bool m_UseHeadBob;
@@ -44,6 +45,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+        //Crouch function
+        private float characterControllerHeightOnStart;
+
         // Use this for initialization
         private void Start()
         {
@@ -57,6 +61,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+            characterControllerHeightOnStart = GetComponent<CharacterController>().height; //Crouching
+
         }
 
 
@@ -83,6 +90,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
+
+            if(GetComponent<AudioSource>().clip.name == "Footstep01"){
+                GetComponent<AudioSource>().panStereo = -0.36f;
+                GetComponent<AudioSource>().spatialBlend = 0;
+            }
+            if(GetComponent<AudioSource>().clip.name == "Footstep02"){
+                GetComponent<AudioSource>().panStereo = 0.36f;
+                GetComponent<AudioSource>().spatialBlend = 0;
+            }
+            if(GetComponent<AudioSource>().clip.name != "Footstep01" && GetComponent<AudioSource>().clip.name != "Footstep02"){
+                GetComponent<AudioSource>().panStereo = 0;
+                GetComponent<AudioSource>().spatialBlend = 1.0f;
+            }
+
+            //CROUCHING =========================================================
+            if(Input.GetKeyDown(KeyCode.LeftControl) && m_IsWalking == true){
+                GetComponent<CharacterController>().height = 3.0f;
+            }
+            if(Input.GetKeyUp(KeyCode.LeftControl)){
+                GetComponent<CharacterController>().height = characterControllerHeightOnStart;
+            }
         }
 
 

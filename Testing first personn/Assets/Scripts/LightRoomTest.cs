@@ -11,8 +11,11 @@ public class LightRoomTest : MonoBehaviour
     public float lightTimer;
     public GameObject player;
 
-    public float walkSpeedOnStart;
-    public float runSpeedOnStart;
+    private float walkSpeedOnStart;
+    private float runSpeedOnStart;
+
+    public float walkSpeedInDarkness;
+    public float runSpeedInDarkness;
 
     // Start is called before the first frame update
     void Start()
@@ -47,13 +50,12 @@ public class LightRoomTest : MonoBehaviour
     
     // Kills Player if they are moving inside the room with lights on - change to take damage over time everntually
     void OnTriggerStay (Collider other){
-        if (other.gameObject.tag == "Character" && switchingOn == true){
+        if (other.gameObject.tag == "Character" && switchingOn == false){
             //other.gameObject.GetComponent<FirstPersonController>().enabled = false;
-            Debug.Log("Player in Lights");
-            player.GetComponent<FirstPersonController>().m_RunSpeed = 0;
-            player.GetComponent<FirstPersonController>().m_WalkSpeed = 0;
+            player.GetComponent<FirstPersonController>().m_RunSpeed = runSpeedInDarkness;
+            player.GetComponent<FirstPersonController>().m_WalkSpeed = walkSpeedInDarkness;
         } 
-        if(other.gameObject.tag == "Character" && switchingOn == false) {
+        if(other.gameObject.tag == "Character" && switchingOn == true) {
             player.GetComponent<FirstPersonController>().m_RunSpeed = runSpeedOnStart;
             player.GetComponent<FirstPersonController>().m_WalkSpeed = walkSpeedOnStart;
             

@@ -45,7 +45,6 @@ public class PickUpObjects : MonoBehaviour
                 holdingItem.transform.parent = null;
                 //hit.transform.gameObject.transform.position = hit.transform.gameObject.transform.position;
                 thingInHand = false;
-                Debug.Log("drop");
             }
 
             //Tells Spinning puzzle its being hit

@@ -50,7 +50,6 @@ public class PuzzleCompletion : MonoBehaviour
     {
         //Check to see if all puzzle pieces are in position
         if(puzzlePiece1.GetComponent<Puzzle>().pieceInPosition == true && puzzlePiece2.GetComponent<Puzzle>().pieceInPosition == true && puzzlePiece3.GetComponent<Puzzle>().pieceInPosition == true && puzzlePiece4.GetComponent<Puzzle>().pieceInPosition == true){
-            Debug.Log ("PUZZLE COMPLETE!!!!");
             doorUpAnimator.Play("DoorUpAnimation");
         }
     }

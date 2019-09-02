@@ -8,7 +8,7 @@ public class StopEnemyInLights : MonoBehaviour
     public NavMeshAgent enemyNav;
     public bool lightsAreSupposedlyOn;
     public float justTesting;
-    private float navSpeedOnStart;
+    public float navSpeedOnStart;
     
 
     IEnumerator LightsOn(){
@@ -16,9 +16,7 @@ public class StopEnemyInLights : MonoBehaviour
         
         yield return new WaitForSeconds(justTesting);
         lightsAreSupposedlyOn = ! lightsAreSupposedlyOn;    // bool trigger
-        
         }
-           
     }
 
     // Start is called before the first frame update

@@ -6,10 +6,9 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class LightRoomTest : MonoBehaviour
 {
     public Light roomLights;
-    public GameObject subLights;
+    public GameObject renameLaterroom; // rename
     public bool switchingOn;
-    public float lightTimeOn;
-    public float lightTimeOff;
+    public float lightTimer;
     public GameObject player;
 
     private float walkSpeedOnStart;
@@ -21,43 +20,31 @@ public class LightRoomTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(LightsOff());
+        StartCoroutine(LightsOnOff());
         switchingOn = true;
         runSpeedOnStart = player.GetComponent<FirstPersonController>().m_RunSpeed;
         walkSpeedOnStart = player.GetComponent<FirstPersonController>().m_WalkSpeed;
     }
 
-    IEnumerator LightsOn(){
+    IEnumerator LightsOnOff(){
         while (true){
         
-        yield return new WaitForSeconds(lightTimeOff);
+        yield return new WaitForSeconds(lightTimer);
         switchingOn = ! switchingOn;    // bool trigger
-        yield return StartCoroutine(LightsOff());
         
         }
            
     }
-    IEnumerator LightsOff()
-    {
-        while (true)
-        {
 
-            yield return new WaitForSeconds(lightTimeOn);
-            switchingOn = !switchingOn;    // bool trigger\
-            yield return StartCoroutine(LightsOn());
-
-        }
-
-    }
-
+    
     void Update()
     {
         //Turning lights on/ off through game object active status
         if (switchingOn == true){
-            subLights.SetActive(true);
+            renameLaterroom.SetActive(true);
         }
         if (switchingOn == false){
-            subLights.SetActive(false);
+            renameLaterroom.SetActive(false);
         }
     }
     
@@ -67,13 +54,11 @@ public class LightRoomTest : MonoBehaviour
             //other.gameObject.GetComponent<FirstPersonController>().enabled = false;
             player.GetComponent<FirstPersonController>().m_RunSpeed = runSpeedInDarkness;
             player.GetComponent<FirstPersonController>().m_WalkSpeed = walkSpeedInDarkness;
-            player.GetComponent<FirstPersonController>().m_JumpAllowed = false;
         } 
         if(other.gameObject.tag == "Character" && switchingOn == true) {
             player.GetComponent<FirstPersonController>().m_RunSpeed = runSpeedOnStart;
             player.GetComponent<FirstPersonController>().m_WalkSpeed = walkSpeedOnStart;
-            player.GetComponent<FirstPersonController>().m_JumpAllowed = true;
-
+            
         }
     }
 }

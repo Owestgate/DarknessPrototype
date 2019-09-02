@@ -13,6 +13,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private bool m_IsWalking;
         public float m_WalkSpeed; //un-serialzed and made public so the light scrip can make player speed 0 while in light
         public float m_RunSpeed;
+        public bool m_JumpAllowed;
         //[SerializeField] private float m_WalkSpeed;
         //[SerializeField] private float m_RunSpeed;
         [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
@@ -59,6 +60,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_StepCycle = 0f;
             m_NextStep = m_StepCycle/2f;
             m_Jumping = false;
+            m_JumpAllowed = true;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
 
@@ -72,10 +74,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             RotateView();
             // the jump state needs to read here to make sure it is not missed
-            if (!m_Jump)
-            {
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-            }
+            m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
             {
@@ -143,7 +142,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_MoveDir.y = -m_StickToGroundForce;
 
-                if (m_Jump)
+                if (m_Jump && m_JumpAllowed)
                 {
                     m_MoveDir.y = m_JumpSpeed;
                     PlayJumpSound();

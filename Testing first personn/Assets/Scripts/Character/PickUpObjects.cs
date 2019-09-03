@@ -10,6 +10,8 @@ public class PickUpObjects : MonoBehaviour
     public GameObject playerMainHand;
     public GameObject holdingItem;
 
+    public bool togglePickup;
+
     public bool thingInHand;
 
     // Start is called before the first frame update
@@ -30,22 +32,42 @@ public class PickUpObjects : MonoBehaviour
 
     private void CheckForPickup(){
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10.0f)){
-        
-            if(Input.GetKeyDown(KeyCode.Mouse0) && hit.transform.gameObject.GetComponent<PickUpableItem>()){
-                holdingItem = hit.transform.gameObject;
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10.0f))
+        {
+            switch(togglePickup)
+            {
+                case true:
+                    if (Input.GetKeyDown(KeyCode.Mouse0) && hit.transform.gameObject.GetComponent<PickUpableItem>())
+                    {
+                        holdingItem = hit.transform.gameObject;
 
-                holdingItem.transform.parent = playerMainController.transform;
-                holdingItem.transform.parent = playerMainHand.transform;
-                holdingItem.transform.position = playerMainHand.transform.position;
-                thingInHand = true;
+                        holdingItem.transform.parent = playerMainController.transform;
+                        holdingItem.transform.parent = playerMainHand.transform;
+                        holdingItem.transform.position = playerMainHand.transform.position;
+                        thingInHand = !thingInHand;
+                    }
+                    break;
+                case false:
+                    if (Input.GetKeyDown(KeyCode.Mouse0) && hit.transform.gameObject.GetComponent<PickUpableItem>())
+                    {
+                        holdingItem = hit.transform.gameObject;
+
+                        holdingItem.transform.parent = playerMainController.transform;
+                        holdingItem.transform.parent = playerMainHand.transform;
+                        holdingItem.transform.position = playerMainHand.transform.position;
+                        thingInHand = true;
+                    }
+
+                    if(Input.GetKeyUp(KeyCode.Mouse0) /*&& hit.transform.gameObject.GetComponent<PickUpableItem>()*/)
+                    {
+                        holdingItem.transform.parent = null;
+                        hit.transform.gameObject.transform.position = hit.transform.gameObject.transform.position;
+                        thingInHand = false;
+                    }
+                    break;
             }
 
-            if(Input.GetKeyUp(KeyCode.Mouse0) /*&& hit.transform.gameObject.GetComponent<PickUpableItem>()*/){
-                holdingItem.transform.parent = null;
-                //hit.transform.gameObject.transform.position = hit.transform.gameObject.transform.position;
-                thingInHand = false;
-            }
+            
 
             //Tells Spinning puzzle its being hit
             if (Input.GetKey(KeyCode.Mouse0) && hit.transform.gameObject.GetComponent<SpinPuzzle>()){

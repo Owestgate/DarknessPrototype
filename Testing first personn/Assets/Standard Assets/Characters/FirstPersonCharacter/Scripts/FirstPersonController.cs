@@ -31,6 +31,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+        public bool toggleCrouchSprint;
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -241,11 +242,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
             //Prevents crouch sprinting. Remove if-else and keep line 246 to revert. - MW(03/09)
-            if (!Input.GetKey(KeyCode.LeftControl))
+            //Added menu toggle. - MW(04/09)
+            switch (toggleCrouchSprint)
             {
-                m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+                case true:
+                    if (!Input.GetKey(KeyCode.LeftControl))
+                    {
+                        m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+                    }
+                    else m_IsWalking = true;
+                    break;
+                case false:
+                    m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+                    break;
             }
-            else m_IsWalking = true;
 
 #endif
             // set the desired speed to be walking or running

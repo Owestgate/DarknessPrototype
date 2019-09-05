@@ -13,9 +13,11 @@ public class MenuPopup : MonoBehaviour
 
     public bool cursorLock;
     //public Script firstPerson;
-    
 
-   // public ColorBlock colorChange;
+
+    // public ColorBlock colorChange;
+
+    private FirstPersonController fpsController;
     
     
     void Start()
@@ -23,7 +25,7 @@ public class MenuPopup : MonoBehaviour
  
        Cursor.lockState = CursorLockMode.Locked;
        cursorLock = true;
-       
+        fpsController = GetComponent<FirstPersonController>();
        
     }
 
@@ -57,7 +59,7 @@ public class MenuPopup : MonoBehaviour
             menuOpen = true;
             Time.timeScale = 0; // Pauses Game time (recheck)
             cursorLock = false;
-            this.gameObject.GetComponent<FirstPersonController>().enabled = false; // disables character movement while paused, might need changing
+            fpsController.enabled = false; // disables character movement while paused, might need changing
         }
 
         if (cursorLock == true){

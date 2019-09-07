@@ -50,6 +50,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         //Crouch function
         private float characterControllerHeightOnStart;
 
+        private AudioSource source;
+
         // Use this for initialization
         private void Start()
         {
@@ -66,7 +68,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , m_Camera.transform);
 
             characterControllerHeightOnStart = GetComponent<CharacterController>().height; //Crouching
-
+            source = GetComponent<AudioSource>();
         }
 
 
@@ -91,17 +93,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
 
-            if(GetComponent<AudioSource>().clip.name == "Footstep01"){
-                GetComponent<AudioSource>().panStereo = -0.36f;
-                GetComponent<AudioSource>().spatialBlend = 0;
+            if(source.clip.name == "Footstep01"){
+                source.panStereo = -0.36f;
+                source.spatialBlend = 0;
             }
-            if(GetComponent<AudioSource>().clip.name == "Footstep02"){
-                GetComponent<AudioSource>().panStereo = 0.36f;
-                GetComponent<AudioSource>().spatialBlend = 0;
+            if(source.clip.name == "Footstep02"){
+                source.panStereo = 0.36f;
+                source.spatialBlend = 0;
             }
-            if(GetComponent<AudioSource>().clip.name != "Footstep01" && GetComponent<AudioSource>().clip.name != "Footstep02"){
-                GetComponent<AudioSource>().panStereo = 0;
-                GetComponent<AudioSource>().spatialBlend = 1.0f;
+            if(source.clip.name != "Footstep01" && source.clip.name != "Footstep02"){
+                source.panStereo = 0;
+                source.spatialBlend = 1.0f;
             }
 
             //CROUCHING =========================================================

@@ -24,9 +24,12 @@ public class MenuPopup : MonoBehaviour
     {
  
        Cursor.lockState = CursorLockMode.Locked;
-       cursorLock = true;
-        fpsController = GetComponent<FirstPersonController>();
-       
+       cursorLock = true;    
+    }
+
+    private void Awake()
+    {
+       fpsController = gameObject.GetComponent<FirstPersonController>();
     }
 
     //Unpauses game from the return button on pause menu panel
@@ -36,7 +39,7 @@ public class MenuPopup : MonoBehaviour
             menuOpen = false;
             Time.timeScale = 1; // Unpauses game time (recheck)
             Cursor.lockState = CursorLockMode.Locked;
-            this.gameObject.GetComponent<FirstPersonController>().enabled = true; // Enables character to move again
+            gameObject.GetComponent<FirstPersonController>().enabled = true; // Enables character to move again
         }
 
     }
@@ -59,7 +62,7 @@ public class MenuPopup : MonoBehaviour
             menuOpen = true;
             Time.timeScale = 0; // Pauses Game time (recheck)
             cursorLock = false;
-            fpsController.enabled = false; // disables character movement while paused, might need changing
+            gameObject.GetComponent<FirstPersonController>().enabled = false; // disables character movement while paused, might need changing
         }
 
         if (cursorLock == true){

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.AI;
 
-public class LightRoomTest : MonoBehaviour
+public class LightRoomColor : MonoBehaviour
 {
     public GameObject subLights;
     public bool switchingOn;
@@ -19,9 +19,20 @@ public class LightRoomTest : MonoBehaviour
     public float walkSpeedInDarkness;
     public float runSpeedInDarkness;
 
+    private Color colorRed = new Color(1, 0, 0, 1);
+    private Color colorGreen = new Color(0, 1, 0, 1);
+    private Color colorBlue = new Color(0, 0, 1, 1);
+
+    private Color[] colorSequence = new Color[3];
+    private int colorCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        colorSequence[0] = colorBlue;
+        colorSequence[1] = colorGreen;
+        colorSequence[2] = colorRed;
+
         StartCoroutine(LightsOff());
         switchingOn = true;
         runSpeedOnStart = player.GetComponent<FirstPersonController>().m_RunSpeed;
@@ -30,11 +41,9 @@ public class LightRoomTest : MonoBehaviour
 
     IEnumerator LightsOn(){
         while (true){
-        
-        yield return new WaitForSeconds(lightTimeOff);
-        switchingOn = ! switchingOn;    // bool trigger
-        yield return StartCoroutine(LightsOff());
-        
+            yield return new WaitForSeconds(lightTimeOff);
+            switchingOn = ! switchingOn;    // bool trigger
+            yield return StartCoroutine(LightsOff());
         }
            
     }
@@ -42,11 +51,18 @@ public class LightRoomTest : MonoBehaviour
     {
         while (true)
         {
-
+            foreach (Transform child in subLights.transform)
+            {
+                child.GetComponent<Light>().color = colorSequence[colorCount];
+            }
+            colorCount++;
+            if (colorCount >= colorSequence.Length)
+            {
+                colorCount = 0;
+            }
             yield return new WaitForSeconds(lightTimeOn);
             switchingOn = !switchingOn;    // bool trigger\
             yield return StartCoroutine(LightsOn());
-
         }
 
     }

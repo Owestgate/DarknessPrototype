@@ -37,6 +37,50 @@ MonoBehaviour:
   speedDown:
     overrideState: 0
     value: 1
+--- !u!114 &-1557915734832462197
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  mode:
+    overrideState: 1
+    value: 0
+  color:
+    overrideState: 1
+    value: {r: 0, g: 0, b: 0, a: 1}
+  center:
+    overrideState: 1
+    value: {x: 0.5, y: 0.5}
+  intensity:
+    overrideState: 1
+    value: 0.172
+  smoothness:
+    overrideState: 1
+    value: 1
+  roundness:
+    overrideState: 1
+    value: 1
+  rounded:
+    overrideState: 1
+    value: 1
+  mask:
+    overrideState: 0
+    value: {fileID: 0}
+    defaultState: 1
+  opacity:
+    overrideState: 0
+    value: 1
 --- !u!114 &-1119084680336612997
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -102,6 +146,7 @@ MonoBehaviour:
   - {fileID: 6732428001900378747}
   - {fileID: 3051174146917770180}
   - {fileID: 4259573343865892961}
+  - {fileID: -1557915734832462197}
 --- !u!114 &3051174146917770180
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -160,26 +205,26 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   colorFilter:
-    overrideState: 0
-    value: {r: 1, g: 1, b: 1, a: 1}
+    overrideState: 1
+    value: {r: 0.9982467, g: 1, b: 0.9386792, a: 1}
   hueShift:
     overrideState: 0
     value: 0
   saturation:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 45.5
   brightness:
     overrideState: 0
     value: 0
   postExposure:
-    overrideState: 0
+    overrideState: 1
     value: 0
   contrast:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 50.6
   mixerRedOutRedIn:
     overrideState: 0
-    value: 100
+    value: 95
   mixerRedOutGreenIn:
     overrideState: 0
     value: 0
@@ -1431,7 +1476,7 @@ MonoBehaviour:
     value: 1
   shutterAngle:
     overrideState: 1
-    value: 270
+    value: 275
   sampleCount:
     overrideState: 1
     value: 32
@@ -1457,7 +1502,7 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0
+    value: 0.266
   fastMode:
     overrideState: 0
     value: 0

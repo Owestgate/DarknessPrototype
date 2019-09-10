@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.11
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.115665324, g: 0.118703224, b: 0.109928064, a: 0.11}
+  m_IndirectSpecularColor: {r: 0.11566549, g: 0.11870328, b: 0.10992796, a: 0.11}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2830,11 +2830,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConcreteWall1
       objectReference: {fileID: 0}
-    - target: {fileID: -4861924686910468554, guid: a83735b43b375a141a28ca2daa381a31,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 600f0a7e0d6b5104080ef05b87a9b083, type: 2}
     - target: {fileID: -4216859302048453862, guid: a83735b43b375a141a28ca2daa381a31,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2955,6 +2950,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -90.00001
       objectReference: {fileID: 0}
+    - target: {fileID: -4861924686910468554, guid: a83735b43b375a141a28ca2daa381a31,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 600f0a7e0d6b5104080ef05b87a9b083, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a83735b43b375a141a28ca2daa381a31, type: 3}
 --- !u!1 &169375300
@@ -46240,6 +46240,7 @@ GameObject:
   - component: {fileID: 1796772533}
   - component: {fileID: 1801718614}
   - component: {fileID: 1801718617}
+  - component: {fileID: 1801718618}
   m_Layer: 2
   m_Name: FPSController
   m_TagString: Character
@@ -46317,6 +46318,22 @@ MonoBehaviour:
   lightsAreSupposedlyOn: 0
   justTesting: 5
   navSpeedOnStart: 0
+--- !u!114 &1801718618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801718613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27b2e0f8614d560409619d05dcfe244b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyObj: {fileID: 1374257159}
+  playerObj: {fileID: 1801718613}
+  killScreen: GameOver
+  killDist: 7
 --- !u!20 &1803225461
 Camera:
   m_ObjectHideFlags: 0

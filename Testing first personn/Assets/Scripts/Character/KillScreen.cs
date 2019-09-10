@@ -22,7 +22,13 @@ public class KillScreen : MonoBehaviour
         if (currentDist < killDist)
         {
             //Jump scare animation goes here.
-            
+
+
+
+            //Unlocks cursor from FPSController
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
             SceneManager.LoadScene(killScreen);
         }
     }

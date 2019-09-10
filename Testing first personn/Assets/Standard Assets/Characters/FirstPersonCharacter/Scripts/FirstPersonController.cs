@@ -69,6 +69,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             characterControllerHeightOnStart = GetComponent<CharacterController>().height; //Crouching
             source = GetComponent<AudioSource>();
+            m_AudioSource.clip = m_LandSound;
         }
 
 
@@ -92,7 +93,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
-
             if(source.clip.name == "Footstep01"){
                 source.panStereo = -0.36f;
                 source.spatialBlend = 0;

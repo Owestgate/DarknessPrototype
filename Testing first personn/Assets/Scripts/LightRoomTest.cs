@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class LightRoomTest : MonoBehaviour
 {
-    public Light roomLights;
     public GameObject subLights;
     public bool switchingOn;
     public float lightTimeOn;
@@ -16,7 +15,6 @@ public class LightRoomTest : MonoBehaviour
 
     private float walkSpeedOnStart;
     private float runSpeedOnStart;
-    private float chaserSpeedOnStart;
 
     public float walkSpeedInDarkness;
     public float runSpeedInDarkness;
@@ -28,7 +26,6 @@ public class LightRoomTest : MonoBehaviour
         switchingOn = true;
         runSpeedOnStart = player.GetComponent<FirstPersonController>().m_RunSpeed;
         walkSpeedOnStart = player.GetComponent<FirstPersonController>().m_WalkSpeed;
-        chaserSpeedOnStart = chaser.GetComponent<NavMeshAgent>().speed;
     }
 
     IEnumerator LightsOn(){
@@ -65,20 +62,19 @@ public class LightRoomTest : MonoBehaviour
         }
     }
     
-    // Kills Player if they are moving inside the room with lights on - change to take damage over time everntually
     void OnTriggerStay (Collider other){
         if (other.gameObject.tag == "Character" && switchingOn == false){
             //other.gameObject.GetComponent<FirstPersonController>().enabled = false;
             player.GetComponent<FirstPersonController>().m_RunSpeed = runSpeedInDarkness;
             player.GetComponent<FirstPersonController>().m_WalkSpeed = walkSpeedInDarkness;
             player.GetComponent<FirstPersonController>().m_JumpAllowed = false;
-            chaser.GetComponent<NavMeshAgent>().speed = chaserSpeedOnStart;
+            chaser.GetComponent<EnemyAI>().lightsOn = false; //Lights now simply inform the chaser that the lights are off. Chaser does the work itself now.
         } 
         if(other.gameObject.tag == "Character" && switchingOn == true) {
             player.GetComponent<FirstPersonController>().m_RunSpeed = runSpeedOnStart;
             player.GetComponent<FirstPersonController>().m_WalkSpeed = walkSpeedOnStart;
             player.GetComponent<FirstPersonController>().m_JumpAllowed = true;
-            chaser.GetComponent<NavMeshAgent>().speed = 0;
+            chaser.GetComponent<EnemyAI>().lightsOn = true;
         }
     }
 }

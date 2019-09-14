@@ -13,7 +13,9 @@ public class PuzzleCompletion : MonoBehaviour
     public List<Transform> pieces; // 4 pieces + 4 empty spots so placements change every game
    // public GameObject puzzlePiece5;
 
-    public Animator doorUpAnimator; // change to what ever animation we use
+    public Animator doorOpenAnimator; // change to what ever animation we use
+
+    private bool doorOpened = false;
 
     void Start()
     {
@@ -49,8 +51,9 @@ public class PuzzleCompletion : MonoBehaviour
     void Update()
     {
         //Check to see if all puzzle pieces are in position
-        if(puzzlePiece1.GetComponent<Puzzle>().pieceInPosition == true && puzzlePiece2.GetComponent<Puzzle>().pieceInPosition == true && puzzlePiece3.GetComponent<Puzzle>().pieceInPosition == true && puzzlePiece4.GetComponent<Puzzle>().pieceInPosition == true){
-            doorUpAnimator.Play("DoorUpAnimation");
+        if(puzzlePiece1.GetComponent<Puzzle>().pieceInPosition == true && puzzlePiece2.GetComponent<Puzzle>().pieceInPosition == true && puzzlePiece3.GetComponent<Puzzle>().pieceInPosition == true && puzzlePiece4.GetComponent<Puzzle>().pieceInPosition == true && !doorOpened){
+            doorOpenAnimator.Play("SlidingDoorOpen");
+            doorOpened = true;
         }
     }
 }

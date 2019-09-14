@@ -1,5 +1,54 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6060862795779290420
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
+  m_Name: AmbientOcclusion
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  mode:
+    overrideState: 1
+    value: 1
+  intensity:
+    overrideState: 1
+    value: 0.36
+  color:
+    overrideState: 1
+    value: {r: 0, g: 0, b: 0, a: 1}
+  ambientOnly:
+    overrideState: 0
+    value: 1
+  noiseFilterTolerance:
+    overrideState: 0
+    value: 0
+  blurTolerance:
+    overrideState: 0
+    value: -4.6
+  upsampleTolerance:
+    overrideState: 0
+    value: -12
+  thicknessModifier:
+    overrideState: 1
+    value: 3.31
+  directLightingStrength:
+    overrideState: 0
+    value: 0
+  radius:
+    overrideState: 0
+    value: 0.25
+  quality:
+    overrideState: 0
+    value: 2
 --- !u!114 &-5339553452082483852
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -17,25 +66,25 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   filtering:
-    overrideState: 0
+    overrideState: 1
     value: {x: 50, y: 95}
   minLuminance:
-    overrideState: 0
+    overrideState: 1
     value: 0
   maxLuminance:
-    overrideState: 0
+    overrideState: 1
     value: 0
   keyValue:
-    overrideState: 0
+    overrideState: 1
     value: 1
   eyeAdaptation:
-    overrideState: 0
+    overrideState: 1
     value: 0
   speedUp:
-    overrideState: 0
+    overrideState: 1
     value: 2
   speedDown:
-    overrideState: 0
+    overrideState: 1
     value: 1
 --- !u!114 &-1557915734832462197
 MonoBehaviour:
@@ -64,7 +113,7 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.172
+    value: 0.185
   smoothness:
     overrideState: 1
     value: 1
@@ -99,13 +148,13 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.66
+    value: 1.63
   threshold:
     overrideState: 1
-    value: 1.2
+    value: 0.6
   softKnee:
-    overrideState: 0
-    value: 0.5
+    overrideState: 1
+    value: 1
   clamp:
     overrideState: 0
     value: 65472
@@ -147,6 +196,7 @@ MonoBehaviour:
   - {fileID: 3051174146917770180}
   - {fileID: 4259573343865892961}
   - {fileID: -1557915734832462197}
+  - {fileID: -6060862795779290420}
 --- !u!114 &3051174146917770180
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -212,7 +262,7 @@ MonoBehaviour:
     value: 0
   saturation:
     overrideState: 1
-    value: 45.5
+    value: 79
   brightness:
     overrideState: 0
     value: 0
@@ -221,10 +271,10 @@ MonoBehaviour:
     value: 0
   contrast:
     overrideState: 1
-    value: 50.6
+    value: 0
   mixerRedOutRedIn:
     overrideState: 0
-    value: 95
+    value: 0
   mixerRedOutGreenIn:
     overrideState: 0
     value: 0
@@ -233,31 +283,31 @@ MonoBehaviour:
     value: 0
   mixerGreenOutRedIn:
     overrideState: 0
-    value: 0
+    value: 100
   mixerGreenOutGreenIn:
     overrideState: 0
     value: 100
   mixerGreenOutBlueIn:
     overrideState: 0
-    value: 0
+    value: 100
   mixerBlueOutRedIn:
     overrideState: 0
-    value: 0
+    value: 80
   mixerBlueOutGreenIn:
     overrideState: 0
-    value: 0
+    value: 80
   mixerBlueOutBlueIn:
     overrideState: 0
-    value: 100
+    value: 80
   lift:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    overrideState: 1
+    value: {x: 0.97827095, y: 1, z: 0.91454166, w: -0.11892964}
   gamma:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    overrideState: 1
+    value: {x: 0.97825176, y: 1, z: 0.98074204, w: 0.2576809}
   gain:
-    overrideState: 0
-    value: {x: 1, y: 1, z: 1, w: 0}
+    overrideState: 1
+    value: {x: 1, y: 0.93726754, z: 0.9961419, w: -0.3567888}
   masterCurve:
     overrideState: 0
     value:
@@ -1476,7 +1526,7 @@ MonoBehaviour:
     value: 1
   shutterAngle:
     overrideState: 1
-    value: 275
+    value: 175
   sampleCount:
     overrideState: 1
     value: 32
@@ -1502,7 +1552,7 @@ MonoBehaviour:
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0.266
+    value: 0.235
   fastMode:
     overrideState: 0
     value: 0

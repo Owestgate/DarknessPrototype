@@ -44,6 +44,5 @@ public class StopEnemyBehindDoor : MonoBehaviour
         Debug.Log("fgfgfgfgfgfgfgf");
         player.GetComponent<StopEnemyInLights>().navSpeedOnStart = resetThing;
         enemyObject.GetComponent<NavMeshAgent>().speed = navSpeedAtStart;
-        
     }
 }

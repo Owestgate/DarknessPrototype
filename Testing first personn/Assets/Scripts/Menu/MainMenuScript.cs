@@ -8,7 +8,8 @@ public class MainMenuScript : MonoBehaviour
     public AudioSource scarySound;
 
     void Start (){
-        
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void PlayGame(){

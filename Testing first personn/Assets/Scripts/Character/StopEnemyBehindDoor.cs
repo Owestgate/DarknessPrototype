@@ -30,20 +30,17 @@ public class StopEnemyBehindDoor : MonoBehaviour
 
     void OnTriggerEnter (Collider other){
 
-        Debug.Log("uh?");
         if(other.gameObject == enemyObject){
             enemyObject.GetComponent<NavMeshAgent>().speed = 0f;
             enemyObject.GetComponent<EnemyAI>().navSpeed = 0f;
             inDoorZone = true;
             StartCoroutine(WaitHere());
-            Debug.Log("caught em boss");
         }
     }
 
     IEnumerator WaitHere(){
         
         yield return new WaitForSeconds(waitTime);
-        Debug.Log("fgfgfgfgfgfgfgf");
         enemyObject.GetComponent<EnemyAI>().navSpeed = navSpeedAtStart;
         enemyObject.GetComponent<NavMeshAgent>().speed = navSpeedAtStart;
     }

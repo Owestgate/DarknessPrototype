@@ -11,8 +11,8 @@ public class EnemyAI : MonoBehaviour
     public bool lightsOn;
     public Mesh model1; //These are the two models currently. Its currently set up for two only but it shouldnt take too long to make space for more if we want more
     public Mesh model2;
+    public float navSpeed;
 
-    private float navSpeed;
     private MeshFilter modelSlot;
     private bool lightsJustOn = false; //The enemy figures out the exact moment the lights switch, and thats what lightsJustOn is
     private bool currentModel;

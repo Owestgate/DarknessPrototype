@@ -8,11 +8,11 @@ public class StopEnemyBehindDoor : MonoBehaviour
     public GameObject enemyObject;
     public float waitTime;
     public bool inDoorZone;
-    private float navSpeedAtStart;
     public GameObject player;
-    public float resetThing;
 
     public Animator animSlidingDoor;
+
+    private float navSpeedAtStart;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +32,7 @@ public class StopEnemyBehindDoor : MonoBehaviour
 
         if(other.gameObject == enemyObject){
             enemyObject.GetComponent<NavMeshAgent>().speed = 0f;
-            player.GetComponent<StopEnemyInLights>().navSpeedOnStart = 0f;
+            enemyObject.GetComponent<EnemyAI>().navSpeed = 0f;
             inDoorZone = true;
             StartCoroutine(WaitHere());
         }
@@ -40,9 +40,8 @@ public class StopEnemyBehindDoor : MonoBehaviour
 
     IEnumerator WaitHere(){
         
-        yield return new WaitForSeconds(4);
-        Debug.Log("fgfgfgfgfgfgfgf");
-        player.GetComponent<StopEnemyInLights>().navSpeedOnStart = resetThing;
+        yield return new WaitForSeconds(waitTime);
+        enemyObject.GetComponent<EnemyAI>().navSpeed = navSpeedAtStart;
         enemyObject.GetComponent<NavMeshAgent>().speed = navSpeedAtStart;
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5950179953352960566}
   - component: {fileID: 3443089444202074112}
   - component: {fileID: 9004040290176347385}
+  - component: {fileID: 3288000677642001998}
   m_Layer: 0
   m_Name: OpenShelves
   m_TagString: Untagged
@@ -78,3 +79,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &3288000677642001998
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7262073075982014501}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.216416, y: 4.5024157, z: 1.2925994}
+  m_Center: {x: 0, y: 0, z: 0}

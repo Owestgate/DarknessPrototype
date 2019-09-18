@@ -109,7 +109,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             //CROUCHING =========================================================
             if(Input.GetKeyDown(KeyCode.LeftControl) && m_IsWalking == true){
-                GetComponent<CharacterController>().height = 3.0f;
+                GetComponent<CharacterController>().height = 1f;
             }
             if(Input.GetKeyUp(KeyCode.LeftControl)){
                 GetComponent<CharacterController>().height = characterControllerHeightOnStart;

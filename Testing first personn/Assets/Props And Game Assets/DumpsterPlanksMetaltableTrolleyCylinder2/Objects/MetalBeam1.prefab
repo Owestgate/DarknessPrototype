@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2963257443776102881}
   - component: {fileID: 6072150060257360855}
   - component: {fileID: 538203406952187694}
+  - component: {fileID: 1350718372787508911}
   m_Layer: 0
   m_Name: MetalBeam1
   m_TagString: Untagged
@@ -78,3 +79,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1350718372787508911
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2253140294953890802}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.9955225, y: 0.6185962, z: 0.6442584}
+  m_Center: {x: 0, y: 0, z: 0}

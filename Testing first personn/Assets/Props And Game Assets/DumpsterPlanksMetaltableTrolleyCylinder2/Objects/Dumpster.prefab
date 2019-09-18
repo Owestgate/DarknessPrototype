@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 114414243694445617}
   - component: {fileID: 8992982127388147207}
   - component: {fileID: 3454811710909825790}
+  - component: {fileID: 2370481806955309744}
   m_Layer: 0
   m_Name: Dumpster
   m_TagString: Untagged
@@ -78,3 +79,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &2370481806955309744
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020908520641787426}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11.813872, y: 7.6205015, z: 6.1822057}
+  m_Center: {x: -0.00000047683716, y: 0, z: 0}

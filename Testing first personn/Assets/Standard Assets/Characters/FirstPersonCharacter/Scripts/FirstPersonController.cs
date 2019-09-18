@@ -31,7 +31,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+
+        //Crouch sprint toggle
         public bool toggleCrouchSprint;
+
+        //Flare object
+        public GameObject flare;
+        //Max flare count
+        public int maxFlare;
+        //Turn flare use on or off
+        public bool flareToggle;
+        //Current active flares
+        private int flareCount;
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -302,6 +313,33 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 return;
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
+        }
+
+        private bool GetFlareCount()
+        {
+
+
+            if (flareCount >= maxFlare)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void SpawnFlare()
+        {
+            if (!GetFlareCount())
+            {
+                Debug.Log("Too many flares bucko.");
+                return;
+            }
+            else
+            {
+                flareCount++;
+            }
         }
     }
 }

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7870986352917402261}
   - component: {fileID: 1180043010480138403}
   - component: {fileID: 4853987280921171034}
+  - component: {fileID: 1637049753265527309}
+  - component: {fileID: 3758263366718367972}
   m_Layer: 0
   m_Name: WallHalf
   m_TagString: Untagged
@@ -78,3 +80,29 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1637049753265527309
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6584268953013461126}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.280772, y: 7.130027, z: 2.322556}
+  m_Center: {x: 2.5898848, y: 0, z: 0}
+--- !u!65 &3758263366718367972
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6584268953013461126}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.0616074, y: 4.3270044, z: 2.322556}
+  m_Center: {x: -2.6994672, y: -1.4015111, z: 0}

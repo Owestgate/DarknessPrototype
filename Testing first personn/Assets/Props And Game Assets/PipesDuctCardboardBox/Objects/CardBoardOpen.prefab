@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8068471659212548180}
   - component: {fileID: 7910164924330527614}
   - component: {fileID: 6855896915114362047}
+  - component: {fileID: 5914133040760120494}
   m_Layer: 0
   m_Name: CardBoardOpen
   m_TagString: Untagged
@@ -78,6 +79,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &5914133040760120494
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322290909514588373}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.8584757, y: 3.9199755, z: 6.2322636}
+  m_Center: {x: 0.00000035762787, y: 0, z: -0.00000011920929}
 --- !u!1 &1326856518870426963
 GameObject:
   m_ObjectHideFlags: 0

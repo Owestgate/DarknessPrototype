@@ -10,6 +10,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
+        public Vector3 normalCameraLocalPos = new Vector3(0, 2.44f, 0);
+        public Vector3 crouchedCameraLocalPos = new Vector3(0, 1, 0);
+        public Animator cameraPivot;
         [SerializeField] private bool m_IsWalking;
         public float m_WalkSpeed; //un-serialzed and made public so the light scrip can make player speed 0 while in light
         public float m_RunSpeed;
@@ -55,6 +58,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Use this for initialization
         private void Start()
         {
+            Application.targetFrameRate = -1;
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -67,10 +71,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
 
-            characterControllerHeightOnStart = GetComponent<CharacterController>().height; //Crouching
+            characterControllerHeightOnStart = m_CharacterController.height; //Crouching
             source = GetComponent<AudioSource>();
             m_AudioSource.clip = m_LandSound;
             Time.timeScale = 1; //Something is causing the timescale to go to 0 on game start, not sure where it is
+
+            cameraPivot.speed = 0;
         }
 
 
@@ -78,6 +84,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
         {
             RotateView();
+
             // the jump state needs to read here to make sure it is not missed
             m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
 
@@ -108,11 +115,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             //CROUCHING =========================================================
-            if(Input.GetKeyDown(KeyCode.LeftControl) && m_IsWalking == true){
-                GetComponent<CharacterController>().height = 1f;
+            if(Input.GetKeyDown(KeyCode.LeftControl))
+                //&& m_IsWalking == true)
+            {
+                m_CharacterController.height = 1;
+                m_Camera.transform.parent.localPosition = crouchedCameraLocalPos;
+
             }
             if(Input.GetKeyUp(KeyCode.LeftControl)){
-                GetComponent<CharacterController>().height = characterControllerHeightOnStart;
+                m_CharacterController.height = characterControllerHeightOnStart;
+                m_Camera.transform.parent.localPosition = normalCameraLocalPos;
             }
         }
 
@@ -124,10 +136,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_NextStep = m_StepCycle + .5f;
         }
 
-
+        public float speed;
         private void FixedUpdate()
         {
-            float speed;
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
             Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
@@ -252,13 +263,37 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 case true:
                     if (!Input.GetKey(KeyCode.LeftControl))
                     {
-                        m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
+                        m_IsWalking = !Input.GetKey(KeyCode.LeftShift) && (horizontal != 0 || vertical != 0);
                     }
                     else m_IsWalking = true;
                     break;
                 case false:
                     m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
                     break;
+            }
+
+            if (m_IsWalking)
+            {
+                // Running.
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    cameraPivot.speed = 1;
+                }
+                else
+                {
+                    cameraPivot.speed = 0.5f;
+                }
+            }
+            else
+            {
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    cameraPivot.speed = 1;
+                }
+                else
+                {
+                    cameraPivot.speed = 0;
+                }
             }
 
 #endif

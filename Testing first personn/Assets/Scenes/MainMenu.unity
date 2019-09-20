@@ -1050,6 +1050,25 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1674304630}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &848068851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848068848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1347817507220a4384f3ff6f7c24546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveUnitsPerSecond:
+    value: {x: 0, y: 0, z: 0}
+    space: 0
+  rotateDegreesPerSecond:
+    value: {x: 0, y: -5, z: 0}
+    space: 1
+  ignoreTimescale: 0
 --- !u!108 &848068852
 Light:
   m_ObjectHideFlags: 0

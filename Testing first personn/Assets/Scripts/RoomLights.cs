@@ -25,11 +25,11 @@ public class RoomLights : MonoBehaviour
     private WaitForSeconds lightTimeOffWait;
     public AudioSource lightOffSound;
 
-    private float walkSpeedOnStart;
-    private float runSpeedOnStart;
-
-    public float walkSpeedInDarkness;
-    public float runSpeedInDarkness;
+    //private float walkSpeedOnStart;
+    //private float runSpeedOnStart;
+    
+    //public float walkSpeedInDarkness;
+    //public float runSpeedInDarkness;
 
     // Add listeners for checking if certain lights should be enabled/disabled.
     public UnityEvent OnLightSwitchStateOn;
@@ -48,8 +48,8 @@ public class RoomLights : MonoBehaviour
         OnLightSwitchStateOff.AddListener(LightSwitchStateOff);
         LightsCoroutine = StartCoroutine(LightsStateTimer());
         switchingOn = true;
-        runSpeedOnStart = fpsController.m_RunSpeed;
-        walkSpeedOnStart = fpsController.m_WalkSpeed;
+        /*runSpeedOnStart = fpsController.m_RunSpeed;
+        walkSpeedOnStart = fpsController.m_WalkSpeed;*/
     }
 
     private void OnDestroy()
@@ -89,9 +89,10 @@ public class RoomLights : MonoBehaviour
 
     void UpdatePlayerMovementAttributes()
     {
-        fpsController.m_RunSpeed = switchingOn ? runSpeedOnStart : runSpeedInDarkness;
+        fpsController.lightsOn = switchingOn ? true : false; //Player handles movement speed changes
+        /*fpsController.m_RunSpeed = switchingOn ? runSpeedOnStart : runSpeedInDarkness;
         fpsController.m_WalkSpeed = switchingOn ? walkSpeedOnStart : walkSpeedInDarkness;
-        fpsController.m_JumpAllowed = switchingOn ? true : false;
+        fpsController.m_JumpAllowed = switchingOn ? true : false;*/
         chaser.lightsOn = switchingOn ? true : false; //Lights now simply inform the chaser that the lights are off. Chaser does the work itself now.
     }
 

@@ -14,7 +14,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public Vector3 crouchedCameraLocalPos = new Vector3(0, 1, 0);
         public Animator cameraPivot;
         [SerializeField] private bool m_IsWalking;
-        public float m_WalkSpeed; //un-serialzed and made public so the light scrip can make player speed 0 while in light
+        public float m_WalkSpeed; //un-serialzed and made public so the light script can make player speed 0 while in light
         public float m_RunSpeed;
         public bool m_JumpAllowed;
         //[SerializeField] private float m_WalkSpeed;
@@ -38,15 +38,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         //Crouch sprint toggle
         public bool toggleCrouchSprint;
 
-        //Flare object
-        public GameObject flare;
-        //Max flare count
-        public int maxFlare;
-        //Turn flare use on or off
-        public bool flareToggle;
-        //Current active flares
-        private int flareCount;
-
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -65,6 +56,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float characterControllerHeightOnStart;
 
         private AudioSource source;
+
+        private float runSpeedOnStart;
+        private float walkSpeedOnStart;
+        public float runSpeedInDarkness;
+        public float walkSpeedInDarkness;
+        public bool lightsOn;
 
         // Use this for initialization
         private void Start()
@@ -88,6 +85,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
             Time.timeScale = 1; //Something is causing the timescale to go to 0 on game start, not sure where it is
 
             cameraPivot.speed = 0;
+
+            runSpeedOnStart = m_RunSpeed;
+            walkSpeedOnStart = m_WalkSpeed;
+            lightsOn = false;
         }
 
 
@@ -150,6 +151,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float speed;
         private void FixedUpdate()
         {
+            if (!GameObject.Find("FlareItem(Clone)"))
+            {
+                UpdatePlayerSpeed(lightsOn);
+            }
+            else
+            {
+                UpdatePlayerSpeed(true);
+            }
+
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
             Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
@@ -162,7 +172,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_MoveDir.x = desiredMove.x*speed;
             m_MoveDir.z = desiredMove.z*speed;
-
 
             if (m_CharacterController.isGrounded)
             {
@@ -350,31 +359,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
 
-        private bool GetFlareCount()
+        private void UpdatePlayerSpeed(bool lightingState)
         {
-
-
-            if (flareCount >= maxFlare)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        private void SpawnFlare()
-        {
-            if (!GetFlareCount())
-            {
-                Debug.Log("Too many flares bucko.");
-                return;
-            }
-            else
-            {
-                flareCount++;
-            }
+            m_RunSpeed = lightingState ? runSpeedOnStart : runSpeedInDarkness;
+            m_WalkSpeed = lightingState ? walkSpeedOnStart : walkSpeedInDarkness;
+            m_JumpAllowed = lightingState ? true : false;
         }
     }
 }

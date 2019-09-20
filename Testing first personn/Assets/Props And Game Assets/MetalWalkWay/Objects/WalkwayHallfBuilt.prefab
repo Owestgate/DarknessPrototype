@@ -655,11 +655,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6775227909497131276}
     m_Modifications:
-    - target: {fileID: 620765868414355736, guid: bef0e10363646984a888b728ea033bab,
-        type: 3}
-      propertyPath: m_Name
-      value: StairRail (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 4523371717020662539, guid: bef0e10363646984a888b728ea033bab,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -714,6 +709,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 620765868414355736, guid: bef0e10363646984a888b728ea033bab,
+        type: 3}
+      propertyPath: m_Name
+      value: StairRail (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bef0e10363646984a888b728ea033bab, type: 3}

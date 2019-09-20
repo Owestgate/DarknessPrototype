@@ -9,17 +9,18 @@ public class FlareBehaviour : MonoBehaviour
     public float maxFlicker;
     public Animator flareAnimator;
     public GameObject itemBeingHeld; // Connect parent to here
+    public AudioSource FlareOnSound;
 
-    
+
     void Start()
     {
-        flareLight = GetComponent<Light>();   
-        
+        flareLight = GetComponent<Light>();
     }
 
     // Adds a random amount of gain or reduction in intensity to flicker the flare, only happens during animation
     void Update()
     {
+       
         // Checks to see if Animation is playing - then randomly flickers light
         if (this.flareAnimator.GetCurrentAnimatorStateInfo(0).IsName("flareAnim")){ 
         flareLight.intensity = flareLight.intensity + (Random.Range(minFlicker, maxFlicker));  
@@ -28,7 +29,8 @@ public class FlareBehaviour : MonoBehaviour
         //Lights flare if player is holding item
         if (Input.GetKeyDown(KeyCode.G) && itemBeingHeld.GetComponent<PickUpableItem>().itemBeingHeld == true){
             flareAnimator.Play("flareAnim");
-            Destroy(transform.parent.gameObject, 6.0f);
+            Destroy(transform.parent.gameObject, 9.0f);
+            FlareOnSound.Play();
         }
 
 

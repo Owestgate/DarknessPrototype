@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5270457979224372216}
   - component: {fileID: 3782860017355819470}
   - component: {fileID: 7441039842526262583}
+  - component: {fileID: 9043600157568339009}
   m_Layer: 0
   m_Name: ConcreteBlock
   m_TagString: Untagged
@@ -78,3 +79,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &9043600157568339009
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9187119228448948715}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.775283, y: 4.775283, z: 4.775283}
+  m_Center: {x: 0, y: -0.00000011920929, z: 0}

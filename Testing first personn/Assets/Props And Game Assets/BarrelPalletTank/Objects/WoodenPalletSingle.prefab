@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2146475877356908487}
   - component: {fileID: 6958860558955353585}
   - component: {fileID: 3724019101048858888}
+  - component: {fileID: 7895728998797469390}
   m_Layer: 0
   m_Name: WoodenPalletSingle
   m_TagString: Untagged
@@ -78,3 +79,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &7895728998797469390
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3139723248961019348}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.6428022, y: 0.5293634, z: 5.2312436}
+  m_Center: {x: 0.00000035762787, y: 0, z: 0}

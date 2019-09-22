@@ -48,16 +48,24 @@ public class PickUpObjects : MonoBehaviour
                     }
                     break;
                 case false:
-                    if (Input.GetKeyDown(KeyCode.Mouse0) && hit.transform.gameObject.GetComponent<PickUpableItem>())
+                    if (Input.GetKeyDown(KeyCode.Mouse0))
                     {
-                        holdingItem = hit.transform.gameObject;
+                        if (hit.transform.gameObject.GetComponent<PickUpableItem>())
+                        {
+                            holdingItem = hit.transform.gameObject;
 
-                        holdingItem.transform.parent = playerMainController.transform;
-                        holdingItem.transform.parent = playerMainHand.transform;
-                        holdingItem.transform.position = playerMainHand.transform.position;
-                        thingInHand = true;
+                            holdingItem.transform.parent = playerMainController.transform;
+                            holdingItem.transform.parent = playerMainHand.transform;
+                            holdingItem.transform.position = playerMainHand.transform.position;
+                            thingInHand = true;
+                        }
+                        else if (hit.transform.gameObject.GetComponent<LightButton>())
+                        {
+                            holdingItem = hit.transform.gameObject;
+
+                            holdingItem.GetComponent<LightButton>().Press();
+                        }
                     }
-
                     if(Input.GetKeyUp(KeyCode.Mouse0) /*&& hit.transform.gameObject.GetComponent<PickUpableItem>()*/)
                     {
                         holdingItem.transform.parent = null;

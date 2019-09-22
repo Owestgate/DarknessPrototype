@@ -20,18 +20,20 @@ public class LightRoomColor : MonoBehaviour
     public float runSpeedInDarkness;
 
     private Color colorRed = new Color(1, 0, 0, 1);
-    private Color colorGreen = new Color(0, 1, 0, 1);
-    private Color colorBlue = new Color(0, 0, 1, 1);
+    private Color colorOrange = new Color(1, 0.6f, 0.2f, 1);
+    private Color colorYellow = new Color(1, 1, 0, 1);
+    private Color colorWhite = new Color(1, 1, 1, 1);
 
-    private Color[] colorSequence = new Color[3];
+    private Color[] colorSequence = new Color[4];
     private int colorCount = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        colorSequence[0] = colorBlue;
-        colorSequence[1] = colorGreen;
-        colorSequence[2] = colorRed;
+        colorSequence[0] = colorWhite;
+        colorSequence[1] = colorYellow;
+        colorSequence[2] = colorOrange;
+        colorSequence[3] = colorRed;
 
         StartCoroutine(LightsOff());
         switchingOn = true;

@@ -8,20 +8,21 @@ public class Flare : MonoBehaviour
     public GameObject flareHold;
     public bool animCanPlay;
     public bool flareCanPlay;
+    public int flareDecay;
     
     // Start is called before the first frame update
     void Start()
     {
-       flareHold.SetActive(false); // Flare not in hand on start of game
-       animCanPlay = true;
-       flareCanPlay = false;
-      
+        //flareHold.SetActive(false); // Flare not in hand on start of game
+        //animCanPlay = true;
+        //flareCanPlay = false;
+        flareAnim.Play("flareAnim");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G) && animCanPlay == true && flareCanPlay == true){
+        /*if (Input.GetKeyDown(KeyCode.G) && animCanPlay == true && flareCanPlay == true){
             flareHold.SetActive(true);
             flareAnim.Play("flareAnim", 0, 0);
             animCanPlay = false;
@@ -33,7 +34,14 @@ public class Flare : MonoBehaviour
         if (animCanPlay == false){
             flareCanPlay = false;
 
-        }
-        
+        }*/
+
+        StartCoroutine(KillFlare());
+    }
+
+    IEnumerator KillFlare()
+    {
+        yield return new WaitForSeconds(flareDecay);
+        Destroy(transform.parent.gameObject);
     }
 }

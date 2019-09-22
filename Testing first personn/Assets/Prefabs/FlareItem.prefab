@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4796704914077040385}
   - component: {fileID: 4796704914077040384}
   - component: {fileID: 4796704914077040389}
-  - component: {fileID: 4796704914077040388}
   m_Layer: 0
   m_Name: FlareItem
   m_TagString: Untagged
@@ -116,21 +115,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &4796704914077040388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4796704914077040387}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 473cf813f4db69c4f819b4e2187c7a94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemBeingHeld: 0
-  handCameraObject: {fileID: 0}
-  thisObjectsCollider: {fileID: 4796704914077040384}
 --- !u!1 &4796704914341554799
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,10 +413,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4796704914077040391}
     m_Modifications:
-    - target: {fileID: 1947871717301538, guid: a990e3ac1318b834488c784d851f42a9, type: 3}
-      propertyPath: m_Name
-      value: FireBall
-      objectReference: {fileID: 0}
     - target: {fileID: 4209731392266258, guid: a990e3ac1318b834488c784d851f42a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -476,6 +456,10 @@ PrefabInstance:
     - target: {fileID: 4209731392266258, guid: a990e3ac1318b834488c784d851f42a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1947871717301538, guid: a990e3ac1318b834488c784d851f42a9, type: 3}
+      propertyPath: m_Name
+      value: FireBall
       objectReference: {fileID: 0}
     - target: {fileID: 198706150799401992, guid: a990e3ac1318b834488c784d851f42a9,
         type: 3}
@@ -575,16 +559,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4796704914077040391}
     m_Modifications:
-    - target: {fileID: -927199367670048503, guid: 595e9e82183654248970a295d7fc780b,
-        type: 3}
-      propertyPath: m_Name
-      value: Flare
-      objectReference: {fileID: 0}
-    - target: {fileID: -6283877591383234665, guid: 595e9e82183654248970a295d7fc780b,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d4660ec581289dd42a9fde79d8b101a6, type: 2}
     - target: {fileID: -4216859302048453862, guid: 595e9e82183654248970a295d7fc780b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -655,6 +629,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 20.901419
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 595e9e82183654248970a295d7fc780b,
+        type: 3}
+      propertyPath: m_Name
+      value: Flare
+      objectReference: {fileID: 0}
+    - target: {fileID: -6283877591383234665, guid: 595e9e82183654248970a295d7fc780b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d4660ec581289dd42a9fde79d8b101a6, type: 2}
     - target: {fileID: -1504981713932161579, guid: 595e9e82183654248970a295d7fc780b,
         type: 3}
       propertyPath: m_Enabled
@@ -690,10 +674,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4796704914077040391}
     m_Modifications:
-    - target: {fileID: 1273915125232972, guid: 73767e07adddc394d82b994801f89bbb, type: 3}
-      propertyPath: m_Name
-      value: SmokeEffect
-      objectReference: {fileID: 0}
     - target: {fileID: 4508696319873668, guid: 73767e07adddc394d82b994801f89bbb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -749,6 +729,10 @@ PrefabInstance:
     - target: {fileID: 4508696319873668, guid: 73767e07adddc394d82b994801f89bbb, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1273915125232972, guid: 73767e07adddc394d82b994801f89bbb, type: 3}
+      propertyPath: m_Name
+      value: SmokeEffect
       objectReference: {fileID: 0}
     - target: {fileID: 198791558892717060, guid: 73767e07adddc394d82b994801f89bbb,
         type: 3}

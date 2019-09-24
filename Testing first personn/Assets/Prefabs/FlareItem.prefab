@@ -125,10 +125,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4796704914341554784}
   - component: {fileID: 4796704914341554787}
+  - component: {fileID: 2349925499666626085}
   - component: {fileID: 4796704914341554786}
   - component: {fileID: 4796704914341554797}
-  - component: {fileID: 4796704914341554796}
-  - component: {fileID: 8111520496318731978}
   m_Layer: 0
   m_Name: FlareLight
   m_TagString: Untagged
@@ -210,6 +209,21 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &2349925499666626085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4796704914341554799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 628ca3d078ed53441bbaceb3892c2a15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flareAnim: {fileID: 4796704914341554786}
+  flareDecay: 15
+  effectDist: 10
 --- !u!95 &4796704914341554786
 Animator:
   serializedVersion: 3
@@ -244,41 +258,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &4796704914341554796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4796704914341554799}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24bfb706001a976499ac1f458ef51eec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flareLight: {fileID: 4796704914341554787}
-  minFlicker: -0.3
-  maxFlicker: 0.3
-  flareAnimator: {fileID: 4796704914341554786}
-  itemBeingHeld: {fileID: 4796704914077040387}
-  FlareOnSound: {fileID: 1728688253631126844}
---- !u!114 &8111520496318731978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4796704914341554799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf6d1fd28367805449ccca36d1ed6c2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flareAnim: {fileID: 4796704914341554786}
-  flareHold: {fileID: 0}
-  animCanPlay: 0
-  flareCanPlay: 0
-  flareDecay: 8
 --- !u!1 &6301166580154651239
 GameObject:
   m_ObjectHideFlags: 0

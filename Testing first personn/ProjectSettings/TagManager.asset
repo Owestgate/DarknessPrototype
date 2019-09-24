@@ -8,6 +8,7 @@ TagManager:
   - Character
   - PuzzlePiece
   - Checkpoint
+  - Bypass
   layers:
   - Default
   - TransparentFX

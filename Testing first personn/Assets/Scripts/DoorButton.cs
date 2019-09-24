@@ -22,6 +22,7 @@ public class DoorButton : MonoBehaviour
     public void Press()
     {
         chaser.SetActive(true);
+        chaser.transform.position = new Vector3(-260,0,85);
         slidingAnim.Play("SlidingDoorClosed");
     }
 }

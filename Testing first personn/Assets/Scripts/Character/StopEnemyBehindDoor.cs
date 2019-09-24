@@ -23,9 +23,7 @@ public class StopEnemyBehindDoor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(inDoorZone == true){
-            
-        }
+
     }
 
     void OnTriggerEnter (Collider other){

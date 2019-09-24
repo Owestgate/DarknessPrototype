@@ -62,7 +62,7 @@ public class RoomLights : MonoBehaviour
     {
         while (true)
         {
-            if (!bypass)
+            if (!fpsController.inBypass)
             {
                 yield return lightTimeOffWait;
                 switchingOn = true;
@@ -89,7 +89,13 @@ public class RoomLights : MonoBehaviour
 
     void UpdatePlayerMovementAttributes()
     {
-        fpsController.lightsOn = switchingOn ? true : false; //Player handles movement speed changes
+        if (fpsController.inBypass)
+        {
+            fpsController.lightsOn = true;
+        } else
+        {
+            fpsController.lightsOn = switchingOn ? true : false;
+        } //Player handles movement speed changes
         /*fpsController.m_RunSpeed = switchingOn ? runSpeedOnStart : runSpeedInDarkness;
         fpsController.m_WalkSpeed = switchingOn ? walkSpeedOnStart : walkSpeedInDarkness;
         fpsController.m_JumpAllowed = switchingOn ? true : false;*/

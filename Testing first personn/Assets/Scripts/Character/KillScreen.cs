@@ -46,7 +46,14 @@ public class KillScreen : MonoBehaviour
        
     }
     
-    void LoadScreen (){
+    void LoadScreen ()
+    {
+        Invoke("LoadSceneDelayed", 6);
+       
+    }
+
+    void LoadSceneDelayed()
+    {
         SceneManager.LoadScene(killScreen);
     }
 }

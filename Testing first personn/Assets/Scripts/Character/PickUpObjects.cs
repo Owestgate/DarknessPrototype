@@ -58,6 +58,7 @@ public class PickUpObjects : MonoBehaviour
                             holdingItem.transform.parent = playerMainHand.transform;
                             holdingItem.transform.position = playerMainHand.transform.position;
                             thingInHand = true;
+
                         }
                         else if (hit.transform.gameObject.GetComponent<LightButton>())
                         {
@@ -65,8 +66,14 @@ public class PickUpObjects : MonoBehaviour
 
                             holdingItem.GetComponent<LightButton>().Press();
                         }
+                        else if (hit.transform.gameObject.GetComponent<DoorButton>())
+                        {
+                            holdingItem = hit.transform.gameObject;
+
+                            holdingItem.GetComponent<DoorButton>().Press();
+                        }
                     }
-                    if(Input.GetKeyUp(KeyCode.Mouse0) /*&& hit.transform.gameObject.GetComponent<PickUpableItem>()*/)
+                    if (Input.GetKeyUp(KeyCode.Mouse0) /*&& hit.transform.gameObject.GetComponent<PickUpableItem>()*/)
                     {
                         holdingItem.transform.parent = null;
                         hit.transform.gameObject.transform.position = hit.transform.gameObject.transform.position;

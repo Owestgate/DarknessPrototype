@@ -12,6 +12,7 @@ public class EnemyAI : MonoBehaviour
     public Mesh model1; //These are the two models currently. Its currently set up for two only but it shouldnt take too long to make space for more if we want more
     public Mesh model2;
     public float navSpeed;
+    public AudioSource EnemyCloseSound;
 
     private MeshFilter modelSlot;
     private bool lightsJustOn = false; //The enemy figures out the exact moment the lights switch, and thats what lightsJustOn is
@@ -47,6 +48,7 @@ public class EnemyAI : MonoBehaviour
                 lightsJustOn = false;
             }
             navAgent.speed = 0;
+            if (EnemyCloseSound.isPlaying) EnemyCloseSound.Stop();
         } else
         {
             if (lightsJustOn == false) //lightsJustOn can also track when the lights just turned off (but the values will be opposite to when the lights come on). ask me (ewen) if you're confused
@@ -54,6 +56,7 @@ public class EnemyAI : MonoBehaviour
                 lightsJustOn = true;
             }
             navAgent.speed = navSpeed;
+            if (!EnemyCloseSound.isPlaying) EnemyCloseSound.Play();
         }
         navAgent.destination = playerCharacter.transform.position;
     }

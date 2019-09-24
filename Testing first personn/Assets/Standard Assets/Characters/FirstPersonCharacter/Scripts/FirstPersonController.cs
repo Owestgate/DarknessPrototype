@@ -6,8 +6,8 @@ using Random = UnityEngine.Random;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
-    [RequireComponent(typeof (CharacterController))]
-    [RequireComponent(typeof (AudioSource))]
+    [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
         public Vector3 normalCameraLocalPos = new Vector3(0, 2.44f, 0);
@@ -62,6 +62,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float runSpeedInDarkness;
         public float walkSpeedInDarkness;
         public bool lightsOn;
+        public bool inBypass;
 
         // Use this for initialization
         private void Start()
@@ -73,11 +74,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_FovKick.Setup(m_Camera);
             m_HeadBob.Setup(m_Camera, m_StepInterval);
             m_StepCycle = 0f;
-            m_NextStep = m_StepCycle/2f;
+            m_NextStep = m_StepCycle / 2f;
             m_Jumping = false;
             m_JumpAllowed = true;
             m_AudioSource = GetComponent<AudioSource>();
-			m_MouseLook.Init(transform , m_Camera.transform);
+            m_MouseLook.Init(transform, m_Camera.transform);
 
             characterControllerHeightOnStart = m_CharacterController.height; //Crouching
             source = GetComponent<AudioSource>();
@@ -89,6 +90,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             runSpeedOnStart = m_RunSpeed;
             walkSpeedOnStart = m_WalkSpeed;
             lightsOn = false;
+            inBypass = false;
         }
 
 
@@ -113,28 +115,32 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
-            if(source.clip.name == "Footstep01"){
+            if (source.clip.name == "Footstep01")
+            {
                 source.panStereo = -0.36f;
                 source.spatialBlend = 0;
             }
-            if(source.clip.name == "Footstep02"){
+            if (source.clip.name == "Footstep02")
+            {
                 source.panStereo = 0.36f;
                 source.spatialBlend = 0;
             }
-            if(source.clip.name != "Footstep01" && source.clip.name != "Footstep02"){
+            if (source.clip.name != "Footstep01" && source.clip.name != "Footstep02")
+            {
                 source.panStereo = 0;
                 source.spatialBlend = 1.0f;
             }
 
             //CROUCHING =========================================================
-            if(Input.GetKeyDown(KeyCode.LeftControl))
-                //&& m_IsWalking == true)
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            //&& m_IsWalking == true)
             {
                 m_CharacterController.height = 1;
                 m_Camera.transform.parent.localPosition = crouchedCameraLocalPos;
 
             }
-            if(Input.GetKeyUp(KeyCode.LeftControl)){
+            if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
                 m_CharacterController.height = characterControllerHeightOnStart;
                 m_Camera.transform.parent.localPosition = normalCameraLocalPos;
             }
@@ -151,6 +157,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float speed;
         private void FixedUpdate()
         {
+            inBypass = false;
             if (!GameObject.Find("FlareItem(Clone)"))
             {
                 UpdatePlayerSpeed(lightsOn);
@@ -162,16 +169,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             GetInput(out speed);
             // always move along the camera forward as it is the direction that it being aimed at
-            Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
+            Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
 
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
             Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
-                               m_CharacterController.height/2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+                               m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
             desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
-            m_MoveDir.x = desiredMove.x*speed;
-            m_MoveDir.z = desiredMove.z*speed;
+            m_MoveDir.x = desiredMove.x * speed;
+            m_MoveDir.z = desiredMove.z * speed;
 
             if (m_CharacterController.isGrounded)
             {
@@ -187,9 +194,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else
             {
-                m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
+                m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
             }
-            m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
+            m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
 
             ProgressStepCycle(speed);
             UpdateCameraPosition(speed);
@@ -209,7 +216,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (m_CharacterController.velocity.sqrMagnitude > 0 && (m_Input.x != 0 || m_Input.y != 0))
             {
-                m_StepCycle += (m_CharacterController.velocity.magnitude + (speed*(m_IsWalking ? 1f : m_RunstepLenghten)))*
+                m_StepCycle += (m_CharacterController.velocity.magnitude + (speed * (m_IsWalking ? 1f : m_RunstepLenghten))) *
                              Time.fixedDeltaTime;
             }
 
@@ -252,7 +259,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_Camera.transform.localPosition =
                     m_HeadBob.DoHeadBob(m_CharacterController.velocity.magnitude +
-                                      (speed*(m_IsWalking ? 1f : m_RunstepLenghten)));
+                                      (speed * (m_IsWalking ? 1f : m_RunstepLenghten)));
                 newCameraPosition = m_Camera.transform.localPosition;
                 newCameraPosition.y = m_Camera.transform.localPosition.y - m_JumpBob.Offset();
             }
@@ -339,7 +346,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void RotateView()
         {
-            m_MouseLook.LookRotation (transform, m_Camera.transform);
+            m_MouseLook.LookRotation(transform, m_Camera.transform);
         }
 
 
@@ -356,7 +363,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 return;
             }
-            body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
+            body.AddForceAtPosition(m_CharacterController.velocity * 0.1f, hit.point, ForceMode.Impulse);
         }
 
         private void UpdatePlayerSpeed(bool lightingState)
@@ -364,6 +371,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_RunSpeed = lightingState ? runSpeedOnStart : runSpeedInDarkness;
             m_WalkSpeed = lightingState ? walkSpeedOnStart : walkSpeedInDarkness;
             m_JumpAllowed = lightingState ? true : false;
+        }
+
+        void OnTriggerStay(Collider other)
+        {
+            if (other.gameObject.tag == "Bypass")
+            {
+                inBypass = true;
+            }
         }
     }
 }

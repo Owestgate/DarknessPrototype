@@ -83,15 +83,11 @@ public class LightRoomColor : MonoBehaviour
     void OnTriggerStay (Collider other){
         if (other.gameObject.tag == "Character" && switchingOn == false){
             //other.gameObject.GetComponent<FirstPersonController>().enabled = false;
-            player.GetComponent<FirstPersonController>().m_RunSpeed = runSpeedInDarkness;
-            player.GetComponent<FirstPersonController>().m_WalkSpeed = walkSpeedInDarkness;
-            player.GetComponent<FirstPersonController>().m_JumpAllowed = false;
-            chaser.GetComponent<EnemyAI>().lightsOn = false; //Lights now simply inform the chaser that the lights are off. Chaser does the work itself now.
+            player.GetComponent<FirstPersonController>().lightsOn = false;
+            chaser.GetComponent<EnemyAI>().lightsOn = false; 
         } 
         if(other.gameObject.tag == "Character" && switchingOn == true) {
-            player.GetComponent<FirstPersonController>().m_RunSpeed = runSpeedOnStart;
-            player.GetComponent<FirstPersonController>().m_WalkSpeed = walkSpeedOnStart;
-            player.GetComponent<FirstPersonController>().m_JumpAllowed = true;
+            player.GetComponent<FirstPersonController>().lightsOn = true;
             chaser.GetComponent<EnemyAI>().lightsOn = true;
         }
     }

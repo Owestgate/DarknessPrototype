@@ -8,8 +8,10 @@ public class FlareManager : MonoBehaviour
 
     public GameObject player;
     public GameObject flare;
+
     //Time until new flare usable
     public int flareLife;
+
     //Current active flares
     private GameObject Flare;
     private bool flareHeld;

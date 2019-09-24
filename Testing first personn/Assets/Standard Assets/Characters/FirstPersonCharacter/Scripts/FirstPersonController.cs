@@ -63,6 +63,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float walkSpeedInDarkness;
         public bool lightsOn;
 
+        public bool nearFlare;
+
         // Use this for initialization
         private void Start()
         {
@@ -151,7 +153,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float speed;
         private void FixedUpdate()
         {
-            if (!GameObject.Find("FlareItem(Clone)"))
+            if (!nearFlare)//(!GameObject.Find("FlareItem(Clone)"))
             {
                 UpdatePlayerSpeed(lightsOn);
             }

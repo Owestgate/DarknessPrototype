@@ -32,37 +32,41 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!nearFlare)
+        if (lightsOn && lightsJustOn)
         {
-            if (lightsOn && lightsJustOn)
-            {
-                currentModel = !currentModel; //if the lights just came on, switch models
-            }
-            if (currentModel == false)
-            {
-                modelSlot.mesh = model1;
-            } else
-            {
-                modelSlot.mesh = model2;
-            }
-            if (lightsOn)
-            {
-                if (lightsJustOn == true) //if the lights are on, turn lightsJustOn off. if you want to use lightsJustOn, it has to be before this check
-                {
-                    lightsJustOn = false;
-                }
-                navAgent.speed = 0;
-                if (EnemyCloseSound.isPlaying) EnemyCloseSound.Stop();
-            } else
-            {
-                if (lightsJustOn == false) //lightsJustOn can also track when the lights just turned off (but the values will be opposite to when the lights come on). ask me (ewen) if you're confused
-                {
-                    lightsJustOn = true;
-                }
-                navAgent.speed = navSpeed;
-                if (!EnemyCloseSound.isPlaying) EnemyCloseSound.Play();
-            }
-            navAgent.destination = playerCharacter.transform.position;
+            currentModel = !currentModel; //if the lights just came on, switch models
         }
+        if (currentModel == false)
+        {
+            modelSlot.mesh = model1;
+        }
+        else
+        {
+            modelSlot.mesh = model2;
+        }
+        if (lightsOn)
+        {
+            if (lightsJustOn == true) //if the lights are on, turn lightsJustOn off. if you want to use lightsJustOn, it has to be before this check
+            {
+                lightsJustOn = false;
+            }
+            navAgent.speed = 0;
+            if (EnemyCloseSound.isPlaying) EnemyCloseSound.Stop();
+        }
+        else
+        {
+            if (lightsJustOn == false) //lightsJustOn can also track when the lights just turned off (but the values will be opposite to when the lights come on). ask me (ewen) if you're confused
+            {
+                lightsJustOn = true;
+            }
+            navAgent.speed = navSpeed;
+            if (!EnemyCloseSound.isPlaying) EnemyCloseSound.Play();
+        }
+        navAgent.destination = playerCharacter.transform.position;
+        if(nearFlare)
+        {
+            navAgent.speed = 0;
+        }
+
     }
 }

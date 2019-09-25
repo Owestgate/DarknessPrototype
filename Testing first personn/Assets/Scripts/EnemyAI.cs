@@ -18,6 +18,8 @@ public class EnemyAI : MonoBehaviour
     private bool lightsJustOn = false; //The enemy figures out the exact moment the lights switch, and thats what lightsJustOn is
     private bool currentModel;
 
+    public bool nearFlare;
+
     void Start()
     {
         lightsOn = false;
@@ -37,7 +39,8 @@ public class EnemyAI : MonoBehaviour
         if (currentModel == false)
         {
             modelSlot.mesh = model1;
-        } else
+        }
+        else
         {
             modelSlot.mesh = model2;
         }
@@ -49,7 +52,8 @@ public class EnemyAI : MonoBehaviour
             }
             navAgent.speed = 0;
             if (EnemyCloseSound.isPlaying) EnemyCloseSound.Stop();
-        } else
+        }
+        else
         {
             if (lightsJustOn == false) //lightsJustOn can also track when the lights just turned off (but the values will be opposite to when the lights come on). ask me (ewen) if you're confused
             {
@@ -59,5 +63,10 @@ public class EnemyAI : MonoBehaviour
             if (!EnemyCloseSound.isPlaying) EnemyCloseSound.Play();
         }
         navAgent.destination = playerCharacter.transform.position;
+        if(nearFlare)
+        {
+            navAgent.speed = 0;
+        }
+
     }
 }

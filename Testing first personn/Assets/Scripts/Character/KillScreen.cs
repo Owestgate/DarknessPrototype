@@ -48,7 +48,7 @@ public class KillScreen : MonoBehaviour
     
     void LoadScreen ()
     {
-        Invoke("LoadSceneDelayed", 6);
+        Invoke("LoadSceneDelayed", 13);
        
     }
 

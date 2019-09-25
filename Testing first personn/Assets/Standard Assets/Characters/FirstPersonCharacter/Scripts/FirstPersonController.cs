@@ -64,6 +64,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public bool lightsOn;
         public bool inBypass;
 
+        public bool nearFlare;
+
         // Use this for initialization
         private void Start()
         {
@@ -158,7 +160,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void FixedUpdate()
         {
             inBypass = false;
-            if (!GameObject.Find("FlareItem(Clone)"))
+            if (!nearFlare)
             {
                 UpdatePlayerSpeed(lightsOn);
             }

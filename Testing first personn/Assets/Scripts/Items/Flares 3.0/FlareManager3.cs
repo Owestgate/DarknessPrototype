@@ -11,6 +11,7 @@ public class FlareManager3 : MonoBehaviour
 
     //Time until new flare usable
     public int flareLife;
+    public int flareDrop;
 
     //Current active flares
     private GameObject flareItem;
@@ -33,9 +34,9 @@ public class FlareManager3 : MonoBehaviour
             CreateFlare();
             Debug.Log("New flare.");
             StartCoroutine(CoolDown());
-        }
+        /*}
         else if (Input.GetKeyDown(KeyCode.E) && !canUse && flareHeld)
-        {
+        {*/
             DropFlare();
             Debug.Log("Flare Dropped.");
         }
@@ -63,5 +64,10 @@ public class FlareManager3 : MonoBehaviour
         canUse = true;
         flareHeld = false;
         Debug.Log("Flares are usable again.");
+    }
+
+    IEnumerable DropTimer()
+    {
+        yield return new WaitForSeconds(flareDrop);
     }
 }

@@ -96,6 +96,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             walkSpeedOnStart = m_WalkSpeed;
             lightsOn = false;
             inBypass = false;
+            enabled = false;
         }
 
         public void ForceLockCursor()

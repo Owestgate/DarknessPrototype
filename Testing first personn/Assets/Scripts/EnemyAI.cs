@@ -62,7 +62,7 @@ public class EnemyAI : MonoBehaviour
             navAgent.speed = navSpeed;
             if (!EnemyCloseSound.isPlaying) EnemyCloseSound.Play();
         }
-        navAgent.destination = playerCharacter.transform.position;
+        if (navAgent.enabled) navAgent.destination = playerCharacter.transform.position;
         if(nearFlare)
         {
             navAgent.speed = 0;

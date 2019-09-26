@@ -7,7 +7,9 @@ public class FlareManager3 : MonoBehaviour
     // -->If you are looking for the Flare's lifespan, it is on the Flare Prefab.<-- \\
 
     public GameObject player;
+    public Transform cam;
     public GameObject flarePrefab;
+    public float throwPower = 1;
 
     //Time until new flare usable
     public int flareLife;
@@ -53,9 +55,11 @@ public class FlareManager3 : MonoBehaviour
     private void DropFlare()
     {
         flareHeld = false;
-        flareItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        flareItem.GetComponent<Rigidbody>().useGravity = true;
+        Rigidbody rb = flareItem.GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.None;
+        rb.useGravity = true;
         flareItem.transform.parent = null;
+        rb.AddForce(cam.forward * throwPower, ForceMode.Impulse);
     }
 
     IEnumerator CoolDown()

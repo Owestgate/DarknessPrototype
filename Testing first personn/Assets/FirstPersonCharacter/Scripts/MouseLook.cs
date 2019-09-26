@@ -80,6 +80,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if(Input.GetKeyUp(KeyCode.Escape))
             {
                 m_cursorIsLocked = false;
+                //Cursor.visible = true;
+                //Cursor.lockState = CursorLockMode.None;
             }
             else if(Input.GetMouseButtonUp(0))
             {

@@ -70,6 +70,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Start()
         {
             Application.targetFrameRate = -1;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
@@ -93,6 +96,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
             walkSpeedOnStart = m_WalkSpeed;
             lightsOn = false;
             inBypass = false;
+        }
+
+        public void ForceLockCursor()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
 

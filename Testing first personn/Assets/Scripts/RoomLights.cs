@@ -46,6 +46,13 @@ public class RoomLights : MonoBehaviour
     {
         OnLightSwitchStateOn.AddListener(LightSwitchStateOn);
         OnLightSwitchStateOff.AddListener(LightSwitchStateOff);
+
+        lightTimeOff = Random.Range(lightTimeOffRange.x, lightTimeOffRange.y);
+        lightTimeOffWait = new WaitForSeconds(lightTimeOff);
+
+        lightTimeOn = Random.Range(lightTimeOnRange.x, lightTimeOnRange.y);
+        lightTimeOnWait = new WaitForSeconds(lightTimeOn);
+
         LightsCoroutine = StartCoroutine(LightsStateTimer());
         switchingOn = true;
         /*runSpeedOnStart = fpsController.m_RunSpeed;
@@ -64,12 +71,12 @@ public class RoomLights : MonoBehaviour
         {
             if (!fpsController.inBypass)
             {
-                yield return lightTimeOffWait;
-                switchingOn = true;
-                OnLightSwitchStateOn.Invoke();
                 yield return lightTimeOnWait;
                 switchingOn = false;
                 OnLightSwitchStateOff.Invoke();
+                yield return lightTimeOffWait;
+                switchingOn = true;
+                OnLightSwitchStateOn.Invoke();
             }
             else
             {
@@ -80,6 +87,7 @@ public class RoomLights : MonoBehaviour
 
     void LightSwitchStateOn()
     {
+        Debug.Log("Lights on");
         lightTimeOff = Random.Range(lightTimeOffRange.x, lightTimeOffRange.y);
         lightTimeOffWait = new WaitForSeconds(lightTimeOff);
         SetSublightsState(true);
@@ -104,6 +112,7 @@ public class RoomLights : MonoBehaviour
 
     void LightSwitchStateOff()
     {
+        Debug.Log("Lights off");
         lightTimeOn = Random.Range(lightTimeOnRange.x, lightTimeOnRange.y);
         lightTimeOnWait = new WaitForSeconds(lightTimeOn);
         SetSublightsState(false);

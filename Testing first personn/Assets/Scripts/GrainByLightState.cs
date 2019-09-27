@@ -4,6 +4,7 @@ using UnityStandardAssets.ImageEffects;
 
 public class GrainByLightState : MonoBehaviour
 {
+    public static GrainByLightState Instance { get; private set; }
     public PostProcessVolume postProcessVolume;
 
     public float grainAmountOff;
@@ -14,6 +15,10 @@ public class GrainByLightState : MonoBehaviour
 
     private Grain grain;
     public NoiseAndScratches legacyNoise;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -27,7 +32,7 @@ public class GrainByLightState : MonoBehaviour
         RoomLights.Instance.OnLightSwitchStateOff.RemoveListener(OnLightSwitchOff);
     }
 
-    void OnLightSwitchOn()
+    public void OnLightSwitchOn()
     {
         if (postProcessVolume.profile.TryGetSettings(out grain))
         {

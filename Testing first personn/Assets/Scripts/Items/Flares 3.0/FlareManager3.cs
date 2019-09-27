@@ -30,7 +30,7 @@ public class FlareManager3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canUse && !flareHeld)
+        if (Input.GetKeyDown(KeyCode.E) && canUse && !flareHeld && RoomLights.Instance.enabled)
         {
             canUse = false;
             CreateFlare();
@@ -61,6 +61,7 @@ public class FlareManager3 : MonoBehaviour
         flareItem.transform.parent = null;
         rb.AddForce(cam.forward * throwPower, ForceMode.Impulse);
         SaturationByLightState.Instance.OnLightSwitchOn();
+        GrainByLightState.Instance.OnLightSwitchOn();
     }
 
     IEnumerator CoolDown()

@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -21,35 +20,38 @@ public class KillScreen : MonoBehaviour
     public GameObject playerCamera;    
     public GameObject jumpScareLookAt;
 
+    public UnityEvent OnDie;
+
     // Update is called once per frame
     void Update()
     {
         //Gets the current distance, compares, then kills
         currentDist = Vector3.Distance(playerObj.transform.position, enemyObj.transform.position);
-        if (currentDist < killDist)
+        if (currentDist < killDist && !RoomLights.Instance.switchingOn)
         {
             //Jump scare animation goes here.
             //testing
+            FirstPersonController fpsController = playerObj.GetComponent<FirstPersonController>();
             playerObj.transform.position = jumpScarePosition.transform.position; // teleports player into position infront of enemy
-            playerObj.GetComponent<FirstPersonController>().enabled = false; // Turns off player controller so it locks player looking at enemy
+            fpsController.enabled = false; // Turns off player controller so it locks player looking at enemy
             playerCamera.transform.LookAt(jumpScareLookAt.transform); // looks at enemy (seperate object attached to enemy that is positioned better)
             jumpScareAudioObject.SetActive(true); // sets active gameobject with audio set to play on awake
 
             Invoke("LoadScreen", 2.0f); // auto loads menu after delay
+            OnDie.Invoke();
 
-
-            //Unlocks cursor from FPSController
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-
-       
+            SaturationByLightState.Instance.OnLightSwitchOn();
+            GrainByLightState.Instance.OnLightSwitchOn();
+            RoomLights.Instance.bypass = true;
+            RoomLights.Instance.SetSublightsState(true);
+            RoomLights.Instance.StopCoroutine(RoomLights.Instance.LightsCoroutine);
+            RoomLights.Instance.enabled = false;
+        }       
     }
     
-    void LoadScreen ()
+    void LoadScreen()
     {
         Invoke("LoadSceneDelayed", 13);
-       
     }
 
     void LoadSceneDelayed()

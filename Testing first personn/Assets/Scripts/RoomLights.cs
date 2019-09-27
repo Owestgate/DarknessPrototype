@@ -35,7 +35,7 @@ public class RoomLights : MonoBehaviour
     public UnityEvent OnLightSwitchStateOn;
     public UnityEvent OnLightSwitchStateOff;
 
-    private Coroutine LightsCoroutine;
+    public Coroutine LightsCoroutine;
 
     private void Awake()
     {
@@ -65,7 +65,7 @@ public class RoomLights : MonoBehaviour
         OnLightSwitchStateOff.RemoveListener(LightSwitchStateOff);
     }
 
-    IEnumerator LightsStateTimer()
+    public IEnumerator LightsStateTimer()
     {
         while (true)
         {
@@ -120,7 +120,7 @@ public class RoomLights : MonoBehaviour
         UpdatePlayerMovementAttributes();
     }
 
-    void SetSublightsState(bool on)
+    public void SetSublightsState(bool on)
     {
         for (int i = 0; i < subLights.Length; i++)
         {

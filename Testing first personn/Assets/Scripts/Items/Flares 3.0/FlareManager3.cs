@@ -60,6 +60,7 @@ public class FlareManager3 : MonoBehaviour
         rb.useGravity = true;
         flareItem.transform.parent = null;
         rb.AddForce(cam.forward * throwPower, ForceMode.Impulse);
+        SaturationByLightState.Instance.OnLightSwitchOn();
     }
 
     IEnumerator CoolDown()

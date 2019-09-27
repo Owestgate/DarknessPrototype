@@ -3,12 +3,18 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class SaturationByLightState : MonoBehaviour
 {
+    public static SaturationByLightState Instance { get; private set; }
     public PostProcessVolume postProcessVolume;
 
     public float saturationOnAmount = 35;
     public float saturationOffAmount = -100;
 
     private ColorGrading colorGrading;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -22,7 +28,7 @@ public class SaturationByLightState : MonoBehaviour
         RoomLights.Instance.OnLightSwitchStateOff.RemoveListener(OnLightSwitchOff);
     }
 
-    void OnLightSwitchOn()
+    public void OnLightSwitchOn()
     {
         if (postProcessVolume.profile.TryGetSettings(out colorGrading))
         {

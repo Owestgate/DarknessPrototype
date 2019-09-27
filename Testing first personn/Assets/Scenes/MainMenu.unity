@@ -353,7 +353,7 @@ Light:
   serializedVersion: 9
   m_Type: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 15.85
+  m_Intensity: 5
   m_Range: 255.9
   m_SpotAngle: 84.5
   m_InnerSpotAngle: 21.80208
@@ -415,9 +415,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SampleCount: 17
-  ScatteringCoef: 0.095
-  ExtinctionCoef: 0.0116
-  SkyboxExtinctionCoef: 0.895
+  ScatteringCoef: 0.02
+  ExtinctionCoef: 0.0159
+  SkyboxExtinctionCoef: 0.075
   MieG: 0.355
   HeightFog: 1
   HeightScale: 0
@@ -3552,6 +3552,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 44287026487376305, guid: e41a198bbabe0c041ad5b545ce7c0edd,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7591381
+      objectReference: {fileID: 0}
+    - target: {fileID: 44287026487376305, guid: e41a198bbabe0c041ad5b545ce7c0edd,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4.310416
+      objectReference: {fileID: 0}
+    - target: {fileID: 44287026487376305, guid: e41a198bbabe0c041ad5b545ce7c0edd,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.7591381
+      objectReference: {fileID: 0}
+    - target: {fileID: 44287026487376305, guid: e41a198bbabe0c041ad5b545ce7c0edd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 111.2
+      objectReference: {fileID: 0}
     - target: {fileID: 44287025019848881, guid: e41a198bbabe0c041ad5b545ce7c0edd,
         type: 3}
       propertyPath: m_sharedMaterial
@@ -4185,26 +4205,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.x
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 44287026487376305, guid: e41a198bbabe0c041ad5b545ce7c0edd,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.7591381
-      objectReference: {fileID: 0}
-    - target: {fileID: 44287026487376305, guid: e41a198bbabe0c041ad5b545ce7c0edd,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4.310416
-      objectReference: {fileID: 0}
-    - target: {fileID: 44287026487376305, guid: e41a198bbabe0c041ad5b545ce7c0edd,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.7591381
-      objectReference: {fileID: 0}
-    - target: {fileID: 44287026487376305, guid: e41a198bbabe0c041ad5b545ce7c0edd,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 111.2
       objectReference: {fileID: 0}
     - target: {fileID: 44287025956290859, guid: e41a198bbabe0c041ad5b545ce7c0edd,
         type: 3}

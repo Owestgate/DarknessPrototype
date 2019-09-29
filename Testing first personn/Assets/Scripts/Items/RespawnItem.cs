@@ -7,7 +7,6 @@ public class RespawnItem : MonoBehaviour
     public GameObject respawnObjectLocation; // new empty gameobject is created on start and is used as items respawn location
     public Transform thisObjectStartPos; // objects position on start
 
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(WaitForSpawn());
@@ -23,12 +22,12 @@ public class RespawnItem : MonoBehaviour
     void OnTriggerStay (Collider respawnBox){    // if item hits Kill box + is not being held, item is respawned + item velocity is set to 0
         if(respawnBox.gameObject.name == "KillBox" && gameObject.GetComponent<PickUpableItem>().itemBeingHeld == false){
             gameObject.transform.position = respawnObjectLocation.transform.position;
-            gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0); // makes items speed 0
         }
     
         if(respawnBox.gameObject.name == "KillBoxPaintingOnly" && this.gameObject.tag == "PuzzlePiece" && gameObject.GetComponent<PickUpableItem>().itemBeingHeld == false){
             gameObject.transform.position = respawnObjectLocation.transform.position;
-            gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0); // makes items speed 0
         }
     }
 }

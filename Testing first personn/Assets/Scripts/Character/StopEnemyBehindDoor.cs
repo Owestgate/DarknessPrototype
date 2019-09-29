@@ -14,15 +14,26 @@ public class StopEnemyBehindDoor : MonoBehaviour
 
     private float navSpeedAtStart;
 
+// used for the banging sound effect
+    public AudioClip doorBangSound;
+    private AudioSource doorBangSource;
+    public float doorBanginterval;
+
     // Start is called before the first frame update
     void Start()
     {
         navSpeedAtStart = enemyObject.GetComponent<NavMeshAgent>().speed;
+        doorBangSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
-    void Update()
+    IEnumerator BangingOnTheDoor ()
     {
+        while(inDoorZone == true){
+            doorBangSource.PlayOneShot(doorBangSound);
+            Debug.Log("soundndndnd");
+            yield return new WaitForSeconds(doorBanginterval);
+        }
 
     }
 
@@ -33,6 +44,7 @@ public class StopEnemyBehindDoor : MonoBehaviour
             enemyObject.GetComponent<EnemyAI>().navSpeed = 0f;
             inDoorZone = true;
             StartCoroutine(WaitHere());
+            StartCoroutine(BangingOnTheDoor());
         }
     }
 
@@ -41,5 +53,8 @@ public class StopEnemyBehindDoor : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         enemyObject.GetComponent<EnemyAI>().navSpeed = navSpeedAtStart;
         enemyObject.GetComponent<NavMeshAgent>().speed = navSpeedAtStart;
+        inDoorZone = false;
+        
+        
     }
 }

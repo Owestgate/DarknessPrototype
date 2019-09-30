@@ -47,10 +47,10 @@ public class RoomLights : MonoBehaviour
         OnLightSwitchStateOn.AddListener(LightSwitchStateOn);
         OnLightSwitchStateOff.AddListener(LightSwitchStateOff);
 
-        lightTimeOff = Random.Range(lightTimeOffRange.x, lightTimeOffRange.y);
+        lightTimeOff = 5;
         lightTimeOffWait = new WaitForSeconds(lightTimeOff);
 
-        lightTimeOn = Random.Range(lightTimeOnRange.x, lightTimeOnRange.y);
+        lightTimeOn = 3;
         lightTimeOnWait = new WaitForSeconds(lightTimeOn);
 
         LightsCoroutine = StartCoroutine(LightsStateTimer());

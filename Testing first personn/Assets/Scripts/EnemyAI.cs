@@ -13,6 +13,8 @@ public class EnemyAI : MonoBehaviour
     public Mesh model2;
     public float navSpeed;
     public AudioSource EnemyCloseSound;
+    private float distToPlayer;
+    private float speedMultiplier;
 
     private MeshFilter modelSlot;
     private bool lightsJustOn = false; //The enemy figures out the exact moment the lights switch, and thats what lightsJustOn is
@@ -68,5 +70,10 @@ public class EnemyAI : MonoBehaviour
             navAgent.speed = 0;
         }
 
+        //make the chaser run faster if the player is too far ahead
+        distToPlayer = Vector3.Distance(playerCharacter.transform.position, transform.position);
+        Debug.Log(distToPlayer);
+        speedMultiplier = distToPlayer / 200 + 1;
+        navAgent.speed = navAgent.speed * speedMultiplier;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
@@ -19,8 +20,8 @@ public class MainMenuScript : MonoBehaviour
     
     IEnumerator WaitToPlay(){
         scarySound.Play();
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        yield return new WaitForSeconds(4); // adds a delay so loading screen/ controls are on screen for a few seconds
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void QuitGame(){

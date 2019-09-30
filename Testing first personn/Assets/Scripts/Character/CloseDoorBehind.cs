@@ -23,9 +23,11 @@ public class CloseDoorBehind : MonoBehaviour
     void OnTriggerEnter (Collider other){
         if(other.gameObject.tag == "Character"){
             slidingAnim.Play("SlidingDoorClosed");
+           
         }
 
     }
+
 
     
 }

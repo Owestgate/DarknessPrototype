@@ -23,12 +23,16 @@ public class StopEnemyBehindDoor : MonoBehaviour
     public GameObject bashParticleSystem;
     public Transform doorPosition;
 
+    public GameObject lightController;
+    private float volumeAtStart;
+
+//when swithing on is true lights are on
     // Start is called before the first frame update
     void Start()
     {
         navSpeedAtStart = enemyObject.GetComponent<NavMeshAgent>().speed;
         doorBangSource = GetComponent<AudioSource>();
-        
+        volumeAtStart = doorBangSource.volume;
     }
 
     // Update is called once per frame
@@ -39,7 +43,7 @@ public class StopEnemyBehindDoor : MonoBehaviour
 
             Instantiate(bashParticleSystem, doorPosition.position, doorPosition.rotation);
             yield return new WaitForSeconds(doorBanginterval);
-            doorBanginterval = Random.Range(0.6f, 2.0f);         // Randomises interval sound
+            doorBanginterval = Random.Range(0.9f, 2.0f);         // Randomises interval sound
             doorPitch = Random.Range (0.85f, 1.15f);               // Randomises pitch so its a bit different each time
         }
 
@@ -69,7 +73,14 @@ public class StopEnemyBehindDoor : MonoBehaviour
     }
 
     void Update(){
-        
+
+        if(lightController.GetComponent<RoomLights>().switchingOn == true){
+            doorBangSource.volume = 0f;
+        }
+        if(lightController.GetComponent<RoomLights>().switchingOn == false){
+            doorBangSource.volume = volumeAtStart;
+        }
+
         GetComponent<AudioSource>().pitch = doorPitch;
     }
 }

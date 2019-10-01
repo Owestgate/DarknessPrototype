@@ -43,7 +43,8 @@ public class StopEnemyBehindDoor : MonoBehaviour
     // Update is called once per frame
     IEnumerator BangingOnTheDoor ()
     {
-        while(inDoorZone == true){
+        while(inDoorZone == true && !enemyObject.GetComponent<EnemyAI>().lightsOn)
+        {
             doorBangSource.PlayOneShot(doorBangSound);
 
             Instantiate(bashParticleSystem, doorPosition.position, doorPosition.rotation);
@@ -79,14 +80,6 @@ public class StopEnemyBehindDoor : MonoBehaviour
     }
 
     void Update(){
-
-        if(lightController.GetComponent<RoomLights>().switchingOn == true){
-            doorBangSource.volume = 0f;      // Uncomment to test
-        }
-        if(lightController.GetComponent<RoomLights>().switchingOn == false){
-            doorBangSource.volume = volumeAtStart;         //   Uncomment to test
-        }
-
         GetComponent<AudioSource>().pitch = doorPitch;
     }
 }

@@ -81,10 +81,10 @@ public class StopEnemyBehindDoor : MonoBehaviour
     void Update(){
 
         if(lightController.GetComponent<RoomLights>().switchingOn == true){
-            //doorBangSource.volume = 0f;       Uncomment to test
+            doorBangSource.volume = 0f;      // Uncomment to test
         }
         if(lightController.GetComponent<RoomLights>().switchingOn == false){
-            //doorBangSource.volume = volumeAtStart;            Unoomment to test
+            doorBangSource.volume = volumeAtStart;         //   Uncomment to test
         }
 
         GetComponent<AudioSource>().pitch = doorPitch;

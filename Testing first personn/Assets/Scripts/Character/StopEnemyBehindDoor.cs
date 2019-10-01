@@ -19,14 +19,19 @@ public class StopEnemyBehindDoor : MonoBehaviour
     private AudioSource doorBangSource;
     public float doorBanginterval;
     public float doorPitch;
-
+    
+    // used when the door is 'bashed' and spawns particle effects
     public GameObject bashParticleSystem;
     public Transform doorPosition;
 
+    // used when sounds muted during lights on
     public GameObject lightController;
     private float volumeAtStart;
 
-//when swithing on is true lights are on
+    //used for the sound when enemy opens door
+    public AudioSource slidingOpenSound;
+    public AudioClip slidingDoorClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,16 +74,17 @@ public class StopEnemyBehindDoor : MonoBehaviour
         enemyObject.GetComponent<NavMeshAgent>().speed = navSpeedAtStart;
         inDoorZone = false;
         animSlidingDoor.Play("SlidingDoorOpen");
+        slidingOpenSound.PlayOneShot(slidingDoorClip);
         
     }
 
     void Update(){
 
         if(lightController.GetComponent<RoomLights>().switchingOn == true){
-            doorBangSource.volume = 0f;
+            //doorBangSource.volume = 0f;       Uncomment to test
         }
         if(lightController.GetComponent<RoomLights>().switchingOn == false){
-            doorBangSource.volume = volumeAtStart;
+            //doorBangSource.volume = volumeAtStart;            Unoomment to test
         }
 
         GetComponent<AudioSource>().pitch = doorPitch;

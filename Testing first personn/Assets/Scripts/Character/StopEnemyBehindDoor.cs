@@ -20,6 +20,9 @@ public class StopEnemyBehindDoor : MonoBehaviour
     public float doorBanginterval;
     public float doorPitch;
 
+    public GameObject bashParticleSystem;
+    public Transform doorPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,8 @@ public class StopEnemyBehindDoor : MonoBehaviour
     {
         while(inDoorZone == true){
             doorBangSource.PlayOneShot(doorBangSound);
+
+            Instantiate(bashParticleSystem, doorPosition.position, doorPosition.rotation);
             yield return new WaitForSeconds(doorBanginterval);
             doorBanginterval = Random.Range(0.6f, 2.0f);         // Randomises interval sound
             doorPitch = Random.Range (0.85f, 1.15f);               // Randomises pitch so its a bit different each time

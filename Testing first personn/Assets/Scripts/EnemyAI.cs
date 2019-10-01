@@ -75,7 +75,7 @@ public class EnemyAI : MonoBehaviour
 
         //make the chaser run faster if the player is too far ahead
         distToPlayer = Vector3.Distance(playerCharacter.transform.position, transform.position);
-        Debug.Log(distToPlayer);
+        //Debug.Log(distToPlayer);
         speedMultiplier = distToPlayer / 200 + 1;
         navAgent.speed = navAgent.speed * speedMultiplier;
     }

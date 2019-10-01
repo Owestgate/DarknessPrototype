@@ -13,6 +13,10 @@ public class Puzzle : MonoBehaviour
     public string puzzlePieceName;
     public bool pieceInPosition;
 
+    public AudioClip placedSound;
+    private AudioSource placedSource;
+    private bool soundPlayed;
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,15 +25,19 @@ public class Puzzle : MonoBehaviour
         pieceInPosition = false;
         //pieceOnWall.SetActive(false);
         sphereRangeCollider = GetComponent<SphereCollider>();
+        placedSource = GetComponent<AudioSource>();
+        soundPlayed = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(pieceInPosition == true){
+        if(pieceInPosition == true && soundPlayed == false){
            //pieceOnWall.SetActive(true);
            Destroy(puzzlePiece, 0);
            pieceOnWall.GetComponent<MeshRenderer>().material = puzzleMaterial;
+           placedSource.PlayOneShot(placedSound);
+           soundPlayed = true;
         }
     }
 

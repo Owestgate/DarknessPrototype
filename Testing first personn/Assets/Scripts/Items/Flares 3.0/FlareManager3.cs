@@ -30,14 +30,14 @@ public class FlareManager3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canUse && !flareHeld && RoomLights.Instance.enabled)
+        if (Input.GetKeyDown(KeyCode.F) && canUse && !flareHeld && RoomLights.Instance.enabled)
         {
             canUse = false;
             CreateFlare();
             Debug.Log("New flare.");
             StartCoroutine(CoolDown());
         /*}
-        else if (Input.GetKeyDown(KeyCode.E) && !canUse && flareHeld)
+        else if (Input.GetKeyDown(KeyCode.F) && !canUse && flareHeld)
         {*/
             DropFlare();
             Debug.Log("Flare Dropped.");

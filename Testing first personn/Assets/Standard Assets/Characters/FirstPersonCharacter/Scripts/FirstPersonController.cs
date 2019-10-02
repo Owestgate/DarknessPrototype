@@ -70,8 +70,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Start()
         {
             Application.targetFrameRate = -1;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+          
 
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;

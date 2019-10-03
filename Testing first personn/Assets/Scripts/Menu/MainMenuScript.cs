@@ -13,15 +13,18 @@ public class MainMenuScript : MonoBehaviour
         Cursor.visible = true;
     }
 
-    public void PlayGame(){
-        WaitToPlay();
+    public void PlayGame(){ //Play Game Button - doesnt load scene
         StartCoroutine(WaitToPlay());
+    }
+
+    public void ReadyButton(){     // on the fake pause menu - actually loads scene
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
     
     IEnumerator WaitToPlay(){
         scarySound.Play();
         yield return new WaitForSeconds(4); // adds a delay so loading screen/ controls are on screen for a few seconds
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void QuitGame(){

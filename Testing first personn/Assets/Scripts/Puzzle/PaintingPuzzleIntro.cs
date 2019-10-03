@@ -51,7 +51,6 @@ public class PaintingPuzzleIntro : MonoBehaviour
 
     IEnumerator WaitTime(){
         yield return new WaitForSeconds(2f);
-        //transform.Rotate = (realPieceLocation.transform.rotation * (2.0f * Time.deltaTime));
         transform.rotation= Quaternion.Lerp (transform.rotation, targetRotation , 50 * smoothness * Time.deltaTime); 
         puzzleAnimator.enabled = false;
         Instantiate(particleSmoke, gameObject.transform.position, gameObject.transform.rotation); // makes particle system play

@@ -9,6 +9,7 @@ public class CloseDoorBehind : MonoBehaviour
     private AudioSource audSource;
     public AudioClip slidingSound;
     private bool onlyPlayItOnce;
+    public GameObject roomLights;
     
     
     // Start is called before the first frame update
@@ -20,10 +21,11 @@ public class CloseDoorBehind : MonoBehaviour
 
 
     void OnTriggerEnter (Collider other){
-        if(other.gameObject.tag == "Character" && onlyPlayItOnce == false){
+        if (other.gameObject.tag == "Character" && onlyPlayItOnce == false){
             slidingAnim.Play("SlidingDoorClosed");
             audSource.PlayOneShot(slidingSound);   
-            onlyPlayItOnce = true;        
+            onlyPlayItOnce = true;
+            roomLights.GetComponent<RoomLights>().gracePeriodActive = true;
         }
 
     }

@@ -148,7 +148,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_CharacterController.height = 1;
                 m_Camera.transform.parent.localPosition = crouchedCameraLocalPos;
-
             }
             if (Input.GetKeyUp(KeyCode.LeftControl))
             {
@@ -170,7 +169,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else
             {
-                m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
+                m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.deltaTime;
             }
         }
 

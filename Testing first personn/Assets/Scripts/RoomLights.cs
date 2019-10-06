@@ -9,6 +9,8 @@ public class RoomLights : MonoBehaviour
 
     public bool switchingOn;
     public bool bypass;
+    public bool gracePeriodActive;
+    public float graceTimer;
     public FirstPersonController fpsController;
     public EnemyAI chaser;
     public GameObject[] subLights;
@@ -53,6 +55,8 @@ public class RoomLights : MonoBehaviour
         lightTimeOn = 3;
         lightTimeOnWait = new WaitForSeconds(lightTimeOn);
 
+        gracePeriodActive = false;
+
         LightsCoroutine = StartCoroutine(LightsStateTimer());
         switchingOn = true;
         /*runSpeedOnStart = fpsController.m_RunSpeed;
@@ -72,6 +76,11 @@ public class RoomLights : MonoBehaviour
             if (!fpsController.inBypass)
             {
                 yield return lightTimeOnWait;
+                if (gracePeriodActive)
+                {
+                    yield return new WaitForSeconds(graceTimer);
+                    gracePeriodActive = false;
+                }
                 switchingOn = false;
                 OnLightSwitchStateOff.Invoke();
                 yield return lightTimeOffWait;

@@ -22,7 +22,7 @@ public class FlareGain : MonoBehaviour
         if(flareManager.GetComponent<FlareManager3>().canUse == false){
             flareUI.GetComponent<Image>().fillAmount = 0;
             ttime += Time.deltaTime / flareCD;
-            flareUI.GetComponent<Image>().fillAmount = Mathf.Lerp(0.0f, 1.0f, t);
+            flareUI.GetComponent<Image>().fillAmount = Mathf.Lerp(0.0f, 1.0f, ttime);
             
         }
         if(flareManager.GetComponent<FlareManager3>().canUse == true){

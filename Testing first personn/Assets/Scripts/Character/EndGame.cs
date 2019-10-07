@@ -15,8 +15,8 @@ public class EndGame : MonoBehaviour
 
     public GameObject endGameUI;
 
+    public GameObject roomController;
 
-    
     void OnTriggerEnter(Collider plyr){
         if(plyr.gameObject.tag == "Character"){
 
@@ -24,7 +24,7 @@ public class EndGame : MonoBehaviour
             cameraObj.SendMessage("EndGame");
                        
             player.GetComponent<FirstPersonController>().enabled = false;
-            player.GetComponent<MenuPopup>().cursorLock = false;
+            player.GetComponent<MenuPopup>().cursorLock = false;            // overrides the menu script cursor lock
 
             enemy.SetActive(false);           
 
@@ -32,8 +32,21 @@ public class EndGame : MonoBehaviour
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            
+            StartCoroutine(WaitTime());    // half measure, fix later
         }   
     }
+
+    IEnumerator WaitTime(){               // half measure, fix later
+        yield return new WaitForSeconds(14);
+        Time.timeScale = 0;
+        player.GetComponent<FirstPersonController>().enabled = false;
+        player.GetComponent<MenuPopup>().cursorLock = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+    }
+    
 
     
     

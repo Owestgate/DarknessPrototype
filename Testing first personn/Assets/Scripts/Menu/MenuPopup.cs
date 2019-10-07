@@ -40,6 +40,7 @@ public class MenuPopup : MonoBehaviour
             Time.timeScale = 1; // Unpauses game time (recheck)
             Cursor.lockState = CursorLockMode.Locked;
             gameObject.GetComponent<FirstPersonController>().enabled = true; // Enables character to move again
+            cursorLock = true;
         }
 
     }

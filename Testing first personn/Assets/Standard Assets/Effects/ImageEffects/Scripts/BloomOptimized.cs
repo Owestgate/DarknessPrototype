@@ -23,7 +23,7 @@ namespace UnityStandardAssets.ImageEffects
 
         [Range(0.0f, 1.5f)]
         public float threshold = 0.25f;
-        [Range(0.0f, 2.5f)]
+        [Range(0.0f, 200.5f)]
         public float intensity = 0.75f;
 
         [Range(0.25f, 5.5f)]
@@ -37,6 +37,20 @@ namespace UnityStandardAssets.ImageEffects
 
         public Shader fastBloomShader = null;
         private Material fastBloomMaterial = null;
+
+
+        public bool gameEnd = false;
+
+        public void EndGame(){
+            gameEnd = true;
+        }
+
+        void Update(){
+            if(gameEnd == true){
+                intensity += 10 * Time.deltaTime;
+                blurSize += 1 * Time.deltaTime;
+            }
+        }
 
 
         public override bool CheckResources ()

@@ -17,8 +17,8 @@ public class FlareManager3 : MonoBehaviour
 
     //Current active flares
     private GameObject flareItem;
-    private bool flareHeld;
-    private bool canUse;
+    public bool flareHeld;
+    public bool canUse;
 
     // Start is called before the first frame update
     void Start()

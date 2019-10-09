@@ -26,6 +26,7 @@ public class RoomLights : MonoBehaviour
     public Vector2 lightTimeOffRange;
     private WaitForSeconds lightTimeOffWait;
     public AudioSource lightOffSound;
+    private float lighttime;
 
     //private float walkSpeedOnStart;
     //private float runSpeedOnStart;
@@ -50,10 +51,10 @@ public class RoomLights : MonoBehaviour
         OnLightSwitchStateOff.AddListener(LightSwitchStateOff);
 
         lightTimeOff = 5;
-        lightTimeOffWait = new WaitForSeconds(lightTimeOff);
 
         lightTimeOn = 3;
-        lightTimeOnWait = new WaitForSeconds(lightTimeOn);
+
+        lighttime = 0;
 
         gracePeriodActive = false;
 
@@ -75,17 +76,18 @@ public class RoomLights : MonoBehaviour
         {
             if (!fpsController.inBypass)
             {
-                yield return lightTimeOnWait;
-                if (gracePeriodActive)
+                lighttime += Time.deltaTime;
+                // Debug.Log("lighttime: " + lighttime);
+                // Debug.Log("lightTimeOn: " + lightTimeOn);
+                if (lighttime >= lightTimeOn && switchingOn)
                 {
-                    yield return new WaitForSeconds(graceTimer);
-                    gracePeriodActive = false;
+                    OnLightSwitchStateOff.Invoke();
                 }
-                switchingOn = false;
-                OnLightSwitchStateOff.Invoke();
-                yield return lightTimeOffWait;
-                switchingOn = true;
-                OnLightSwitchStateOn.Invoke();
+                if (lighttime >= lightTimeOff && !switchingOn)
+                {
+                    OnLightSwitchStateOn.Invoke();
+                }
+                yield return null;
             }
             else
             {
@@ -96,12 +98,14 @@ public class RoomLights : MonoBehaviour
 
     void LightSwitchStateOn()
     {
+        switchingOn = true;
         Debug.Log("Lights on");
         lightTimeOff = Random.Range(lightTimeOffRange.x, lightTimeOffRange.y);
-        lightTimeOffWait = new WaitForSeconds(lightTimeOff);
         SetSublightsState(true);
         lightOnSound.Play();
         UpdatePlayerMovementAttributes();
+        lighttime = 0;
+
     }
 
     void UpdatePlayerMovementAttributes()
@@ -111,22 +115,23 @@ public class RoomLights : MonoBehaviour
             fpsController.lightsOn = true;
         } else
         {
-            fpsController.lightsOn = switchingOn ? true : false;
+            fpsController.lightsOn = switchingOn;
         } //Player handles movement speed changes
         /*fpsController.m_RunSpeed = switchingOn ? runSpeedOnStart : runSpeedInDarkness;
         fpsController.m_WalkSpeed = switchingOn ? walkSpeedOnStart : walkSpeedInDarkness;
         fpsController.m_JumpAllowed = switchingOn ? true : false;*/
-        chaser.lightsOn = switchingOn ? true : false; //Lights now simply inform the chaser that the lights are off. Chaser does the work itself now.
+        chaser.lightsOn = switchingOn; //Lights now simply inform the chaser that the lights are off. Chaser does the work itself now.
     }
 
     void LightSwitchStateOff()
     {
         Debug.Log("Lights off");
+        switchingOn = false;
         lightTimeOn = Random.Range(lightTimeOnRange.x, lightTimeOnRange.y);
-        lightTimeOnWait = new WaitForSeconds(lightTimeOn);
         SetSublightsState(false);
         lightOffSound.Play();
         UpdatePlayerMovementAttributes();
+        lighttime = 0;
     }
 
     public void SetSublightsState(bool on)
@@ -134,6 +139,31 @@ public class RoomLights : MonoBehaviour
         for (int i = 0; i < subLights.Length; i++)
         {
             subLights[i].SetActive(on);
+        }
+    }
+
+    public void GraceTime(int grace) //Extends the time the lights are on next by the specified number of seconds
+    {
+        lightTimeOn += grace;
+    }
+
+    public void ForceOn(int grace) //Lights will immediately turn on, and stay on for at least the specified number of seconds
+    {
+        lightTimeOn += grace;
+        lightTimeOff = 0;
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            GraceTime(5);
+            Debug.Log("5 seconds added");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ForceOn(5);
+            Debug.Log("Lights locked on");
         }
     }
 }

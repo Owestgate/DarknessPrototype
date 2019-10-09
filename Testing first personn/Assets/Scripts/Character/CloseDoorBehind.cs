@@ -25,7 +25,7 @@ public class CloseDoorBehind : MonoBehaviour
             slidingAnim.Play("SlidingDoorClosed");
             audSource.PlayOneShot(slidingSound);   
             onlyPlayItOnce = true;
-            roomLights.GetComponent<RoomLights>().gracePeriodActive = true;
+            roomLights.GetComponent<RoomLights>().ForceOn(4);
         }
 
     }

@@ -7,10 +7,12 @@ public class EnemyAI : MonoBehaviour
 {
 
     public GameObject playerCharacter;
+    public GameObject PlyrKillScreen;
     public NavMeshAgent navAgent;
     public bool lightsOn;
     public Mesh model1; //These are the two models currently. Its currently set up for two only but it shouldnt take too long to make space for more if we want more
     public Mesh model2;
+    public Mesh killPose;
     public float navSpeed;
     public AudioSource EnemyCloseSound;
     public AudioSource EnemyCloseSound2;
@@ -38,17 +40,19 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lightsOn && lightsJustOn)
-        {
+        if(PlyrKillScreen.GetComponent<KillScreen>().jumpScare2 == false){
+            if (lightsOn && lightsJustOn)
+            {
             currentModel = !currentModel; //if the lights just came on, switch models
-        }
-        if (currentModel == false)
-        {
+            }
+            if (currentModel == false)
+            {
             modelSlot.mesh = model1;
-        }
-        else
-        {
+            }
+            else
+            {
             modelSlot.mesh = model2;
+            }
         }
         if (lightsOn)
         {
@@ -88,5 +92,9 @@ public class EnemyAI : MonoBehaviour
         //Debug.Log(distToPlayer);
         speedMultiplier = distToPlayer / 200 + 1;
         navAgent.speed = navAgent.speed * speedMultiplier;
+
+        if(PlyrKillScreen.GetComponent<KillScreen>().jumpScare2 == true){
+            modelSlot.mesh = killPose;
+        }
     }
 }

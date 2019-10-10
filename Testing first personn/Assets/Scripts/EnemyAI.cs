@@ -16,6 +16,7 @@ public class EnemyAI : MonoBehaviour
     public AudioSource EnemyCloseSound2;
     public AudioSource EnemyCloseSound3;
     public AudioSource EnemyCloseSound4;
+    public AudioSource EnemyCloseSound5;
     private float distToPlayer;
     private float speedMultiplier;
 
@@ -60,6 +61,7 @@ public class EnemyAI : MonoBehaviour
             if (EnemyCloseSound2.isPlaying) EnemyCloseSound2.Stop();
             if (EnemyCloseSound3.isPlaying) EnemyCloseSound3.Stop();
             if (EnemyCloseSound4.isPlaying) EnemyCloseSound4.Stop();
+            if (!EnemyCloseSound5.isPlaying) EnemyCloseSound5.Stop();
         }
         else
         {
@@ -72,6 +74,8 @@ public class EnemyAI : MonoBehaviour
             if (!EnemyCloseSound2.isPlaying) EnemyCloseSound2.Play();
             if (!EnemyCloseSound3.isPlaying) EnemyCloseSound3.Play();
             if (!EnemyCloseSound4.isPlaying) EnemyCloseSound4.Play();
+            if (EnemyCloseSound5.isPlaying) EnemyCloseSound5.Play();
+
         }
         if (navAgent.enabled) navAgent.destination = playerCharacter.transform.position;
         if(nearFlare)

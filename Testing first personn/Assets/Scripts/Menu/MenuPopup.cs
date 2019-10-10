@@ -13,7 +13,7 @@ public class MenuPopup : MonoBehaviour
 
     public bool cursorLock;
     //public Script firstPerson;
-
+    public bool pauseDelayed;
 
     // public ColorBlock colorChange;
 
@@ -30,6 +30,12 @@ public class MenuPopup : MonoBehaviour
     private void Awake()
     {
        fpsController = gameObject.GetComponent<FirstPersonController>();
+       StartCoroutine(DelayPause());
+    }
+
+    IEnumerator DelayPause(){
+        yield return new WaitForSeconds(8);
+        pauseDelayed = true;
     }
 
     //Unpauses game from the return button on pause menu panel
@@ -58,7 +64,7 @@ public class MenuPopup : MonoBehaviour
             
         }*/
         //OPENS MENU - potentially change to a menu animation instead of a set active eg. menu animates onto screen in 1 frame
-        if(Input.GetKeyDown(KeyCode.Escape) && menuOpen == false){
+        if(Input.GetKeyDown(KeyCode.Escape) && menuOpen == false && pauseDelayed == true){
             menuPopup.SetActive(true);
             menuOpen = true;
             Time.timeScale = 0; // Pauses Game time (recheck)
@@ -68,9 +74,15 @@ public class MenuPopup : MonoBehaviour
 
         if (cursorLock == true){
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         if (cursorLock == false){
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+
+        if(pauseDelayed == false){
+            //Cursor.lockState = CursorLockMode.Locked;
         }
     
 

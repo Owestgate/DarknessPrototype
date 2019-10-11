@@ -27,6 +27,8 @@ public class RoomLights : MonoBehaviour
     private WaitForSeconds lightTimeOffWait;
     public AudioSource lightOffSound;
     private float lighttime;
+    private int flickerCount;
+    private float flickerDelay;
 
     //private float walkSpeedOnStart;
     //private float runSpeedOnStart;
@@ -100,7 +102,13 @@ public class RoomLights : MonoBehaviour
     {
         switchingOn = true;
         Debug.Log("Lights on");
-        lightTimeOff = Random.Range(lightTimeOffRange.x, lightTimeOffRange.y);
+        if (flickerCount > 0)
+        {
+            lightTimeOff = flickerDelay;
+        } else
+        {
+            lightTimeOff = Random.Range(lightTimeOffRange.x, lightTimeOffRange.y);
+        }
         SetSublightsState(true);
         lightOnSound.Play();
         UpdatePlayerMovementAttributes();
@@ -127,7 +135,15 @@ public class RoomLights : MonoBehaviour
     {
         Debug.Log("Lights off");
         switchingOn = false;
-        lightTimeOn = Random.Range(lightTimeOnRange.x, lightTimeOnRange.y);
+        if (flickerCount > 0)
+        {
+            lightTimeOn = flickerDelay;
+            flickerCount--;
+        }
+        else
+        {
+            lightTimeOn = Random.Range(lightTimeOnRange.x, lightTimeOnRange.y);
+        }
         SetSublightsState(false);
         lightOffSound.Play();
         UpdatePlayerMovementAttributes();
@@ -153,6 +169,14 @@ public class RoomLights : MonoBehaviour
         lightTimeOff = 0;
     }
 
+    public void Flicker(int repeat, float delay)
+    {
+        lightTimeOff = 0;
+        lightTimeOn = delay;
+        flickerDelay = delay;
+        flickerCount = repeat;
+    }
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -164,6 +188,11 @@ public class RoomLights : MonoBehaviour
         {
             ForceOn(5);
             Debug.Log("Lights locked on");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            Flicker(5, 0.2f);
+            Debug.Log("Flickering");
         }
     }
 }

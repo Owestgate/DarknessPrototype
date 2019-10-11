@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
 using System.Collections;
 using UnityEngine.AI;
+using EZCameraShake;
 
 public class KillScreen : MonoBehaviour
 {
@@ -54,12 +55,11 @@ public class KillScreen : MonoBehaviour
                 fpsController.enabled = false; // Turns off player controller so it locks player looking at enemy
                 playerCamera.transform.LookAt(jumpScareLookAt.transform); // looks at enemy (seperate object attached to enemy that is positioned better)
                 jumpScareAudioObject.SetActive(true); // sets active gameobject with audio set to play on awake
-
+                CameraShaker.Instance.ShakeOnce(4f, 4f, .1f, 1f);
                 jumpScare2 = true;
 
                 Invoke("LoadScreen", 2.0f); // auto loads menu after delay
                 OnDie.Invoke();
-
                 SaturationByLightState.Instance.OnLightSwitchOn();
                 GrainByLightState.Instance.OnLightSwitchOn();
                 RoomLights.Instance.bypass = true;

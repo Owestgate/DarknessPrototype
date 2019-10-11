@@ -40,6 +40,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private Camera m_Camera;
         private bool m_Jump;
+        private int m_JumpEarly;
         private float m_YRotation;
         private Vector2 m_Input;
         private Vector3 m_MoveDir = Vector3.zero;
@@ -113,6 +114,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // the jump state needs to read here to make sure it is not missed
             m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
 
+            if (m_JumpEarly > 0)
+            {
+                m_JumpEarly--;
+            }
+
+            if (m_Jump)
+            {
+                m_JumpEarly = 5;
+            }
+
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
             {
                 StartCoroutine(m_JumpBob.DoBobCycle());
@@ -159,7 +170,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_MoveDir.y = -m_StickToGroundForce;
 
-                if (m_Jump && m_JumpAllowed)
+                if (m_JumpEarly > 0 && m_JumpAllowed)
                 {
                     m_MoveDir.y = m_JumpSpeed;
                     PlayJumpSound();

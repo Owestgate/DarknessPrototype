@@ -27,7 +27,7 @@ public class KillScreen : MonoBehaviour
     public bool jumpScare2 = false;
 
     private float silenceTime;
-    private float silenceTimer = 3;
+    private float silenceTimer = 5;
     private bool scaring = false;
 
     public UnityEvent OnDie;
@@ -55,7 +55,7 @@ public class KillScreen : MonoBehaviour
                 fpsController.enabled = false; // Turns off player controller so it locks player looking at enemy
                 playerCamera.transform.LookAt(jumpScareLookAt.transform); // looks at enemy (seperate object attached to enemy that is positioned better)
                 jumpScareAudioObject.SetActive(true); // sets active gameobject with audio set to play on awake
-                CameraShaker.Instance.ShakeOnce(4f, 4f, .1f, 1f);
+                CameraShaker.Instance.ShakeOnce(6f, 3f, .1f, .2f);
                 jumpScare2 = true;
 
                 Invoke("LoadScreen", 2.0f); // auto loads menu after delay

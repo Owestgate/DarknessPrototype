@@ -31,6 +31,7 @@ public class KillScreen : MonoBehaviour
     private bool scaring = false;
 
     public UnityEvent OnDie;
+    public bool cantPause = false;
 
     // Update is called once per frame
     void Update()
@@ -49,11 +50,12 @@ public class KillScreen : MonoBehaviour
             silenceTime -= Time.deltaTime;
             if (silenceTime <= 0)
             {
+                StartCoroutine(Lookat());
                 FirstPersonController fpsController = playerObj.GetComponent<FirstPersonController>();
                 //playerObj.transform.position = jumpScarePosition.transform.position; // teleports player into position infront of enemy -- testint new one
                 playerObj.transform.position = jumpScarePos2.transform.position;    // Testing new model/position
                 fpsController.enabled = false; // Turns off player controller so it locks player looking at enemy
-                playerCamera.transform.LookAt(jumpScareLookAt.transform); // looks at enemy (seperate object attached to enemy that is positioned better)
+                //playerCamera.transform.LookAt(jumpScareLookAt.transform); // looks at enemy (seperate object attached to enemy that is positioned better)
                 jumpScareAudioObject.SetActive(true); // sets active gameobject with audio set to play on awake
                 CameraShaker.Instance.ShakeOnce(6f, 3f, .1f, .2f);
                 jumpScare2 = true;
@@ -68,8 +70,15 @@ public class KillScreen : MonoBehaviour
                 RoomLights.Instance.enabled = false;
 
                 enemyObj.GetComponent<NavMeshAgent>().enabled = false;
+
+                cantPause = true;
             }
         }
+    }
+
+    IEnumerator Lookat(){             // fix for not looking
+        yield return new WaitForSeconds(0.1f);
+        playerCamera.transform.LookAt(jumpScareLookAt.transform);
     }
     
     void LoadScreen()

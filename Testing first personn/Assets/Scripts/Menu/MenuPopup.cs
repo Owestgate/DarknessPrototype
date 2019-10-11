@@ -53,18 +53,9 @@ public class MenuPopup : MonoBehaviour
 
     void Update()
     {
-        // Opens and closes in game menu
-        /*          Commented so you have to press return to unpause - problems with game not locking cursor
-        if(Input.GetKeyDown(KeyCode.Escape) && menuOpen == true){
-            menuPopup.SetActive(false);
-            menuOpen = false;
-            Time.timeScale = 1; // Unpauses game time (recheck)
-            //cursorLock = true;
-            
-            
-        }*/
-        //OPENS MENU - potentially change to a menu animation instead of a set active eg. menu animates onto screen in 1 frame
-        if(Input.GetKeyDown(KeyCode.Escape) && menuOpen == false && pauseDelayed == true){
+        
+        //OPENS MENU - cant open in intro or death
+        if(Input.GetKeyDown(KeyCode.Escape) && menuOpen == false && pauseDelayed == true && this.gameObject.GetComponent<KillScreen>().cantPause == false){
             menuPopup.SetActive(true);
             menuOpen = true;
             Time.timeScale = 0; // Pauses Game time (recheck)

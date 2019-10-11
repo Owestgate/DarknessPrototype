@@ -79,8 +79,6 @@ public class RoomLights : MonoBehaviour
             if (!fpsController.inBypass)
             {
                 lighttime += Time.deltaTime;
-                // Debug.Log("lighttime: " + lighttime);
-                // Debug.Log("lightTimeOn: " + lightTimeOn);
                 if (lighttime >= lightTimeOn && switchingOn)
                 {
                     OnLightSwitchStateOff.Invoke();
@@ -158,15 +156,18 @@ public class RoomLights : MonoBehaviour
         }
     }
 
-    public void GraceTime(int grace) //Extends the time the lights are on next by the specified number of seconds
+    public void GraceTime(float grace) //Extends the time the lights are on next by the specified number of seconds
     {
         lightTimeOn += grace;
     }
 
-    public void ForceOn(int grace) //Lights will immediately turn on, and stay on for at least the specified number of seconds
+    public void ForceOn(float grace) //Lights will immediately turn on, and stay on for at least the specified number of seconds
     {
         lightTimeOn += grace;
-        lightTimeOff = 0;
+        if (!switchingOn)
+        {
+            lightTimeOff = 0;
+        }
     }
 
     public void Flicker(int repeat, float delay)
@@ -175,6 +176,12 @@ public class RoomLights : MonoBehaviour
         lightTimeOn = delay;
         flickerDelay = delay;
         flickerCount = repeat;
+    }
+
+    public void ForceOff(float delay)
+    {
+        lighttime = 0;
+        lightTimeOff = delay;
     }
 
     public void Update()

@@ -25,6 +25,9 @@ public class KillScreen : MonoBehaviour
     public GameObject jumpScarePos2;
     public bool jumpScare2 = false;
 
+    private float silenceTime;
+    private float silenceTimer = 3;
+    private bool scaring = false;
 
     public UnityEvent OnDie;
 
@@ -33,31 +36,40 @@ public class KillScreen : MonoBehaviour
     {
         //Gets the current distance, compares, then kills
         currentDist = Vector3.Distance(playerObj.transform.position, enemyObj.transform.position);
-        if (currentDist < killDist && !RoomLights.Instance.switchingOn)
+        if (currentDist < killDist && !RoomLights.Instance.switchingOn && !scaring)
         {
+            silenceTime = silenceTimer;
+            RoomLights.Instance.ForceOff(silenceTimer);
+            scaring = true;
+        }
 
-            FirstPersonController fpsController = playerObj.GetComponent<FirstPersonController>();
-            //playerObj.transform.position = jumpScarePosition.transform.position; // teleports player into position infront of enemy -- testint new one
-            playerObj.transform.position = jumpScarePos2.transform.position;    // Testing new model/position
-            fpsController.enabled = false; // Turns off player controller so it locks player looking at enemy
-            playerCamera.transform.LookAt(jumpScareLookAt.transform); // looks at enemy (seperate object attached to enemy that is positioned better)
-            jumpScareAudioObject.SetActive(true); // sets active gameobject with audio set to play on awake
+        if (scaring)
+        {
+            silenceTime -= Time.deltaTime;
+            if (silenceTime <= 0)
+            {
+                FirstPersonController fpsController = playerObj.GetComponent<FirstPersonController>();
+                //playerObj.transform.position = jumpScarePosition.transform.position; // teleports player into position infront of enemy -- testint new one
+                playerObj.transform.position = jumpScarePos2.transform.position;    // Testing new model/position
+                fpsController.enabled = false; // Turns off player controller so it locks player looking at enemy
+                playerCamera.transform.LookAt(jumpScareLookAt.transform); // looks at enemy (seperate object attached to enemy that is positioned better)
+                jumpScareAudioObject.SetActive(true); // sets active gameobject with audio set to play on awake
 
-            jumpScare2 = true;
+                jumpScare2 = true;
 
-            Invoke("LoadScreen", 2.0f); // auto loads menu after delay
-            OnDie.Invoke();
+                Invoke("LoadScreen", 2.0f); // auto loads menu after delay
+                OnDie.Invoke();
 
-            SaturationByLightState.Instance.OnLightSwitchOn();
-            GrainByLightState.Instance.OnLightSwitchOn();
-            RoomLights.Instance.bypass = true;
-            RoomLights.Instance.SetSublightsState(true);
-            RoomLights.Instance.StopCoroutine(RoomLights.Instance.LightsCoroutine);
-            RoomLights.Instance.enabled = false;
+                SaturationByLightState.Instance.OnLightSwitchOn();
+                GrainByLightState.Instance.OnLightSwitchOn();
+                RoomLights.Instance.bypass = true;
+                RoomLights.Instance.SetSublightsState(true);
+                RoomLights.Instance.StopCoroutine(RoomLights.Instance.LightsCoroutine);
+                RoomLights.Instance.enabled = false;
 
-            enemyObj.GetComponent<NavMeshAgent>().enabled = false;
-
-        }       
+                enemyObj.GetComponent<NavMeshAgent>().enabled = false;
+            }
+        }
     }
     
     void LoadScreen()

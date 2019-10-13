@@ -5309,11 +5309,11 @@ GameObject:
   - component: {fileID: 1914412475}
   - component: {fileID: 1914412474}
   - component: {fileID: 1914412473}
-  - component: {fileID: 1914412476}
   - component: {fileID: 1914412477}
   - component: {fileID: 1914412478}
   - component: {fileID: 1914412479}
   - component: {fileID: 1914412480}
+  - component: {fileID: 1914412476}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5396,10 +5396,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f0f4c5477fcc4674080d0c9510c2088c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 58eeb901c27b8ab49b71f5abcbc83a9c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.476
-  m_Pitch: 0.03
+  m_Volume: 0.05
+  m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -5492,9 +5492,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 58eeb901c27b8ab49b71f5abcbc83a9c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8e77e391d12a577498052e7a8e0f7205, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.906
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5645,12 +5645,12 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914412472}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f0f4c5477fcc4674080d0c9510c2088c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.053
+  m_Volume: 0.04
   m_Pitch: 0.3
   Loop: 1
   Mute: 0

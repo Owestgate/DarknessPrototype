@@ -15,7 +15,7 @@ public class MenuPopup : MonoBehaviour
     //public Script firstPerson;
     public bool pauseDelayed;
 
-    // public ColorBlock colorChange;
+    public GameObject paintUIController;
 
     private FirstPersonController fpsController;
     
@@ -34,7 +34,7 @@ public class MenuPopup : MonoBehaviour
     }
 
     IEnumerator DelayPause(){
-        yield return new WaitForSeconds(8);
+        yield return new WaitForSeconds(8.5f);
         pauseDelayed = true;
     }
 
@@ -54,8 +54,8 @@ public class MenuPopup : MonoBehaviour
     void Update()
     {
         
-        //OPENS MENU - cant open in intro or death
-        if(Input.GetKeyDown(KeyCode.Escape) && menuOpen == false && pauseDelayed == true && this.gameObject.GetComponent<KillScreen>().cantPause == false){
+        //OPENS MENU - cant open in intro or death or painting
+        if(Input.GetKeyDown(KeyCode.Escape) && menuOpen == false && pauseDelayed == true && this.gameObject.GetComponent<KillScreen>().cantPause == false && paintUIController.GetComponent<PaintingUI>().cantPauseNow == false){
             menuPopup.SetActive(true);
             menuOpen = true;
             Time.timeScale = 0; // Pauses Game time (recheck)

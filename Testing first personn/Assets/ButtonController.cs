@@ -39,6 +39,7 @@ public class ButtonController : MonoBehaviour
                 codePosition = 0;
                 codeFailed = false;
                 FailureSound.Play();
+                Debug.Log("wrong");
             }
             else
             {

@@ -1,72 +1,105 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class LightRoomColor : MonoBehaviour
 {
     public GameObject subLights;
     public bool switchingOn;
-    public float lightTimeOn;
+    public float lightTimeOnBlank;
     public float lightTimeOff;
+    public float lightTimeOnColor;
     public GameObject player;
     public GameObject chaser;
 
-    private float walkSpeedOnStart;
-    private float runSpeedOnStart;
-
-    public float walkSpeedInDarkness;
-    public float runSpeedInDarkness;
+    private float lighttime;
+    private int stage;
+    private float splitTime;
+    private int colorStage;
 
     private Color colorRed = new Color(1, 0, 0, 1);
     private Color colorOrange = new Color(1, 0.6f, 0.2f, 1);
     private Color colorYellow = new Color(1, 1, 0, 1);
     private Color colorWhite = new Color(1, 1, 1, 1);
 
-    private Color[] colorSequence = new Color[4];
+    private Color[] colorSequence1 = new Color[3];
+    private Color[] colorSequence2 = new Color[6];
     private int colorCount = 0;
+
+    public AudioSource lightOnSound;
+
+    public UnityEvent OnLightSwitchStateOn;
+    public UnityEvent OnLightSwitchStateOff;
 
     // Start is called before the first frame update
     void Start()
     {
-        colorSequence[0] = colorWhite;
-        colorSequence[1] = colorYellow;
-        colorSequence[2] = colorOrange;
-        colorSequence[3] = colorRed;
+        colorSequence1[0] = colorYellow;
+        colorSequence1[1] = colorOrange;
+        colorSequence1[2] = colorRed;
 
-        StartCoroutine(LightsOff());
+        stage = 0;
+        splitTime = lightTimeOnColor / colorSequence1.Length;
+
+        StartCoroutine(LightCycle());
         switchingOn = true;
-        runSpeedOnStart = player.GetComponent<FirstPersonController>().m_RunSpeed;
-        walkSpeedOnStart = player.GetComponent<FirstPersonController>().m_WalkSpeed;
     }
 
-    IEnumerator LightsOn(){
-        while (true){
-            yield return new WaitForSeconds(lightTimeOff);
-            switchingOn = ! switchingOn;    // bool trigger
-            yield return StartCoroutine(LightsOff());
-        }
-           
-    }
-    IEnumerator LightsOff()
+    public IEnumerator LightCycle()
     {
-        while (true)
-        {
-            foreach (Transform child in subLights.transform)
+        while (true) {
+            if (player.GetComponent<FirstPersonController>().inColorPuzzle)
             {
-                child.GetComponent<Light>().color = colorSequence[colorCount];
+                lighttime += Time.deltaTime;
+                if (lighttime >= lightTimeOnBlank && stage == 0 && switchingOn)
+                {
+                    switchingOn = !switchingOn;
+                    lighttime = 0;
+                    stage = 1;
+                    OnLightSwitchStateOff.Invoke();
+                    lightOnSound.Play();
+                    foreach (Transform child in subLights.transform)
+                    {
+                        child.GetComponent<Light>().color = colorSequence1[0];
+                    }
+                }
+                if (lighttime >= lightTimeOff && !switchingOn)
+                {
+                    switchingOn = !switchingOn;
+                    lighttime = 0;
+                    OnLightSwitchStateOn.Invoke();
+                    lightOnSound.Play();
+                }
+                if (stage != 0 && switchingOn)
+                {
+                    if (lighttime >= lightTimeOnColor)
+                    {
+                        switchingOn = !switchingOn;
+                        lighttime = 0;
+                        stage = 0;
+                        OnLightSwitchStateOff.Invoke();
+                        lightOnSound.Play();
+                        foreach (Transform child in subLights.transform)
+                        {
+                            child.GetComponent<Light>().color = colorWhite;
+                        }
+                    }
+                    if (lighttime != 0)
+                    {
+                        colorStage = (int)Math.Floor(lighttime / splitTime);
+                        foreach (Transform child in subLights.transform)
+                        {
+                            child.GetComponent<Light>().color = colorSequence1[colorStage];
+                        }
+                    }
+                }
             }
-            colorCount++;
-            if (colorCount >= colorSequence.Length)
-            {
-                colorCount = 0;
-            }
-            yield return new WaitForSeconds(lightTimeOn);
-            switchingOn = !switchingOn;    // bool trigger\
-            yield return StartCoroutine(LightsOn());
+            yield return null;
         }
-
     }
 
     void Update()
@@ -90,5 +123,10 @@ public class LightRoomColor : MonoBehaviour
             player.GetComponent<FirstPersonController>().lightsOn = true;
             chaser.GetComponent<EnemyAI>().lightsOn = true;
         }
+    }
+
+    void DoNothing()
+    {
+
     }
 }

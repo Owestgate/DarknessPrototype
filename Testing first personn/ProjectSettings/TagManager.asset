@@ -9,6 +9,7 @@ TagManager:
   - PuzzlePiece
   - Checkpoint
   - Bypass
+  - ColorPuzzle
   layers:
   - Default
   - TransparentFX

@@ -64,6 +64,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float walkSpeedInDarkness;
         public bool lightsOn;
         public bool inBypass;
+        public bool inColorPuzzle;
 
         public bool nearFlare;
 
@@ -96,6 +97,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             walkSpeedOnStart = m_WalkSpeed;
             lightsOn = false;
             inBypass = false;
+            inColorPuzzle = false;
             enabled = false;
         }
 
@@ -196,6 +198,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void FixedUpdate()
         {
             inBypass = false;
+            inColorPuzzle = false;
             if (!nearFlare)
             {
                 UpdatePlayerSpeed(lightsOn);
@@ -400,6 +403,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if (other.gameObject.tag == "Bypass")
             {
                 inBypass = true;
+            }
+            if (other.gameObject.tag == "ColorPuzzle")
+            {
+                inBypass = true;
+                inColorPuzzle = true;
             }
         }
     }

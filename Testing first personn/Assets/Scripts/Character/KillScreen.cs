@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
 using System.Collections;
 using UnityEngine.AI;
+using UnityEngine.Rendering.PostProcessing;
 using EZCameraShake;
 
 public class KillScreen : MonoBehaviour
@@ -22,6 +23,9 @@ public class KillScreen : MonoBehaviour
     public GameObject jumpScareAudioObject; // game object with audio source set to play on awake
     public GameObject playerCamera;    
     public GameObject jumpScareLookAt;
+    public GameObject postProcessing;
+
+    private ChromaticAberration chroma;
 
     public GameObject jumpScarePos2;
     public bool jumpScare2 = false;
@@ -32,6 +36,11 @@ public class KillScreen : MonoBehaviour
 
     public UnityEvent OnDie;
     public bool cantPause = false;
+
+    void Start()
+    {
+        postProcessing.GetComponent<PostProcessVolume>().profile.TryGetSettings(out chroma);
+    }
 
     // Update is called once per frame
     void Update()
@@ -79,6 +88,7 @@ public class KillScreen : MonoBehaviour
     IEnumerator Lookat(){             // fix for not looking
         yield return new WaitForSeconds(0.1f);
         playerCamera.transform.LookAt(jumpScareLookAt.transform);
+        // chroma.intensity.value += 0.01f;
     }
     
     void LoadScreen()

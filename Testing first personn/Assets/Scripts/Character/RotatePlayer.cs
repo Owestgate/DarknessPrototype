@@ -7,15 +7,20 @@ public class RotatePlayer : MonoBehaviour
 {
 
     public float speed;
-    private bool dis;
-    private bool spinning;
+    public bool dis;
+    public bool spinning;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (PlayerPrefs.GetInt ("pcheckpoint") == 0){
         dis = true;
         StartCoroutine(RotateAtStart());
         gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+        if (PlayerPrefs.GetInt ("pcheckpoint") == 1){
+        gameObject.transform.localRotation = Quaternion.Euler(0, -90, 0);
+        }
     }
     
     IEnumerator RotateAtStart(){

@@ -60,6 +60,11 @@ public class RoomLights : MonoBehaviour
         switchingOn = true;
         /*runSpeedOnStart = fpsController.m_RunSpeed;
         walkSpeedOnStart = fpsController.m_WalkSpeed;*/
+        if (PlayerPrefs.GetInt ("pcheckpoint") != 0){
+            lightTimeOff = 0;
+
+            lightTimeOn = 0;
+        }
     }
 
     private void OnDestroy()

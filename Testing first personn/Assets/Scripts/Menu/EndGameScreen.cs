@@ -9,4 +9,9 @@ public class EndGameScreen : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    public void RestartButton()
+    {
+        SceneManager.LoadScene("Test");
+    }
 }

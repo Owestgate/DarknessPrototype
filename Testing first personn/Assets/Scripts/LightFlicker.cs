@@ -7,6 +7,8 @@ public class LightFlicker : MonoBehaviour
     public Light lightFlicker;
     public float waitTimeMin;
     public float waitTimeMax;
+
+    public bool lightOn;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,11 @@ public class LightFlicker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(lightFlicker.enabled == true){
+            lightOn = true;
+        }
+        if(lightFlicker.enabled == false){
+            lightOn = false;
+        }
     }
 }

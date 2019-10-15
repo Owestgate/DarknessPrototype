@@ -15,14 +15,14 @@ public class GameOverScreen : MonoBehaviour
 
     public void Retry()
     {
-        WaitToPlay();
+        //WaitToPlay();
         StartCoroutine(WaitToPlay());
     }
     
     IEnumerator WaitToPlay()
     {
         scarySound.Play();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 

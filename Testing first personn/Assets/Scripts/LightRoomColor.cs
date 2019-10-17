@@ -18,16 +18,18 @@ public class LightRoomColor : MonoBehaviour
 
     private float lighttime;
     private int stage;
+    public int pattern;
     private float splitTime;
     private int colorStage;
 
-    private Color colorRed = new Color(1, 0, 0, 1);
+    private Color colorRed = new Color(0.8f, 0, 0, 1);
     private Color colorOrange = new Color(1, 0.6f, 0.2f, 1);
-    private Color colorYellow = new Color(1, 1, 0, 1);
+    private Color colorYellow = new Color(0.6f, 0.6f, 0, 1);
     private Color colorWhite = new Color(1, 1, 1, 1);
 
     private Color[] colorSequence1 = new Color[3];
-    private Color[] colorSequence2 = new Color[6];
+    private Color[] colorSequence2 = new Color[5];
+    private Color[] colorSequence3 = new Color[7];
     private int colorCount = 0;
 
     public AudioSource lightOnSound;
@@ -42,7 +44,22 @@ public class LightRoomColor : MonoBehaviour
         colorSequence1[1] = colorOrange;
         colorSequence1[2] = colorRed;
 
+        colorSequence2[0] = colorRed;
+        colorSequence2[1] = colorOrange;
+        colorSequence2[2] = colorRed;
+        colorSequence2[3] = colorYellow;
+        colorSequence2[4] = colorRed;
+
+        colorSequence3[0] = colorOrange;
+        colorSequence3[1] = colorRed;
+        colorSequence3[2] = colorYellow;
+        colorSequence3[3] = colorOrange;
+        colorSequence3[4] = colorRed;
+        colorSequence3[5] = colorOrange;
+        colorSequence3[6] = colorYellow;
+
         stage = 0;
+        pattern = 1;
         splitTime = lightTimeOnColor / colorSequence1.Length;
 
         StartCoroutine(LightCycle());
@@ -64,7 +81,17 @@ public class LightRoomColor : MonoBehaviour
                     lightOnSound.Play();
                     foreach (Transform child in subLights.transform)
                     {
-                        child.GetComponent<Light>().color = colorSequence1[0];
+                        switch (pattern) {
+                            case 1:
+                                child.GetComponent<Light>().color = colorSequence1[0];
+                                break;
+                            case 2:
+                                child.GetComponent<Light>().color = colorSequence2[0];
+                                break;
+                            case 3:
+                                child.GetComponent<Light>().color = colorSequence3[0];
+                                break;
+                        }
                     }
                 }
                 if (lighttime >= lightTimeOff && !switchingOn)
@@ -93,7 +120,18 @@ public class LightRoomColor : MonoBehaviour
                         colorStage = (int)Math.Floor(lighttime / splitTime);
                         foreach (Transform child in subLights.transform)
                         {
-                            child.GetComponent<Light>().color = colorSequence1[colorStage];
+                            switch (pattern)
+                            {
+                                case 1:
+                                    child.GetComponent<Light>().color = colorSequence1[colorStage];
+                                    break;
+                                case 2:
+                                    child.GetComponent<Light>().color = colorSequence2[colorStage];
+                                    break;
+                                case 3:
+                                    child.GetComponent<Light>().color = colorSequence3[colorStage];
+                                    break;
+                            }
                         }
                     }
                 }
@@ -141,6 +179,18 @@ public class LightRoomColor : MonoBehaviour
         if (!switchingOn)
         {
             lightTimeOff = 0;
+        }
+    }
+
+    public void AdvancePattern()
+    {
+        pattern += 1;
+        if (pattern == 2)
+        {
+            splitTime = lightTimeOnColor / colorSequence2.Length;
+        } else
+        {
+            splitTime = lightTimeOnColor / colorSequence3.Length;
         }
     }
 }

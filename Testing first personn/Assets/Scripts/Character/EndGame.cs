@@ -17,6 +17,10 @@ public class EndGame : MonoBehaviour
 
     public GameObject roomController;
 
+    //Tracker vars
+    public Text t_Text;
+    public Text d_Text;
+
     void OnTriggerEnter(Collider plyr){
         if(plyr.gameObject.tag == "Character"){
 
@@ -26,7 +30,17 @@ public class EndGame : MonoBehaviour
             player.GetComponent<FirstPersonController>().enabled = false;
             player.GetComponent<MenuPopup>().cursorLock = false;            // overrides the menu script cursor lock
 
-            enemy.SetActive(false);           
+            enemy.SetActive(false);
+
+            if(PlayerPrefs.GetFloat("survdist") != 0)
+                d_Text.text = "Distance: " + System.Math.Round(PlayerPrefs.GetFloat("survdist"), 2).ToString() + " metres";
+            else
+                d_Text.text = "Error";
+
+            if (PlayerPrefs.GetFloat("survtime") != 0)
+                t_Text.text = "Time: " + System.Math.Round(PlayerPrefs.GetFloat("survtime"), 2).ToString() + " seconds";
+            else
+                t_Text.text = "Error";
 
             endGameUI.SetActive(true);
 
@@ -46,8 +60,4 @@ public class EndGame : MonoBehaviour
         Cursor.visible = true;
 
     }
-    
-
-    
-    
 }

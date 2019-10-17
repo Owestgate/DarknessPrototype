@@ -129,4 +129,18 @@ public class LightRoomColor : MonoBehaviour
     {
 
     }
+    public void ForceOn(float grace) //Lights will immediately turn on, and stay on for at least the specified number of seconds
+    {
+        if (stage == 0)
+        {
+            lightTimeOnBlank += grace;
+        } else
+        {
+            lightTimeOnColor += grace;
+        }
+        if (!switchingOn)
+        {
+            lightTimeOff = 0;
+        }
+    }
 }

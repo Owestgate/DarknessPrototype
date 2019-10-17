@@ -10,7 +10,7 @@ public class CloseDoorBehind : MonoBehaviour
     public AudioClip slidingSound;
     private bool onlyPlayItOnce;
     public GameObject roomLights;
-    
+    public GameObject colorLights;
     
     // Start is called before the first frame update
     void Start()
@@ -26,6 +26,7 @@ public class CloseDoorBehind : MonoBehaviour
             audSource.PlayOneShot(slidingSound);   
             onlyPlayItOnce = true;
             roomLights.GetComponent<RoomLights>().ForceOn(4);
+            colorLights.GetComponent<LightRoomColor>().ForceOn(4);
         }
 
     }

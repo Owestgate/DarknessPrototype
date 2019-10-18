@@ -12,6 +12,7 @@ public class EndGameScreen : MonoBehaviour
 
     public void RestartButton()
     {
+        PlayerPrefs.SetInt("pcheckpoint", 0);
         SceneManager.LoadScene("Test");
     }
 }

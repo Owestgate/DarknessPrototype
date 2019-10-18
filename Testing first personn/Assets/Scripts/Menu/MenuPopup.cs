@@ -25,6 +25,8 @@ public class MenuPopup : MonoBehaviour
  
        Cursor.lockState = CursorLockMode.Locked;
        cursorLock = true;    
+       //StartCoroutine(DelayPause());
+       pauseDelayed = true; /////
     }
 
     private void Awake()

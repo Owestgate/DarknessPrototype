@@ -6,11 +6,13 @@ public class DropSoundEffect : MonoBehaviour
 {
     public AudioClip impactSound;
     private AudioSource impactSource;
+    public float vell;
 
     void OnCollisionEnter(Collision hit){
         
-        if(this.gameObject.GetComponent<Rigidbody>().velocity.y <= -1.0f){
+        if(this.gameObject.GetComponent<Rigidbody>().velocity.y <= vell){
             impactSource.PlayOneShot(impactSound);
+            Debug.Log("drop");
         }
     }
     void OnCollisionStay(Collision hit){

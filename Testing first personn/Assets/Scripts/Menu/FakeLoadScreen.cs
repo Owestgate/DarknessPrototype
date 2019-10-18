@@ -6,6 +6,7 @@ public class FakeLoadScreen : MonoBehaviour
 {
     public GameObject playBTN;
     public GameObject spinningThing;
+    public GameObject readyScreenBTN;
 
     void Awake()
     {
@@ -13,11 +14,12 @@ public class FakeLoadScreen : MonoBehaviour
     }
 
     IEnumerator FakeLoadingTime(){
-        Debug.Log("FGGGGGGGGG");
+        
         yield return new WaitForSeconds(4.0f);
-        Debug.Log("s");
+
         spinningThing.SetActive(false);
         playBTN.SetActive(enabled);
+        readyScreenBTN.SetActive(enabled);
     }
 
     // Update is called once per frame

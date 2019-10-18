@@ -18,7 +18,7 @@ public class RotatePlayer : MonoBehaviour
         StartCoroutine(RotateAtStart());
         gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
-        if (PlayerPrefs.GetInt ("pcheckpoint") == 1){
+        if (PlayerPrefs.GetInt ("pcheckpoint") == 1 || PlayerPrefs.GetInt ("pcheckpoint") == 2){
         gameObject.transform.localRotation = Quaternion.Euler(0, -90, 0);
         }
     }

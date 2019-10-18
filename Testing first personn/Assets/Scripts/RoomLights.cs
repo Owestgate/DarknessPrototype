@@ -61,9 +61,9 @@ public class RoomLights : MonoBehaviour
         /*runSpeedOnStart = fpsController.m_RunSpeed;
         walkSpeedOnStart = fpsController.m_WalkSpeed;*/
         if (PlayerPrefs.GetInt ("pcheckpoint") != 0){
-            lightTimeOff = 0;
+            lightTimeOff = 0.1f;
 
-            lightTimeOn = 0;
+            lightTimeOn = 0.1f;
         }
     }
 

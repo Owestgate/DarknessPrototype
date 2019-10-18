@@ -44,6 +44,7 @@ public class PickUpObjects : MonoBehaviour
                         holdingItem.transform.parent = playerMainController.transform;
                         holdingItem.transform.parent = playerMainHand.transform;
                         holdingItem.transform.position = playerMainHand.transform.position;
+                        holdingItem.transform.rotation = playerMainHand.transform.rotation;
                         thingInHand = !thingInHand;
                     }
                     break;
@@ -57,6 +58,7 @@ public class PickUpObjects : MonoBehaviour
                             holdingItem.transform.parent = playerMainController.transform;
                             holdingItem.transform.parent = playerMainHand.transform;
                             holdingItem.transform.position = playerMainHand.transform.position;
+                            holdingItem.transform.rotation = playerMainHand.transform.rotation;
                             thingInHand = true;
 
                         }

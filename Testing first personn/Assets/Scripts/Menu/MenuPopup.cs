@@ -18,7 +18,6 @@ public class MenuPopup : MonoBehaviour
     public GameObject paintUIController;
 
     private FirstPersonController fpsController;
-
     
     
     void Start()
@@ -27,7 +26,7 @@ public class MenuPopup : MonoBehaviour
        Cursor.lockState = CursorLockMode.Locked;
        cursorLock = true;    
        //StartCoroutine(DelayPause());
-       pauseDelayed = false; /////
+       pauseDelayed = true; /////
     }
 
     private void Awake()
@@ -46,31 +45,25 @@ public class MenuPopup : MonoBehaviour
         if(menuOpen == true){
             menuPopup.SetActive(false);
             menuOpen = false;
-            Time.timeScale = 1; // Unpauses game time
+            Time.timeScale = 1; // Unpauses game time (recheck)
             Cursor.lockState = CursorLockMode.Locked;
             gameObject.GetComponent<FirstPersonController>().enabled = true; // Enables character to move again
             cursorLock = true;
         }
 
-
     }
-
-   
 
     void Update()
     {
-                
         
         //OPENS MENU - cant open in intro or death or painting
         if(Input.GetKeyDown(KeyCode.Escape) && menuOpen == false && pauseDelayed == true && this.gameObject.GetComponent<KillScreen>().cantPause == false && paintUIController.GetComponent<PaintingUI>().cantPauseNow == false){
             menuPopup.SetActive(true);
             menuOpen = true;
-            Time.timeScale = 0; // Pauses Game time
+            Time.timeScale = 0; // Pauses Game time (recheck)
             cursorLock = false;
-            gameObject.GetComponent<FirstPersonController>().enabled = false; // disables character movement while paused
+            gameObject.GetComponent<FirstPersonController>().enabled = false; // disables character movement while paused, might need changing
         }
-
-        
 
         if (cursorLock == true){
             Cursor.lockState = CursorLockMode.Locked;

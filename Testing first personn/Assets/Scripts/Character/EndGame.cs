@@ -14,6 +14,7 @@ public class EndGame : MonoBehaviour
     public GameObject player;
 
     public GameObject endGameUI;
+    public GameObject flareUI;
 
     public GameObject roomController;
 
@@ -43,6 +44,7 @@ public class EndGame : MonoBehaviour
                 t_Text.text = "Error";
 
             endGameUI.SetActive(true);
+            flareUI.SetActive(false);
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

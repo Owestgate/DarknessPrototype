@@ -14,7 +14,7 @@ public class LightRoomColor : MonoBehaviour
     public float lightTimeOff;
     public float lightTimeOnColor;
     public GameObject player;
-    public GameObject chaser;
+    public EnemyAI chaser;
 
     private float lighttime;
     private int stage;
@@ -22,14 +22,14 @@ public class LightRoomColor : MonoBehaviour
     private float splitTime;
     private int colorStage;
 
-    private Color colorRed = new Color(0.8f, 0, 0, 1);
-    private Color colorOrange = new Color(1, 0.6f, 0.2f, 1);
-    private Color colorYellow = new Color(0.6f, 0.6f, 0, 1);
+    private Color colorCyan = new Color(0, 1, 1, 1);
+    private Color colorMagenta = new Color(1, 0, 1, 1);
+    private Color colorYellow = new Color(1, 1, 0, 1);
     private Color colorWhite = new Color(1, 1, 1, 1);
 
     private Color[] colorSequence1 = new Color[3];
-    private Color[] colorSequence2 = new Color[5];
-    private Color[] colorSequence3 = new Color[7];
+    private Color[] colorSequence2 = new Color[4];
+    private Color[] colorSequence3 = new Color[5];
     private int colorCount = 0;
 
     public AudioSource lightOnSound;
@@ -41,22 +41,19 @@ public class LightRoomColor : MonoBehaviour
     void Start()
     {
         colorSequence1[0] = colorYellow;
-        colorSequence1[1] = colorOrange;
-        colorSequence1[2] = colorRed;
+        colorSequence1[1] = colorMagenta;
+        colorSequence1[2] = colorCyan;
 
-        colorSequence2[0] = colorRed;
-        colorSequence2[1] = colorOrange;
-        colorSequence2[2] = colorRed;
-        colorSequence2[3] = colorYellow;
-        colorSequence2[4] = colorRed;
+        colorSequence2[0] = colorCyan;
+        colorSequence2[1] = colorMagenta;
+        colorSequence2[2] = colorYellow;
+        colorSequence2[3] = colorCyan;
 
-        colorSequence3[0] = colorOrange;
-        colorSequence3[1] = colorRed;
-        colorSequence3[2] = colorYellow;
-        colorSequence3[3] = colorOrange;
-        colorSequence3[4] = colorRed;
-        colorSequence3[5] = colorOrange;
-        colorSequence3[6] = colorYellow;
+        colorSequence3[0] = colorMagenta;
+        colorSequence3[1] = colorCyan;
+        colorSequence3[2] = colorMagenta;
+        colorSequence3[3] = colorYellow;
+        colorSequence3[4] = colorMagenta;
 
         stage = 0;
         pattern = 1;
@@ -155,11 +152,11 @@ public class LightRoomColor : MonoBehaviour
         if (other.gameObject.tag == "Character" && switchingOn == false){
             //other.gameObject.GetComponent<FirstPersonController>().enabled = false;
             player.GetComponent<FirstPersonController>().lightsOn = false;
-            chaser.GetComponent<EnemyAI>().lightsOn = false; 
+            chaser.lightsOn = false; 
         } 
         if(other.gameObject.tag == "Character" && switchingOn == true) {
             player.GetComponent<FirstPersonController>().lightsOn = true;
-            chaser.GetComponent<EnemyAI>().lightsOn = true;
+            chaser.lightsOn = true;
         }
     }
 

@@ -26,22 +26,19 @@ public class ButtonController : MonoBehaviour
     void Start()
     {
         colorSequence1[0] = "yellow";
-        colorSequence1[1] = "orange";
-        colorSequence1[2] = "red";
+        colorSequence1[1] = "magenta";
+        colorSequence1[2] = "cyan";
 
-        colorSequence2[0] = "red";
-        colorSequence2[1] = "orange";
-        colorSequence2[2] = "red";
-        colorSequence2[3] = "yellow";
-        colorSequence2[4] = "red";
+        colorSequence2[0] = "cyan";
+        colorSequence2[1] = "magenta";
+        colorSequence2[2] = "yellow";
+        colorSequence2[3] = "cyan";
 
-        colorSequence3[0] = "orange";
-        colorSequence3[1] = "red";
-        colorSequence3[2] = "yellow";
-        colorSequence3[3] = "orange";
-        colorSequence3[4] = "red";
-        colorSequence3[5] = "orange";
-        colorSequence3[6] = "yellow";
+        colorSequence3[0] = "magenta";
+        colorSequence3[1] = "cyan";
+        colorSequence3[2] = "magenta";
+        colorSequence3[3] = "yellow";
+        colorSequence3[4] = "magenta";
 
         pattern = 1;
         codePosition = 0;
@@ -71,7 +68,7 @@ public class ButtonController : MonoBehaviour
                 codeFailed = false;
                 FailureSound.Play();
                 Debug.Log("wrong");
-                StartCoroutine(FlashLight());
+                // StartCoroutine(FlashLight());
             }
             else
             {

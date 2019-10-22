@@ -81,11 +81,20 @@ public class EnemyAI : MonoBehaviour
             if (EnemyCloseSound5.isPlaying) EnemyCloseSound5.Play();
 
         }
-        if (navAgent.enabled) navAgent.destination = playerCharacter.transform.position;
-        if(nearFlare)
+        if (navAgent.enabled)
+        {
+            NavMeshPath path = new NavMeshPath();
+            if (NavMesh.CalculatePath(transform.position, playerCharacter.transform.position, NavMesh.AllAreas, path))
+            {
+                Debug.Log("frfassfa");
+                navAgent.SetPath(path);
+            }
+        }
+        if (nearFlare)
         {
             navAgent.speed = 0;
         }
+
 
         //make the chaser run faster if the player is too far ahead
         distToPlayer = Vector3.Distance(playerCharacter.transform.position, transform.position);

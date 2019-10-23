@@ -61,7 +61,6 @@ public class FlareManager3 : MonoBehaviour
         flareItem.transform.parent = null;
         rb.AddForce(cam.forward * throwPower, ForceMode.Impulse);
         SaturationByLightState.Instance.OnLightSwitchOn();
-        GrainByLightState.Instance.OnLightSwitchOn();
     }
 
     IEnumerator CoolDown()

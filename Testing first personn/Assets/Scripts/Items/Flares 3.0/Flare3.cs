@@ -10,6 +10,7 @@ public class Flare3 : MonoBehaviour
 
     private FirstPersonController player;
     private EnemyAI enemy;
+    private RoomLights roomLights;
 
     public float effectDist;
     private float currentDist;
@@ -19,6 +20,7 @@ public class Flare3 : MonoBehaviour
         flareAnim.Play("flareAnim");
         player = GameObject.Find("FPSController").GetComponent<FirstPersonController>();
         enemy = GameObject.Find("Chaser").GetComponent<EnemyAI>();
+        roomLights = GameObject.Find("RoomLights").GetComponent<RoomLights>();
     }
 
     // Update is called once per frame
@@ -42,6 +44,7 @@ public class Flare3 : MonoBehaviour
         yield return new WaitForSeconds(flareDecay);
         player.nearFlare = false;
         enemy.nearFlare = false;
+        roomLights.flareActive = false;
         Destroy(transform.parent.gameObject);
     }
 

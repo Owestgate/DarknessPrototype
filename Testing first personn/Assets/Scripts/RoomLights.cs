@@ -9,6 +9,7 @@ public class RoomLights : MonoBehaviour
 
     public bool switchingOn;
     public bool bypass;
+    public bool flareActive;
     public FirstPersonController fpsController;
     public EnemyAI chaser;
     public GameObject[] subLights;
@@ -133,6 +134,10 @@ public class RoomLights : MonoBehaviour
     void LightSwitchStateOff()
     {
         Debug.Log("Lights off");
+        if (flareActive)
+        {
+            SaturationByLightState.Instance.OnLightSwitchOn();
+        }
         switchingOn = false;
         if (flickerCount > 0)
         {

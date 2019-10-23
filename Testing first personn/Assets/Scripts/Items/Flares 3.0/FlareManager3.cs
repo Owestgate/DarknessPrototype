@@ -7,6 +7,7 @@ public class FlareManager3 : MonoBehaviour
     // -->If you are looking for the Flare's lifespan, it is on the Flare Prefab.<-- \\
 
     public GameObject player;
+    public GameObject roomLights;
     public Transform cam;
     public GameObject flarePrefab;
     public float throwPower = 1;
@@ -61,6 +62,7 @@ public class FlareManager3 : MonoBehaviour
         flareItem.transform.parent = null;
         rb.AddForce(cam.forward * throwPower, ForceMode.Impulse);
         SaturationByLightState.Instance.OnLightSwitchOn();
+        roomLights.GetComponent<RoomLights>().flareActive = true;
     }
 
     IEnumerator CoolDown()

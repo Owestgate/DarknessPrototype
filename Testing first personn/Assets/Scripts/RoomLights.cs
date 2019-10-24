@@ -134,10 +134,6 @@ public class RoomLights : MonoBehaviour
     void LightSwitchStateOff()
     {
         Debug.Log("Lights off");
-        if (flareActive)
-        {
-            SaturationByLightState.Instance.OnLightSwitchOn();
-        }
         switchingOn = false;
         if (flickerCount > 0)
         {
@@ -152,6 +148,11 @@ public class RoomLights : MonoBehaviour
         lightOffSound.Play();
         UpdatePlayerMovementAttributes();
         lighttime = 0;
+        if (flareActive)
+        {
+            SaturationByLightState.Instance.OnLightSwitchOn();
+            Debug.Log("sdasda");
+        }
     }
 
     public void SetSublightsState(bool on)

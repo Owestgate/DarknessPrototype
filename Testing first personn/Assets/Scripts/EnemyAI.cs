@@ -86,7 +86,6 @@ public class EnemyAI : MonoBehaviour
             NavMeshPath path = new NavMeshPath();
             if (NavMesh.CalculatePath(transform.position, playerCharacter.transform.position, NavMesh.AllAreas, path))
             {
-                Debug.Log("frfassfa");
                 navAgent.SetPath(path);
             }
         }

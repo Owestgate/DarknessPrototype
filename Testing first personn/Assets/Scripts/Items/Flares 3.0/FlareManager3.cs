@@ -25,7 +25,12 @@ public class FlareManager3 : MonoBehaviour
     void Start()
     {
         flareHeld = false;
-        canUse = true;
+
+        if (PlayerPrefs.GetInt ("pcheckpoint") == 0){
+            StartCoroutine(DelayUse());
+        } else {
+            canUse = true;
+        }
     }
 
     // Update is called once per frame
@@ -63,6 +68,11 @@ public class FlareManager3 : MonoBehaviour
         rb.AddForce(cam.forward * throwPower, ForceMode.Impulse);
         SaturationByLightState.Instance.OnLightSwitchOn();
         roomLights.GetComponent<RoomLights>().flareActive = true;
+    }
+
+    IEnumerator DelayUse(){
+        yield return new WaitForSeconds(8.0f);
+        canUse = true;
     }
 
     IEnumerator CoolDown()

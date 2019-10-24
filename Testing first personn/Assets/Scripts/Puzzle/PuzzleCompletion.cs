@@ -10,6 +10,7 @@ public class PuzzleCompletion : MonoBehaviour
     public GameObject puzzlePiece4;
 
     public List<GameObject> spawnPoints; // 8 spawn points
+    public List<GameObject> hardSpawnPoints;
     public List<Transform> pieces; // 4 pieces + 4 empty spots so placements change every game
    // public GameObject puzzlePiece5;
 
@@ -26,8 +27,18 @@ public class PuzzleCompletion : MonoBehaviour
 
     //spawn objects
     public void SpawnPositions (List<Transform> objects){
-        for(int i = 0; i < objects.Count; i++){
-            objects[i].transform.position = spawnPoints[i].transform.position;
+        if (PlayerPrefs.GetInt("difficulty") == 2)
+        {
+            for (int i = 0; i < objects.Count; i++)
+            {
+                objects[i].transform.position = hardSpawnPoints[i].transform.position;
+            }
+        } else
+        {
+            for (int i = 0; i < objects.Count; i++)
+            {
+                objects[i].transform.position = spawnPoints[i].transform.position;
+            }
         }
     }
 
@@ -36,15 +47,34 @@ public class PuzzleCompletion : MonoBehaviour
         
         List<GameObject> tempList = new List<GameObject>();
 
-        for(int i = 0; i < spawnPoints.Count; i++){
-            tempList.Add(spawnPoints[i]);
-        }
+        if (PlayerPrefs.GetInt("difficulty") == 1)
+        {
+            for (int i = 0; i < hardSpawnPoints.Count; i++)
+            {
+                tempList.Add(hardSpawnPoints[i]);
+            }
 
-        for(int i = 0; i <spawnPoints.Count; i ++){
-            GameObject tempColor = spawnPoints[i];
-            int randomIndex = UnityEngine.Random.Range(i, spawnPoints.Count);
-            spawnPoints[i] = spawnPoints[randomIndex];
-            spawnPoints[randomIndex] = tempColor;
+            for (int i = 0; i < hardSpawnPoints.Count; i++)
+            {
+                GameObject tempColor = hardSpawnPoints[i];
+                int randomIndex = UnityEngine.Random.Range(i, hardSpawnPoints.Count);
+                hardSpawnPoints[i] = hardSpawnPoints[randomIndex];
+                hardSpawnPoints[randomIndex] = tempColor;
+            }
+        } else
+        {
+            for (int i = 0; i < spawnPoints.Count; i++)
+            {
+                tempList.Add(spawnPoints[i]);
+            }
+
+            for (int i = 0; i < spawnPoints.Count; i++)
+            {
+                GameObject tempColor = spawnPoints[i];
+                int randomIndex = UnityEngine.Random.Range(i, spawnPoints.Count);
+                spawnPoints[i] = spawnPoints[randomIndex];
+                spawnPoints[randomIndex] = tempColor;
+            }
         }
     }
 

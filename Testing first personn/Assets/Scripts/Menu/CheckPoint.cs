@@ -34,11 +34,16 @@ public class CheckPoint : MonoBehaviour
     }
 
     void OnTriggerEnter (Collider plyr){
-        if(plyr.gameObject.tag == "Character" && this.gameObject.name == "CheckPoint1"){
-            PlayerPrefs.SetInt("pcheckpoint", 1);
-        }
-        if(plyr.gameObject.tag == "Character" && this.gameObject.name == "CheckPoint2"){
-            PlayerPrefs.SetInt("pcheckpoint", 2);
+        if (PlayerPrefs.GetInt ("difficulty") != 2)
+        {
+            if (plyr.gameObject.tag == "Character" && this.gameObject.name == "CheckPoint1")
+            {
+                PlayerPrefs.SetInt("pcheckpoint", 1);
+            }
+            if (plyr.gameObject.tag == "Character" && this.gameObject.name == "CheckPoint2")
+            {
+                PlayerPrefs.SetInt("pcheckpoint", 2);
+            }
         }
     }
 

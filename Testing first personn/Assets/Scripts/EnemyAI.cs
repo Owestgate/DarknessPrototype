@@ -44,7 +44,7 @@ public class EnemyAI : MonoBehaviour
             navSpeed = hardSpeed;
         } 
         if (PlayerPrefs.GetInt("difficulty") == 0){
-            navSpeed = navAgent.speed - 1;
+            navSpeed = navAgent.speed;
         } // --
 
         modelSlot = GetComponent<MeshFilter>();

@@ -39,13 +39,13 @@ public class StopEnemyBehindDoor : MonoBehaviour
         doorBangSource = GetComponent<AudioSource>();
         volumeAtStart = doorBangSource.volume;
         //Difficulty 
-        if (PlayerPrefs.GetInt("difficulty") == 2){
+        if (PlayerPrefs.GetInt("difficulty") == 2){ // hard
             waitTime = 28;
         }
         if (PlayerPrefs.GetInt("difficulty") == 1){
             waitTime = 32;
         } 
-        if (PlayerPrefs.GetInt("difficulty") == 0){
+        if (PlayerPrefs.GetInt("difficulty") == 0){ // easy
             waitTime = 35;
         } // --
     }

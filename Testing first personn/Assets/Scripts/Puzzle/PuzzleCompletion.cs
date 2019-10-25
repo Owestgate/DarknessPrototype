@@ -47,7 +47,7 @@ public class PuzzleCompletion : MonoBehaviour
         
         List<GameObject> tempList = new List<GameObject>();
 
-        if (PlayerPrefs.GetInt("difficulty") == 1)
+        if (PlayerPrefs.GetInt("difficulty") == 1 || PlayerPrefs.GetInt("difficulty") == 0)
         {
             for (int i = 0; i < hardSpawnPoints.Count; i++)
             {

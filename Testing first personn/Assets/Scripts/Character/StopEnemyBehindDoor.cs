@@ -38,6 +38,16 @@ public class StopEnemyBehindDoor : MonoBehaviour
         navSpeedAtStart = enemyObject.GetComponent<NavMeshAgent>().speed;
         doorBangSource = GetComponent<AudioSource>();
         volumeAtStart = doorBangSource.volume;
+        //Difficulty 
+        if (PlayerPrefs.GetInt("difficulty") == 2){
+            waitTime = 28;
+        }
+        if (PlayerPrefs.GetInt("difficulty") == 1){
+            waitTime = 32;
+        } 
+        if (PlayerPrefs.GetInt("difficulty") == 0){
+            waitTime = 35;
+        } // --
     }
 
     // Update is called once per frame

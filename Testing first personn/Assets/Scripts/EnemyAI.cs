@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour
     public Mesh killPose;
     public float navSpeed;
     public float hardSpeed;
+    public float nightmareSpeed;
     public AudioSource EnemyCloseSound;
     public AudioSource EnemyCloseSound2;
     public AudioSource EnemyCloseSound3;
@@ -34,13 +35,18 @@ public class EnemyAI : MonoBehaviour
         lightsOn = false;
         playerCharacter = GameObject.FindGameObjectWithTag("Character");
         navAgent = GetComponent<NavMeshAgent>();
-        if (PlayerPrefs.GetInt("difficulty") == 2)
-        {
-            navSpeed = hardSpeed;
-        } else
-        {
-            navSpeed = navAgent.speed;
+
+        //Difficulty 
+        if (PlayerPrefs.GetInt("difficulty") == 2){
+            navSpeed = nightmareSpeed;
         }
+        if (PlayerPrefs.GetInt("difficulty") == 1){
+            navSpeed = hardSpeed;
+        } 
+        if (PlayerPrefs.GetInt("difficulty") == 0){
+            navSpeed = navAgent.speed - 1;
+        } // --
+
         modelSlot = GetComponent<MeshFilter>();
     }
 

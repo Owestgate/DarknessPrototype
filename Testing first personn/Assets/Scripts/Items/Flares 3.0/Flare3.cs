@@ -45,7 +45,7 @@ public class Flare3 : MonoBehaviour
         player.nearFlare = false;
         enemy.nearFlare = false;
         roomLights.flareActive = false;
-        Destroy(transform.parent.gameObject);
+        Destroy(transform.parent.transform.parent.gameObject);
     }
 
     private bool CheckDist(Transform objTrans)

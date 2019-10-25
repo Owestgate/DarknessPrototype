@@ -54,14 +54,14 @@ public class FlareManager3 : MonoBehaviour
     {
         flareHeld = true;
         flareItem = Instantiate(flarePrefab, player.transform);
-        flareItem.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        flareItem.GetComponent<Rigidbody>().useGravity = false;
+        flareItem.transform.GetChild(1).GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        flareItem.transform.GetChild(1).GetComponent<Rigidbody>().useGravity = false;
     }
 
     private void DropFlare()
     {
         flareHeld = false;
-        Rigidbody rb = flareItem.GetComponent<Rigidbody>();
+        Rigidbody rb = flareItem.transform.GetChild(1).GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.None;
         rb.useGravity = true;
         flareItem.transform.parent = null;

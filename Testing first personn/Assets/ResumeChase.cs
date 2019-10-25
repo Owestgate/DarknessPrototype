@@ -16,7 +16,7 @@ public class ResumeChase : MonoBehaviour
         {
             chaser.SetActive(true);
             chaser.transform.position = chaserResumePos.transform.position;
-            roomLights.GetComponent<RoomLights>().GraceTime(3);
+            roomLights.GetComponent<RoomLights>().GraceTime(1.5f);
             pauser.GetComponent<PauseEnemy>().stopping = false; //Prevents the pause enemy script from incorrectly disabling the chaser
         }
 

@@ -19,8 +19,8 @@ public class ButtonController : MonoBehaviour
     private string[] currentCode;
 
     private string[] colorSequence1 = new string[3];
-    private string[] colorSequence2 = new string[5];
-    private string[] colorSequence3 = new string[7];
+    private string[] colorSequence2 = new string[4];
+    private string[] colorSequence3 = new string[5];
 
     // Start is called before the first frame update
     void Start()

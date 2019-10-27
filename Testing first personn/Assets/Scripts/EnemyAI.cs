@@ -29,6 +29,8 @@ public class EnemyAI : MonoBehaviour
     private bool currentModel;
 
     public bool nearFlare;
+    public AudioSource[] enemySounds;
+    public float hardPitch = 1.3f;
 
     void Start()
     {
@@ -36,14 +38,20 @@ public class EnemyAI : MonoBehaviour
         playerCharacter = GameObject.FindGameObjectWithTag("Character");
         navAgent = GetComponent<NavMeshAgent>();
 
+        int difficulty = PlayerPrefs.GetInt("difficulty");
+        Debug.Log(difficulty);
         //Difficulty 
-        if (PlayerPrefs.GetInt("difficulty") == 2){
+        if (difficulty == 2){
             navSpeed = nightmareSpeed;
         }
-        if (PlayerPrefs.GetInt("difficulty") == 1){
+        if (difficulty == 1){
             navSpeed = hardSpeed;
+            for (int i = 0; i < enemySounds.Length; i++)
+            {
+                enemySounds[i].pitch = hardPitch;
+            }
         } 
-        if (PlayerPrefs.GetInt("difficulty") == 0){
+        if (difficulty == 0){
             navSpeed = navAgent.speed;
         } // --
 

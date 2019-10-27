@@ -8,7 +8,13 @@ public class ButtonController : MonoBehaviour
     public Animator doorOpenAnimator;
     public AudioSource FailureSound;
     public AudioSource DoorOpen;
+    public GameObject GeneratorNoise1;
+    public GameObject GeneratorNoise2;
+    public GameObject GeneratorNoise3;
     public GameObject errorLight;
+    public GameObject greenLight1;
+    public GameObject greenLight2;
+    public GameObject greenLight3;
 
     public GameObject lightRoom;
     private int pattern;
@@ -67,8 +73,7 @@ public class ButtonController : MonoBehaviour
                 codePosition = 0;
                 codeFailed = false;
                 FailureSound.Play();
-                Debug.Log("wrong");
-                // StartCoroutine(FlashLight());
+                StartCoroutine(FlashLight());
             }
             else
             {
@@ -78,15 +83,21 @@ public class ButtonController : MonoBehaviour
                 if (pattern == 2)
                 {
                     currentCode = colorSequence2;
+                    greenLight1.SetActive(true);
+                    GeneratorNoise1.GetComponent<AudioSource>().Play();
                 } else
                 {
                     currentCode = colorSequence3;
+                    greenLight2.SetActive(true);
+                    GeneratorNoise2.GetComponent<AudioSource>().Play();
                 }
                 if (pattern > 3)
                 {
                     doorOpenAnimator.Play("SlidingDoorOpen");
                     DoorOpen.Play();
                     codePosition = 100;
+                    greenLight3.SetActive(true);
+                    GeneratorNoise3.GetComponent<AudioSource>().Play();
                 }
             }
         }

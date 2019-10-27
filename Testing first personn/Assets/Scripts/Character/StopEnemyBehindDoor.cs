@@ -57,13 +57,11 @@ public class StopEnemyBehindDoor : MonoBehaviour
         {
             if(enemyObject.GetComponent<EnemyAI>().lightsOn == false){
                 doorBangSource.PlayOneShot(doorBangSound);
-                Debug.Log("inte1111");
 
                 Instantiate(bashParticleSystem, doorPosition.position, doorPosition.rotation);
                 yield return new WaitForSeconds(doorBanginterval);
                 doorBanginterval = Random.Range(0.9f, 2.0f);         // Randomises interval sound
                 doorPitch = Random.Range (0.85f, 1.15f);               // Randomises pitch so its a bit different each time
-                Debug.Log("inte2222");
             }   
             yield return new WaitForSeconds(0.1f); // this is here so there is no while-loop that crashes the game     
         }

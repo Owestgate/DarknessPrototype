@@ -32,6 +32,10 @@ public class EnemyAI : MonoBehaviour
     public AudioSource[] enemySounds;
     public float hardPitch = 1.3f;
 
+    public Material normalMat;
+    public Material brutalMat;
+    public GameObject brutalEffects;
+
     void Start()
     {
         lightsOn = false;
@@ -43,9 +47,13 @@ public class EnemyAI : MonoBehaviour
         //Difficulty 
         if (difficulty == 2){
             navSpeed = nightmareSpeed;
+            gameObject.GetComponent<MeshRenderer>().material = brutalMat;
+            brutalEffects.SetActive(true);
         }
         if (difficulty == 1){
             navSpeed = hardSpeed;
+            gameObject.GetComponent<MeshRenderer>().material = brutalMat;
+            brutalEffects.SetActive(true);
             for (int i = 0; i < enemySounds.Length; i++)
             {
                 enemySounds[i].pitch = hardPitch;
@@ -53,6 +61,8 @@ public class EnemyAI : MonoBehaviour
         } 
         if (difficulty == 0){
             navSpeed = navAgent.speed;
+            gameObject.GetComponent<MeshRenderer>().material = normalMat;
+            brutalEffects.SetActive(false);
         } // --
 
         modelSlot = GetComponent<MeshFilter>();

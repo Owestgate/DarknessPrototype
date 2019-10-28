@@ -27,11 +27,12 @@ public class PuzzleCompletion : MonoBehaviour
 
     //spawn objects
     public void SpawnPositions (List<Transform> objects){
-        if (PlayerPrefs.GetInt("difficulty") == 2)
+        if (PlayerPrefs.GetInt("difficulty") == 1)
         {
             for (int i = 0; i < objects.Count; i++)
             {
                 objects[i].transform.position = hardSpawnPoints[i].transform.position;
+                Debug.Log("asdasda");
             }
         } else
         {
@@ -47,8 +48,9 @@ public class PuzzleCompletion : MonoBehaviour
         
         List<GameObject> tempList = new List<GameObject>();
 
-        if (PlayerPrefs.GetInt("difficulty") == 1 || PlayerPrefs.GetInt("difficulty") == 0)
+        if (PlayerPrefs.GetInt("difficulty") == 1 || PlayerPrefs.GetInt("difficulty") == 2)
         {
+            Debug.Log("asdasda2");
             for (int i = 0; i < hardSpawnPoints.Count; i++)
             {
                 tempList.Add(hardSpawnPoints[i]);

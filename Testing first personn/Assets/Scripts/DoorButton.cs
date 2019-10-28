@@ -7,22 +7,40 @@ public class DoorButton : MonoBehaviour
     public Animator slidingAnim;
     public GameObject chaser;
 
+    public GameObject door1;   //Left
+    public GameObject door2;   //Right
+
+    public bool onlyOnce;
+
+    public AudioSource leverSource;
+    public AudioClip leverClip;
+    public AudioClip doorClip;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        onlyOnce = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    IEnumerator DoorDelay(){
+        yield return new WaitForSeconds(0.5f);
+        door1.GetComponent<Animator>().Play("LeftDoor");
+        door2.GetComponent<Animator>().Play("RightDoor");
     }
 
     public void Press()
     {
-        chaser.SetActive(true);
-        chaser.transform.position = new Vector3(-260,0,85);
-        slidingAnim.Play("SlidingDoorClosed");
+        if(onlyOnce == false){
+            gameObject.GetComponent<Animator>().Play("Lever");
+            onlyOnce = true;
+            leverSource.PlayOneShot(leverClip);
+            StartCoroutine(DoorDelay());
+            door1.GetComponent<AudioSource>().PlayOneShot(doorClip);
+            door2.GetComponent<AudioSource>().PlayOneShot(doorClip);
+        //chaser.SetActive(true);
+        //chaser.transform.position = new Vector3(-260,0,85);
+       
+
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -71,7 +72,15 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(PlyrKillScreen.GetComponent<KillScreen>().jumpScare2 == false){
+        if (playerCharacter.GetComponent<FirstPersonController>().inBypass)
+        {
+            EnemyCloseSound5.mute = true;
+        }
+        else
+        {
+            EnemyCloseSound5.mute = false;
+        }
+        if (PlyrKillScreen.GetComponent<KillScreen>().jumpScare2 == false){
             if (lightsOn && lightsJustOn)
             {
             currentModel = !currentModel; //if the lights just came on, switch models

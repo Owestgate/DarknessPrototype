@@ -6,8 +6,12 @@ public class ButtonController : MonoBehaviour
 {
 
     public Animator doorOpenAnimator;
-    public AudioSource FailureSound;
-    public AudioSource DoorOpen;
+    private AudioSource failAudSource;
+    public AudioClip FailureSound;
+    private AudioSource doorAudSource;
+    public AudioClip DoorOpen;
+    public AudioClip SuccessSound;
+    private AudioSource successAudSource;
     public GameObject GeneratorNoise1;
     public GameObject GeneratorNoise2;
     public GameObject GeneratorNoise3;
@@ -51,6 +55,10 @@ public class ButtonController : MonoBehaviour
         codeFailed = false;
 
         currentCode = colorSequence1;
+
+        failAudSource = GetComponent<AudioSource>();
+        doorAudSource = GetComponent<AudioSource>();
+        successAudSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -72,7 +80,7 @@ public class ButtonController : MonoBehaviour
             {
                 codePosition = 0;
                 codeFailed = false;
-                FailureSound.Play();
+                failAudSource.PlayOneShot(FailureSound);
                 StartCoroutine(FlashLight());
             }
             else
@@ -80,6 +88,7 @@ public class ButtonController : MonoBehaviour
                 codePosition = 0;
                 lightRoom.GetComponent<LightRoomColor>().AdvancePattern();
                 pattern += 1;
+                successAudSource.PlayOneShot(SuccessSound);
                 if (pattern == 2)
                 {
                     currentCode = colorSequence2;
@@ -94,7 +103,7 @@ public class ButtonController : MonoBehaviour
                 if (pattern > 3)
                 {
                     doorOpenAnimator.Play("SlidingDoorOpen");
-                    DoorOpen.Play();
+                    doorAudSource.PlayOneShot(DoorOpen);
                     codePosition = 100;
                     greenLight3.SetActive(true);
                     GeneratorNoise3.GetComponent<AudioSource>().Play();

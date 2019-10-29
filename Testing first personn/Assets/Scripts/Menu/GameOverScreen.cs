@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Runtime;
 
 public class GameOverScreen : MonoBehaviour
 {
@@ -14,8 +15,8 @@ public class GameOverScreen : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        dist.text = "Distance: " + System.Math.Round(PlayerPrefs.GetFloat("survdist"), 2).ToString() + " metres";
-        time.text = "Time: " + System.Math.Round(PlayerPrefs.GetFloat("survtime"), 2).ToString() + " seconds";
+        dist.text = "Distance: " + PlayerPrefs.GetFloat("survdist").ToString() + " metres";
+        time.text = "Time: " + System.TimeSpan.FromSeconds(PlayerPrefs.GetFloat("survtime")).ToString();
     }
 
     public void Retry()

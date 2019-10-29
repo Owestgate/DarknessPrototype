@@ -38,7 +38,7 @@ public class KillScreen : MonoBehaviour
 
     public UnityEvent OnDie;
     public bool cantPause = false;
-    public GameObject flareUI;
+    public GameObject abilityUI;
 
     void Start()
     {
@@ -96,7 +96,7 @@ public class KillScreen : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         playerCamera.transform.LookAt(jumpScareLookAt.transform);
         // chroma.intensity.value += 0.01f;
-        flareUI.SetActive(false);
+        abilityUI.SetActive(false);
     }
     
     void LoadScreen()

@@ -30,6 +30,6 @@ public class P_TrackerScript : MonoBehaviour
 
         distTravelled += Vector3.Distance(pt_player.transform.position, lastPosition);
         lastPosition = pt_player.transform.position;
-        PlayerPrefs.SetFloat("survdist", Mathf.Round(distTravelled));
+        PlayerPrefs.SetFloat("survdist", Mathf.Round(distTravelled/4));
     }
 }

@@ -14,6 +14,8 @@ public class EnemyAI : MonoBehaviour
     public Mesh model2;
     public Mesh killPose;
     public float navSpeed;
+    public float hardSpeed;
+    public float nightmareSpeed;
     public AudioSource EnemyCloseSound;
     public AudioSource EnemyCloseSound2;
     public AudioSource EnemyCloseSound3;
@@ -27,13 +29,42 @@ public class EnemyAI : MonoBehaviour
     private bool currentModel;
 
     public bool nearFlare;
+    public AudioSource[] enemySounds;
+    public float hardPitch = 1.3f;
+
+    public Material normalMat;
+    public Material brutalMat;
+    public GameObject brutalEffects;
 
     void Start()
     {
         lightsOn = false;
         playerCharacter = GameObject.FindGameObjectWithTag("Character");
         navAgent = GetComponent<NavMeshAgent>();
-        navSpeed = navAgent.speed;
+
+        int difficulty = PlayerPrefs.GetInt("difficulty");
+        Debug.Log(difficulty);
+        //Difficulty 
+        if (difficulty == 2){
+            navSpeed = nightmareSpeed;
+            gameObject.GetComponent<MeshRenderer>().material = brutalMat;
+            brutalEffects.SetActive(true);
+        }
+        if (difficulty == 1){
+            navSpeed = hardSpeed;
+            gameObject.GetComponent<MeshRenderer>().material = brutalMat;
+            brutalEffects.SetActive(true);
+            for (int i = 0; i < enemySounds.Length; i++)
+            {
+                enemySounds[i].pitch = hardPitch;
+            }
+        } 
+        if (difficulty == 0){
+            navSpeed = navAgent.speed;
+            gameObject.GetComponent<MeshRenderer>().material = normalMat;
+            brutalEffects.SetActive(false);
+        } // --
+
         modelSlot = GetComponent<MeshFilter>();
     }
 
@@ -81,11 +112,19 @@ public class EnemyAI : MonoBehaviour
             if (EnemyCloseSound5.isPlaying) EnemyCloseSound5.Play();
 
         }
-        if (navAgent.enabled) navAgent.destination = playerCharacter.transform.position;
-        if(nearFlare)
+        if (navAgent.enabled)
+        {
+            NavMeshPath path = new NavMeshPath();
+            if (NavMesh.CalculatePath(transform.position, playerCharacter.transform.position, NavMesh.AllAreas, path))
+            {
+                navAgent.SetPath(path);
+            }
+        }
+        if (nearFlare)
         {
             navAgent.speed = 0;
         }
+
 
         //make the chaser run faster if the player is too far ahead
         distToPlayer = Vector3.Distance(playerCharacter.transform.position, transform.position);

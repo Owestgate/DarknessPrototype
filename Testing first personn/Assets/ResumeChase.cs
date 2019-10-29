@@ -9,14 +9,16 @@ public class ResumeChase : MonoBehaviour
     public GameObject chaserResumePos;
     public GameObject roomLights;
     public GameObject pauser;
+    public bool triggerOnce;
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Character")
+        if (other.gameObject.tag == "Character" && triggerOnce == false)
         {
+            triggerOnce = true;
             chaser.SetActive(true);
             chaser.transform.position = chaserResumePos.transform.position;
-            roomLights.GetComponent<RoomLights>().GraceTime(3);
+            roomLights.GetComponent<RoomLights>().GraceTime(1.5f);
             pauser.GetComponent<PauseEnemy>().stopping = false; //Prevents the pause enemy script from incorrectly disabling the chaser
         }
 

@@ -11,6 +11,8 @@ public class KillScreen : MonoBehaviour
 {
     public GameObject enemyObj;
     public GameObject playerObj;
+    public GameObject roomLights;
+    public GameObject colorLights;
     //Name of the screen to transition to
     public string killScreen;
     //If currentDist is less than this, you die.
@@ -36,7 +38,7 @@ public class KillScreen : MonoBehaviour
 
     public UnityEvent OnDie;
     public bool cantPause = false;
-    public GameObject flareUI;
+    public GameObject abilityUI;
 
     void Start()
     {
@@ -48,10 +50,14 @@ public class KillScreen : MonoBehaviour
     {
         //Gets the current distance, compares, then kills
         currentDist = Vector3.Distance(playerObj.transform.position, enemyObj.transform.position);
-        if (currentDist < killDist && !RoomLights.Instance.switchingOn && !scaring)
+        if (currentDist < killDist && !roomLights.GetComponent<RoomLights>().switchingOn && !scaring)
         {
             silenceTime = silenceTimer;
-            RoomLights.Instance.ForceOff(silenceTimer);
+            roomLights.GetComponent<RoomLights>().ForceOff(silenceTimer);
+            if (!colorLights.GetComponent<LightRoomColor>().switchingOn)
+            {
+                colorLights.GetComponent<LightRoomColor>().ForceOff(silenceTimer);
+            }
             scaring = true;
         }
 
@@ -60,6 +66,7 @@ public class KillScreen : MonoBehaviour
             silenceTime -= Time.deltaTime;
             if (silenceTime <= 0)
             {
+                silenceTime = 0;
                 StartCoroutine(Lookat());
                 FirstPersonController fpsController = playerObj.GetComponent<FirstPersonController>();
                 //playerObj.transform.position = jumpScarePosition.transform.position; // teleports player into position infront of enemy -- testint new one
@@ -78,7 +85,8 @@ public class KillScreen : MonoBehaviour
                 RoomLights.Instance.SetSublightsState(true);
                 RoomLights.Instance.StopCoroutine(RoomLights.Instance.LightsCoroutine);
                 RoomLights.Instance.enabled = false;
-
+                colorLights.GetComponent<LightRoomColor>().lightTimeOnColor = 100;
+                colorLights.GetComponent<LightRoomColor>().lightTimeOnBlank = 100;
                 enemyObj.GetComponent<NavMeshAgent>().enabled = false;
 
                 cantPause = true;
@@ -90,12 +98,12 @@ public class KillScreen : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         playerCamera.transform.LookAt(jumpScareLookAt.transform);
         // chroma.intensity.value += 0.01f;
-        flareUI.SetActive(false);
+        abilityUI.SetActive(false);
     }
     
     void LoadScreen()
     {
-        Invoke("LoadSceneDelayed", 9);
+        Invoke("LoadSceneDelayed", 8);
     }
 
     void LoadSceneDelayed()

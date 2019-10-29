@@ -38,6 +38,16 @@ public class StopEnemyBehindDoor : MonoBehaviour
         navSpeedAtStart = enemyObject.GetComponent<NavMeshAgent>().speed;
         doorBangSource = GetComponent<AudioSource>();
         volumeAtStart = doorBangSource.volume;
+        //Difficulty 
+        if (PlayerPrefs.GetInt("difficulty") == 2){ // hard
+            waitTime = 28;
+        }
+        if (PlayerPrefs.GetInt("difficulty") == 1){
+            waitTime = 32;
+        } 
+        if (PlayerPrefs.GetInt("difficulty") == 0){ // easy
+            waitTime = 35;
+        } // --
     }
 
     // Update is called once per frame
@@ -47,13 +57,11 @@ public class StopEnemyBehindDoor : MonoBehaviour
         {
             if(enemyObject.GetComponent<EnemyAI>().lightsOn == false){
                 doorBangSource.PlayOneShot(doorBangSound);
-                Debug.Log("inte1111");
 
                 Instantiate(bashParticleSystem, doorPosition.position, doorPosition.rotation);
                 yield return new WaitForSeconds(doorBanginterval);
                 doorBanginterval = Random.Range(0.9f, 2.0f);         // Randomises interval sound
                 doorPitch = Random.Range (0.85f, 1.15f);               // Randomises pitch so its a bit different each time
-                Debug.Log("inte2222");
             }   
             yield return new WaitForSeconds(0.1f); // this is here so there is no while-loop that crashes the game     
         }

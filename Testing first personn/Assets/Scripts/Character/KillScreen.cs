@@ -11,6 +11,8 @@ public class KillScreen : MonoBehaviour
 {
     public GameObject enemyObj;
     public GameObject playerObj;
+    public GameObject roomLights;
+    public GameObject colorLights;
     //Name of the screen to transition to
     public string killScreen;
     //If currentDist is less than this, you die.
@@ -48,18 +50,22 @@ public class KillScreen : MonoBehaviour
     {
         //Gets the current distance, compares, then kills
         currentDist = Vector3.Distance(playerObj.transform.position, enemyObj.transform.position);
-        if (currentDist < killDist && !RoomLights.Instance.switchingOn && !scaring)
+        if (currentDist < killDist && !roomLights.GetComponent<RoomLights>().switchingOn && !scaring)
         {
             silenceTime = silenceTimer;
             RoomLights.Instance.ForceOff(silenceTimer);
             scaring = true;
+            Debug.Log("??????");
         }
 
         if (scaring)
         {
             silenceTime -= Time.deltaTime;
-            if (silenceTime <= 0)
+            Debug.Log(silenceTime);
+            Debug.Log(roomLights.GetComponent<RoomLights>().switchingOn);
+            if (silenceTime <= 0 || roomLights.GetComponent<RoomLights>().switchingOn || colorLights.GetComponent<LightRoomColor>().switchingOn)
             {
+                silenceTime = 0;
                 StartCoroutine(Lookat());
                 FirstPersonController fpsController = playerObj.GetComponent<FirstPersonController>();
                 //playerObj.transform.position = jumpScarePosition.transform.position; // teleports player into position infront of enemy -- testint new one

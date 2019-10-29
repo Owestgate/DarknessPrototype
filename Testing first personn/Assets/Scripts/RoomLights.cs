@@ -81,20 +81,16 @@ public class RoomLights : MonoBehaviour
             if (!fpsController.inBypass)
             {
                 lighttime += Time.deltaTime;
-                if (lighttime >= lightTimeOn && switchingOn)
-                {
-                    OnLightSwitchStateOff.Invoke();
-                }
-                if (lighttime >= lightTimeOff && !switchingOn)
-                {
-                    OnLightSwitchStateOn.Invoke();
-                }
-                yield return null;
             }
-            else
+            if (lighttime >= lightTimeOn && switchingOn)
             {
-                yield return null;
+                OnLightSwitchStateOff.Invoke();
             }
+            if (lighttime >= lightTimeOff && !switchingOn)
+            {
+                OnLightSwitchStateOn.Invoke();
+            }
+            yield return null;
         }
     }
 
@@ -114,6 +110,15 @@ public class RoomLights : MonoBehaviour
         UpdatePlayerMovementAttributes();
         lighttime = 0;
 
+    }
+
+    void LightSwitchStateOffAlt()
+    {
+        switchingOn = false;
+        Debug.Log("Lights off");
+        SetSublightsState(false);
+        lightOnSound.Play();
+        lighttime = 0;
     }
 
     void UpdatePlayerMovementAttributes()
@@ -187,8 +192,16 @@ public class RoomLights : MonoBehaviour
 
     public void ForceOff(float delay)
     {
-        lighttime = 0;
+        lightTimeOn = 0;
         lightTimeOff = delay;
+    }
+
+    public void ForceOffAlt(float delay)
+    {
+        lightTimeOn = 0;
+        lightTimeOff = delay;
+        Debug.Log("hamberger");
+        LightSwitchStateOffAlt();
     }
 
     public void Update()

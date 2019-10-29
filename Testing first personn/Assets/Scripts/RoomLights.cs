@@ -25,7 +25,7 @@ public class RoomLights : MonoBehaviour
     public Vector2 lightTimeOffRange;
     private WaitForSeconds lightTimeOffWait;
     public AudioSource lightOffSound;
-    private float lighttime;
+    public float lighttime;
     private int flickerCount;
     private float flickerDelay;
 
@@ -192,6 +192,7 @@ public class RoomLights : MonoBehaviour
 
     public void ForceOff(float delay)
     {
+        lighttime = 0;
         lightTimeOn = 0;
         lightTimeOff = delay;
     }

@@ -190,4 +190,11 @@ public class LightRoomColor : MonoBehaviour
             splitTime = lightTimeOnColor / colorSequence3.Length;
         }
     }
+
+    public void ForceOff(float delay)
+    {
+        lighttime = 0;
+        lightTimeOff = delay;
+    }
+
 }

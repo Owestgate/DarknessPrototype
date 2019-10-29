@@ -53,17 +53,18 @@ public class KillScreen : MonoBehaviour
         if (currentDist < killDist && !roomLights.GetComponent<RoomLights>().switchingOn && !scaring)
         {
             silenceTime = silenceTimer;
-            RoomLights.Instance.ForceOff(silenceTimer);
+            roomLights.GetComponent<RoomLights>().ForceOff(silenceTimer);
+            if (!colorLights.GetComponent<LightRoomColor>().switchingOn)
+            {
+                colorLights.GetComponent<LightRoomColor>().ForceOff(silenceTimer);
+            }
             scaring = true;
-            Debug.Log("??????");
         }
 
         if (scaring)
         {
             silenceTime -= Time.deltaTime;
-            Debug.Log(silenceTime);
-            Debug.Log(roomLights.GetComponent<RoomLights>().switchingOn);
-            if (silenceTime <= 0 || roomLights.GetComponent<RoomLights>().switchingOn || colorLights.GetComponent<LightRoomColor>().switchingOn)
+            if (silenceTime <= 0)
             {
                 silenceTime = 0;
                 StartCoroutine(Lookat());
@@ -84,7 +85,8 @@ public class KillScreen : MonoBehaviour
                 RoomLights.Instance.SetSublightsState(true);
                 RoomLights.Instance.StopCoroutine(RoomLights.Instance.LightsCoroutine);
                 RoomLights.Instance.enabled = false;
-
+                colorLights.GetComponent<LightRoomColor>().lightTimeOnColor = 100;
+                colorLights.GetComponent<LightRoomColor>().lightTimeOnBlank = 100;
                 enemyObj.GetComponent<NavMeshAgent>().enabled = false;
 
                 cantPause = true;

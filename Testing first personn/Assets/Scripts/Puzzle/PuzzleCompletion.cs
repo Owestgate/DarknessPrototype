@@ -32,7 +32,6 @@ public class PuzzleCompletion : MonoBehaviour
             for (int i = 0; i < objects.Count; i++)
             {
                 objects[i].transform.position = hardSpawnPoints[i].transform.position;
-                Debug.Log("asdasda");
             }
         } else
         {
@@ -50,7 +49,6 @@ public class PuzzleCompletion : MonoBehaviour
 
         if (PlayerPrefs.GetInt("difficulty") == 1 || PlayerPrefs.GetInt("difficulty") == 2)
         {
-            Debug.Log("asdasda2");
             for (int i = 0; i < hardSpawnPoints.Count; i++)
             {
                 tempList.Add(hardSpawnPoints[i]);

@@ -72,14 +72,6 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerCharacter.GetComponent<FirstPersonController>().inBypass)
-        {
-            EnemyCloseSound5.mute = true;
-        }
-        else
-        {
-            EnemyCloseSound5.mute = false;
-        }
         if (PlyrKillScreen.GetComponent<KillScreen>().jumpScare2 == false){
             if (lightsOn && lightsJustOn)
             {
@@ -143,6 +135,15 @@ public class EnemyAI : MonoBehaviour
 
         if(PlyrKillScreen.GetComponent<KillScreen>().jumpScare2 == true){
             modelSlot.mesh = killPose;
+        }
+
+        if (playerCharacter.GetComponent<FirstPersonController>().inBypass)
+        {
+            EnemyCloseSound5.Pause();
+        }
+        else
+        {
+            EnemyCloseSound5.UnPause();
         }
     }
 }

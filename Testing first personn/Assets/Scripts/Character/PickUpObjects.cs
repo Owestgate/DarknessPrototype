@@ -37,7 +37,7 @@ public class PickUpObjects : MonoBehaviour
             switch(togglePickup)
             {
                 case true:
-                    if (Input.GetKeyDown(KeyCode.Mouse0) && hit.transform.gameObject.GetComponent<PickUpableItem>())
+                    if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E)) && hit.transform.gameObject.GetComponent<PickUpableItem>())
                     {
                         holdingItem = hit.transform.gameObject;
 
@@ -49,7 +49,7 @@ public class PickUpObjects : MonoBehaviour
                     }
                     break;
                 case false:
-                    if (Input.GetKeyDown(KeyCode.Mouse0))
+                    if ((Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E)) )
                     {
                         if (hit.transform.gameObject.GetComponent<PickUpableItem>())
                         {
@@ -75,7 +75,7 @@ public class PickUpObjects : MonoBehaviour
                             holdingItem.GetComponent<DoorButton>().Press();
                         }
                     }
-                    if (Input.GetKeyUp(KeyCode.Mouse0) /*&& hit.transform.gameObject.GetComponent<PickUpableItem>()*/)
+                    if ((Input.GetKeyUp(KeyCode.Mouse0) || Input.GetKeyUp(KeyCode.E)) /*&& hit.transform.gameObject.GetComponent<PickUpableItem>()*/)
                     {
                         holdingItem.transform.parent = null;
                         hit.transform.gameObject.transform.position = hit.transform.gameObject.transform.position;

@@ -13,12 +13,13 @@ public class LightRoomColor : MonoBehaviour
     public float lightTimeOnBlank;
     public float lightTimeOff;
     public float lightTimeOnColor;
+    public float lightTimeOnColorH;
     public GameObject player;
     public EnemyAI chaser;
 
-    private float lighttime;
-    private int stage;
+    public float lighttime;
     public int pattern;
+    private int patternLength;
     private float splitTime;
     private int colorStage;
 
@@ -30,6 +31,10 @@ public class LightRoomColor : MonoBehaviour
     private Color[] colorSequence1 = new Color[3];
     private Color[] colorSequence2 = new Color[4];
     private Color[] colorSequence3 = new Color[5];
+
+    private Color[] colorSequence1h = new Color[3];
+    private Color[] colorSequence2h = new Color[5];
+    private Color[] colorSequence3h = new Color[7];
     private int colorCount = 0;
 
     public AudioSource lightOnSound;
@@ -55,9 +60,37 @@ public class LightRoomColor : MonoBehaviour
         colorSequence3[3] = colorYellow;
         colorSequence3[4] = colorMagenta;
 
-        stage = 0;
+        colorSequence1h[0] = colorMagenta;
+        colorSequence1h[1] = colorYellow;
+        colorSequence1h[2] = colorCyan;
+
+        colorSequence2h[0] = colorCyan;
+        colorSequence2h[1] = colorYellow;
+        colorSequence2h[2] = colorCyan;
+        colorSequence2h[3] = colorMagenta;
+        colorSequence2h[4] = colorYellow;
+
+        colorSequence3h[0] = colorMagenta;
+        colorSequence3h[1] = colorCyan;
+        colorSequence3h[2] = colorYellow;
+        colorSequence3h[3] = colorCyan;
+        colorSequence3h[4] = colorYellow;
+        colorSequence3h[5] = colorMagenta;
+        colorSequence3h[6] = colorYellow;
+
         pattern = 1;
-        splitTime = lightTimeOnColor / colorSequence1.Length;
+
+        if (PlayerPrefs.GetInt("difficulty") == 0)
+        {
+            splitTime = lightTimeOnColor / colorSequence1.Length;
+            patternLength = colorSequence1.Length;
+        } else
+        {
+            lightTimeOnColor = lightTimeOnColorH;
+            splitTime = lightTimeOnColor / colorSequence1h.Length;
+            patternLength = colorSequence1h.Length;
+        }
+        Debug.Log("timer: " + lightTimeOnColor);
 
         StartCoroutine(LightCycle());
         switchingOn = true;
@@ -69,28 +102,6 @@ public class LightRoomColor : MonoBehaviour
             if (player.GetComponent<FirstPersonController>().inColorPuzzle)
             {
                 lighttime += Time.deltaTime;
-                if (lighttime >= lightTimeOnBlank && stage == 0 && switchingOn)
-                {
-                    switchingOn = !switchingOn;
-                    lighttime = 0;
-                    stage = 1;
-                    OnLightSwitchStateOff.Invoke();
-                    lightOnSound.Play();
-                    foreach (Transform child in subLights.transform)
-                    {
-                        switch (pattern) {
-                            case 1:
-                                child.GetComponent<Light>().color = colorSequence1[0];
-                                break;
-                            case 2:
-                                child.GetComponent<Light>().color = colorSequence2[0];
-                                break;
-                            case 3:
-                                child.GetComponent<Light>().color = colorSequence3[0];
-                                break;
-                        }
-                    }
-                }
                 if (lighttime >= lightTimeOff && !switchingOn)
                 {
                     switchingOn = !switchingOn;
@@ -98,13 +109,12 @@ public class LightRoomColor : MonoBehaviour
                     OnLightSwitchStateOn.Invoke();
                     lightOnSound.Play();
                 }
-                if (stage != 0 && switchingOn)
+                if (switchingOn)
                 {
-                    if (lighttime >= lightTimeOnColor)
+                    if (lighttime >= lightTimeOnColor + lightTimeOnBlank*2)
                     {
                         switchingOn = !switchingOn;
                         lighttime = 0;
-                        stage = 0;
                         OnLightSwitchStateOff.Invoke();
                         lightOnSound.Play();
                         foreach (Transform child in subLights.transform)
@@ -112,23 +122,49 @@ public class LightRoomColor : MonoBehaviour
                             child.GetComponent<Light>().color = colorWhite;
                         }
                     }
-                    if (lighttime != 0)
+                    if (lighttime > lightTimeOnBlank && lighttime < lightTimeOnColor + lightTimeOnBlank)
                     {
-                        colorStage = (int)Math.Floor(lighttime / splitTime);
+                        colorStage = (int)Math.Floor((lighttime - lightTimeOnBlank) / splitTime);
+                        if (0 <= colorStage && colorStage < patternLength)
+                        {
+                            foreach (Transform child in subLights.transform)
+                            {
+                                if (PlayerPrefs.GetInt("difficulty") == 0)
+                                {
+                                    switch (pattern)
+                                    {
+                                        case 1:
+                                            child.GetComponent<Light>().color = colorSequence1[colorStage];
+                                            break;
+                                        case 2:
+                                            child.GetComponent<Light>().color = colorSequence2[colorStage];
+                                            break;
+                                        case 3:
+                                            child.GetComponent<Light>().color = colorSequence3[colorStage];
+                                            break;
+                                    }
+                                } else
+                                {
+                                    switch (pattern)
+                                    {
+                                        case 1:
+                                            child.GetComponent<Light>().color = colorSequence1h[colorStage];
+                                            break;
+                                        case 2:
+                                            child.GetComponent<Light>().color = colorSequence2h[colorStage];
+                                            break;
+                                        case 3:
+                                            child.GetComponent<Light>().color = colorSequence3h[colorStage];
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                    } else
+                    {
                         foreach (Transform child in subLights.transform)
                         {
-                            switch (pattern)
-                            {
-                                case 1:
-                                    child.GetComponent<Light>().color = colorSequence1[colorStage];
-                                    break;
-                                case 2:
-                                    child.GetComponent<Light>().color = colorSequence2[colorStage];
-                                    break;
-                                case 3:
-                                    child.GetComponent<Light>().color = colorSequence3[colorStage];
-                                    break;
-                            }
+                            child.GetComponent<Light>().color = colorWhite;
                         }
                     }
                 }
@@ -166,13 +202,7 @@ public class LightRoomColor : MonoBehaviour
     }
     public void ForceOn(float grace) //Lights will immediately turn on, and stay on for at least the specified number of seconds
     {
-        if (stage == 0)
-        {
-            lightTimeOnBlank += grace;
-        } else
-        {
-            lightTimeOnColor += grace;
-        }
+        lighttime -= grace;
         if (!switchingOn)
         {
             lightTimeOff = 0;
@@ -184,10 +214,26 @@ public class LightRoomColor : MonoBehaviour
         pattern += 1;
         if (pattern == 2)
         {
-            splitTime = lightTimeOnColor / colorSequence2.Length;
+            if (PlayerPrefs.GetInt("difficulty") == 0)
+            {
+                splitTime = lightTimeOnColor / colorSequence2.Length;
+                patternLength = 4;
+            } else
+            {
+                splitTime = lightTimeOnColor / colorSequence2h.Length;
+                patternLength = 5;
+            }
         } else
         {
-            splitTime = lightTimeOnColor / colorSequence3.Length;
+            if (PlayerPrefs.GetInt("difficulty") == 0)
+            {
+                splitTime = lightTimeOnColor / colorSequence3.Length;
+                patternLength = 5;
+            } else
+            {
+                splitTime = lightTimeOnColor / colorSequence3h.Length;
+                patternLength = 7;
+            }
         }
     }
 

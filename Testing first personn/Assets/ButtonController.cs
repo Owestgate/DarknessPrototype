@@ -32,6 +32,10 @@ public class ButtonController : MonoBehaviour
     private string[] colorSequence2 = new string[4];
     private string[] colorSequence3 = new string[5];
 
+    private string[] colorSequence1h = new string[3];
+    private string[] colorSequence2h = new string[5];
+    private string[] colorSequence3h = new string[7];
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,11 +54,35 @@ public class ButtonController : MonoBehaviour
         colorSequence3[3] = "yellow";
         colorSequence3[4] = "magenta";
 
+        colorSequence1h[0] = "magenta";
+        colorSequence1h[1] = "yellow";
+        colorSequence1h[2] = "cyan";
+
+        colorSequence2h[0] = "cyan";
+        colorSequence2h[1] = "yellow";
+        colorSequence2h[2] = "cyan";
+        colorSequence2h[3] = "magenta";
+        colorSequence2h[4] = "yellow";
+
+        colorSequence3h[0] = "magenta";
+        colorSequence3h[1] = "cyan";
+        colorSequence3h[2] = "yellow";
+        colorSequence3h[3] = "cyan";
+        colorSequence3h[4] = "yellow";
+        colorSequence3h[5] = "magenta";
+        colorSequence3h[6] = "yellow";
+
         pattern = 1;
         codePosition = 0;
         codeFailed = false;
 
-        currentCode = colorSequence1;
+        if (PlayerPrefs.GetInt("difficulty") == 0)
+        {
+            currentCode = colorSequence1;
+        } else
+        {
+            currentCode = colorSequence1h;
+        }
 
         failAudSource = GetComponent<AudioSource>();
         doorAudSource = GetComponent<AudioSource>();
@@ -91,12 +119,24 @@ public class ButtonController : MonoBehaviour
                 successAudSource.PlayOneShot(SuccessSound);
                 if (pattern == 2)
                 {
-                    currentCode = colorSequence2;
+                    if (PlayerPrefs.GetInt("difficulty") == 0)
+                    {
+                        currentCode = colorSequence2;
+                    } else
+                    {
+                        currentCode = colorSequence2h;
+                    }
                     greenLight1.SetActive(true);
                     GeneratorNoise1.GetComponent<AudioSource>().Play();
                 } else
                 {
-                    currentCode = colorSequence3;
+                    if (PlayerPrefs.GetInt("difficulty") == 0)
+                    {
+                        currentCode = colorSequence3;
+                    } else
+                    {
+                        currentCode = colorSequence3h;
+                    }
                     greenLight2.SetActive(true);
                     GeneratorNoise2.GetComponent<AudioSource>().Play();
                 }

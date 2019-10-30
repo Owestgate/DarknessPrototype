@@ -34,12 +34,12 @@ public class EndGame : MonoBehaviour
             enemy.SetActive(false);
 
             if(PlayerPrefs.GetFloat("survdist") != 0)
-                d_Text.text = "Distance: " + System.Math.Round(PlayerPrefs.GetFloat("survdist"), 2).ToString() + " metres";
+                d_Text.text = "Distance: " + PlayerPrefs.GetFloat("survdist").ToString() + " metres";
             else
                 d_Text.text = "Error";
 
             if (PlayerPrefs.GetFloat("survtime") != 0)
-                t_Text.text = "Time: " + System.Math.Round(PlayerPrefs.GetFloat("survtime"), 2).ToString() + " seconds";
+                t_Text.text = "Time: " + System.TimeSpan.FromSeconds(PlayerPrefs.GetFloat("survtime")).ToString();
             else
                 t_Text.text = "Error";
 

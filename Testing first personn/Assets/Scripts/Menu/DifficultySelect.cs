@@ -21,9 +21,9 @@ public class DifficultySelect : MonoBehaviour
         Debug.Log("Hard");
     }
 
-    public void Night(){
+    /*public void Night(){
         PlayerPrefs.SetInt("difficulty", 2);
         Debug.Log("Night");
-    }
+    }*/
 
 }

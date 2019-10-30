@@ -47,7 +47,7 @@ public class CheckPoint : MonoBehaviour
         }
     }
 
-    private void Update()
+    /*private void Update()
     {
         //Dev Checkpoint tools, don't forget to delete.
         if (Input.GetKeyDown(KeyCode.Alpha0) || Input.GetKeyDown(KeyCode.Keypad0))
@@ -65,5 +65,5 @@ public class CheckPoint : MonoBehaviour
             PlayerPrefs.SetInt("pcheckpoint", 2);
             Debug.Log("Checkpoint set to checkpoint2");
         }
-    }
+    }*/
 }

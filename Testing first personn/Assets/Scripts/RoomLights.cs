@@ -205,7 +205,7 @@ public class RoomLights : MonoBehaviour
         LightSwitchStateOffAlt();
     }
 
-    public void Update()
+    /*public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
@@ -222,5 +222,5 @@ public class RoomLights : MonoBehaviour
             Flicker(5, 0.2f);
             Debug.Log("Flickering");
         }
-    }
+    }*/
 }

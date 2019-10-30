@@ -10,6 +10,7 @@ public class GameOverScreen : MonoBehaviour
     public AudioSource scarySound;
     public Text dist;
     public Text time;
+    bool pressOnce;
 
     void Start ()
     {
@@ -17,12 +18,16 @@ public class GameOverScreen : MonoBehaviour
         Cursor.visible = true;
         dist.text = "Distance: " + PlayerPrefs.GetFloat("survdist").ToString() + " metres";
         time.text = "Time: " + System.TimeSpan.FromSeconds(PlayerPrefs.GetFloat("survtime")).ToString();
+        pressOnce = false;
     }
 
     public void Retry()
     {
+        if(pressOnce == false){
         //WaitToPlay();
         StartCoroutine(WaitToPlay());
+        pressOnce = true;
+        }
     }
     
     IEnumerator WaitToPlay()

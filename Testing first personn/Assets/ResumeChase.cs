@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ResumeChase : MonoBehaviour
 {
@@ -15,11 +16,13 @@ public class ResumeChase : MonoBehaviour
     {
         if (other.gameObject.tag == "Character" && triggerOnce == false)
         {
+            chaser.GetComponent<NavMeshAgent>().enabled = false; // allows teleport
             triggerOnce = true;
             chaser.SetActive(true);
-            chaser.transform.position = chaserResumePos.transform.position;
+            chaser.transform.position = chaserResumePos.transform.position; // teleport
             roomLights.GetComponent<RoomLights>().GraceTime(1.5f);
             pauser.GetComponent<PauseEnemy>().stopping = false; //Prevents the pause enemy script from incorrectly disabling the chaser
+            chaser.GetComponent<NavMeshAgent>().enabled = true; // allows teleport 
         }
 
     }

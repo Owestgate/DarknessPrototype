@@ -81,6 +81,10 @@ public class RoomLights : MonoBehaviour
             if (!fpsController.inBypass)
             {
                 lighttime += Time.deltaTime;
+                chaser.EnemyCloseSound5.UnPause();
+            } else
+            {
+                chaser.EnemyCloseSound5.Pause();
             }
             if (lighttime >= lightTimeOn && switchingOn)
             {

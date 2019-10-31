@@ -91,26 +91,26 @@ public class EnemyAI : MonoBehaviour
             if (lightsJustOn == true) //if the lights are on, turn lightsJustOn off. if you want to use lightsJustOn, it has to be before this check
             {
                 lightsJustOn = false;
+                if (EnemyCloseSound.isPlaying) EnemyCloseSound.Stop();
+                if (EnemyCloseSound2.isPlaying) EnemyCloseSound2.Stop();
+                if (EnemyCloseSound3.isPlaying) EnemyCloseSound3.Stop();
+                if (EnemyCloseSound4.isPlaying) EnemyCloseSound4.Stop();
+                if (!EnemyCloseSound5.isPlaying) EnemyCloseSound5.Play();
             }
             navAgent.speed = 0;
-            if (EnemyCloseSound.isPlaying) EnemyCloseSound.Stop();
-            if (EnemyCloseSound2.isPlaying) EnemyCloseSound2.Stop();
-            if (EnemyCloseSound3.isPlaying) EnemyCloseSound3.Stop();
-            if (EnemyCloseSound4.isPlaying) EnemyCloseSound4.Stop();
-            if (!EnemyCloseSound5.isPlaying) EnemyCloseSound5.Stop();
         }
         else
         {
             if (lightsJustOn == false) //lightsJustOn can also track when the lights just turned off (but the values will be opposite to when the lights come on). ask me (ewen) if you're confused
             {
                 lightsJustOn = true;
+                if (!EnemyCloseSound.isPlaying) EnemyCloseSound.Play();
+                if (!EnemyCloseSound2.isPlaying) EnemyCloseSound2.Play();
+                if (!EnemyCloseSound3.isPlaying) EnemyCloseSound3.Play();
+                if (!EnemyCloseSound4.isPlaying) EnemyCloseSound4.Play();
+                if (EnemyCloseSound5.isPlaying) EnemyCloseSound5.Stop();
             }
             navAgent.speed = navSpeed;
-            if (!EnemyCloseSound.isPlaying) EnemyCloseSound.Play();
-            if (!EnemyCloseSound2.isPlaying) EnemyCloseSound2.Play();
-            if (!EnemyCloseSound3.isPlaying) EnemyCloseSound3.Play();
-            if (!EnemyCloseSound4.isPlaying) EnemyCloseSound4.Play();
-            if (EnemyCloseSound5.isPlaying) EnemyCloseSound5.Play();
 
         }
         if (navAgent.enabled)
@@ -135,15 +135,6 @@ public class EnemyAI : MonoBehaviour
 
         if(PlyrKillScreen.GetComponent<KillScreen>().jumpScare2 == true){
             modelSlot.mesh = killPose;
-        }
-
-        if (playerCharacter.GetComponent<FirstPersonController>().inBypass)
-        {
-            EnemyCloseSound5.Pause();
-        }
-        else
-        {
-            EnemyCloseSound5.UnPause();
         }
     }
 }

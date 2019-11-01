@@ -22,12 +22,13 @@ public class KillScreen : MonoBehaviour
 
     //Jumpscare testing 
     public GameObject jumpScarePosition;
-    public GameObject jumpScareAudioObject; // game object with audio source set to play on awake
+    public preserveNoise jumpScareAudioObject; // game object with audio source set to play on awake
     public GameObject playerCamera;    
     public GameObject jumpScareLookAt;
     public GameObject postProcessing;
 
     private ChromaticAberration chroma;
+    private Vignette vig;
 
     public GameObject jumpScarePos2;
     public bool jumpScare2 = false;
@@ -43,6 +44,8 @@ public class KillScreen : MonoBehaviour
     void Start()
     {
         postProcessing.GetComponent<PostProcessVolume>().profile.TryGetSettings(out chroma);
+        postProcessing.GetComponent<PostProcessVolume>().profile.TryGetSettings(out vig);
+        jumpScareAudioObject = preserveNoise.Instance();
     }
 
     // Update is called once per frame
@@ -73,7 +76,10 @@ public class KillScreen : MonoBehaviour
                 playerObj.transform.position = jumpScarePos2.transform.position;    // Testing new model/position
                 fpsController.enabled = false; // Turns off player controller so it locks player looking at enemy
                 //playerCamera.transform.LookAt(jumpScareLookAt.transform); // looks at enemy (seperate object attached to enemy that is positioned better)
-                jumpScareAudioObject.SetActive(true); // sets active gameobject with audio set to play on awake
+                if (!jumpScareAudioObject.gameObject.GetComponent<AudioSource>().isPlaying)
+                {
+                    jumpScareAudioObject.gameObject.GetComponent<AudioSource>().Play(); 
+                }
                 CameraShaker.Instance.ShakeOnce(6f, 3f, .1f, .2f);
                 jumpScare2 = true;
 
@@ -97,13 +103,14 @@ public class KillScreen : MonoBehaviour
     IEnumerator Lookat(){             // fix for not looking
         yield return new WaitForSeconds(0.1f);
         playerCamera.transform.LookAt(jumpScareLookAt.transform);
-        // chroma.intensity.value += 0.01f;
+        chroma.intensity.value += Time.deltaTime;
+        vig.intensity.value += Time.deltaTime;
         abilityUI.SetActive(false);
     }
     
     void LoadScreen()
     {
-        Invoke("LoadSceneDelayed", 4);
+        Invoke("LoadSceneDelayed", 3);
     }
 
     void LoadSceneDelayed()

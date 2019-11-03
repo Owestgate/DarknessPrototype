@@ -34,7 +34,7 @@ public class KillScreen : MonoBehaviour
     public bool jumpScare2 = false;
 
     private float silenceTime;
-    private float silenceTimer = 5;
+    private float silenceTimer = 4;
     private bool scaring = false;
 
     public UnityEvent OnDie;

@@ -207,6 +207,8 @@ public class RoomLights : MonoBehaviour
         lightTimeOff = delay;
         Debug.Log("hamberger");
         LightSwitchStateOffAlt();
+        SaturationByLightState.Instance.OnLightSwitchOn();
+        GrainByLightState.Instance.OnLightSwitchOn();
     }
 
     /*public void Update()

@@ -39,6 +39,7 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
+        modelSlot = GetComponent<MeshFilter>();
         lightsOn = false;
         playerCharacter = GameObject.FindGameObjectWithTag("Character");
         navAgent = GetComponent<NavMeshAgent>();
@@ -66,7 +67,7 @@ public class EnemyAI : MonoBehaviour
             brutalEffects.SetActive(false);
         } // --
 
-        modelSlot = GetComponent<MeshFilter>();
+        
     }
 
     // Update is called once per frame

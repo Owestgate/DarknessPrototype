@@ -8,7 +8,7 @@ public class CloseDoorBehind : MonoBehaviour
     public Animator slidingAnim;
     private AudioSource audSource;
     public AudioClip slidingSound;
-    private bool onlyPlayItOnce;
+    public bool onlyPlayItOnce;
     public GameObject roomLights;
     public GameObject colorLights;
     
@@ -16,7 +16,6 @@ public class CloseDoorBehind : MonoBehaviour
     void Start()
     {
         audSource = GetComponent<AudioSource>();
-        onlyPlayItOnce = false;
     }
 
 

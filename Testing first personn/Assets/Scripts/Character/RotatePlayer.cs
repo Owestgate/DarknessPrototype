@@ -2,24 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
-
+using UnityEngine.SceneManagement;
 public class RotatePlayer : MonoBehaviour
 {
 
     public float speed;
     public bool dis;
     public bool spinning;
+    private Scene currentScene;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetInt ("pcheckpoint") == 0){
-        dis = true;
-        StartCoroutine(RotateAtStart());
-        gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
-        }
-        if (PlayerPrefs.GetInt ("pcheckpoint") == 1 || PlayerPrefs.GetInt ("pcheckpoint") == 2){
-        gameObject.transform.localRotation = Quaternion.Euler(0, -90, 0);
+        currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name != "Chapter2") {
+            if (PlayerPrefs.GetInt("pcheckpoint") == 0) {
+                dis = true;
+                StartCoroutine(RotateAtStart());
+                gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
+            if (PlayerPrefs.GetInt("pcheckpoint") == 1 || PlayerPrefs.GetInt("pcheckpoint") == 2) {
+                gameObject.transform.localRotation = Quaternion.Euler(0, -90, 0);
+            }
         }
     }
     

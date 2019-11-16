@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.SceneManagement;
-//this comment can be ignored/deleted
+
 public class P_TrackerScript : MonoBehaviour
 {
     public FirstPersonController pt_player;

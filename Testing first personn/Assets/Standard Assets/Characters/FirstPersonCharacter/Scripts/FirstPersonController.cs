@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace UnityStandardAssets.Characters.FirstPerson
@@ -68,6 +69,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public bool nearFlare;
 
+        private Scene currentScene;
+
         // Use this for initialization
         private void Start()
         {
@@ -95,10 +98,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             runSpeedOnStart = m_RunSpeed;
             walkSpeedOnStart = m_WalkSpeed;
-            lightsOn = false;
-            inBypass = false;
-            inColorPuzzle = false;
-            enabled = false;
+
+            currentScene = SceneManager.GetActiveScene();
+            if (currentScene.name != "Chapter2")
+            {
+                lightsOn = false;
+                inBypass = false;
+                inColorPuzzle = false;
+                enabled = false;
+            } else
+            {
+                lightsOn = true;
+                inBypass = false;
+                inColorPuzzle = false;
+                enabled = true;
+            }
         }
 
         public void ForceLockCursor()

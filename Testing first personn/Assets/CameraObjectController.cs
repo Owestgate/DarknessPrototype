@@ -39,7 +39,6 @@ public class CameraObjectController : MonoBehaviour
                 {
                     nextFlashTime = Time.time + CameraFlashRate;
                     Anim.Play("CameraFlash", 0, 0);
-                    FlashSound.Play();
                     orangeLight.enabled = false;
                 }
             }      
@@ -55,5 +54,9 @@ public class CameraObjectController : MonoBehaviour
     public void PlayBeepSound()
     {
         BeepSound.Play();
+    }
+    public void PlayFlashSound()
+    {
+        FlashSound.Play();
     }
 }

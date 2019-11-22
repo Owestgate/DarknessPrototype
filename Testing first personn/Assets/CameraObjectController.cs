@@ -18,6 +18,7 @@ public class CameraObjectController : MonoBehaviour
     public AudioSource FlashSound;
     public AudioSource BeepSound;
     public Animator Anim;
+    public Animator Anim2;
     public float CameraFlashRate = 0.1f;
     private float nextFlashTime;
     public Renderer orangeLight;
@@ -115,6 +116,7 @@ public class CameraObjectController : MonoBehaviour
                             batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
                             batteryLow.material.SetColor("_EmissionColor", redColHdr);
                             batteryFrame.material.SetColor("_EmissionColor", redColHdr);
+                            Anim2.Play("BatteryFlash", 0, 0);
                         }
                         else
                         {
@@ -126,6 +128,7 @@ public class CameraObjectController : MonoBehaviour
                             batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
                             batteryLow.material.SetColor("_EmissionColor", normalColHdr);
                             batteryFrame.material.SetColor("_EmissionColor", redColHdr);
+                            Anim2.Play("BatteryFlash 1", 0, 0);
                         }
                     }
                 }

@@ -10,6 +10,7 @@ public class CameraDetectPlane : MonoBehaviour
     void Start()
     {
         target = Camera.main;
+        transform.position = transform.parent.position;
     }
 
     // Update is called once per frame
@@ -17,6 +18,7 @@ public class CameraDetectPlane : MonoBehaviour
     {
         var n = target.transform.position - transform.position;
         transform.rotation = Quaternion.LookRotation(n) * Quaternion.Euler(90, 0, 0);
-        transform.localScale = new Vector3(n.magnitude/40, n.magnitude/40, n.magnitude/40);
+        transform.localScale = new Vector3(n.magnitude/30, n.magnitude/30, n.magnitude/30);
+
     }
 }

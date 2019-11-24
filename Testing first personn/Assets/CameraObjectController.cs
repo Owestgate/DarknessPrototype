@@ -130,6 +130,15 @@ public class CameraObjectController : MonoBehaviour
                             batteryFrame.material.SetColor("_EmissionColor", redColHdr);
                             Anim2.Play("BatteryFlash 1", 0, 0);
                         }
+
+                        //is object in frame code
+                        RaycastHit hit;
+                        LayerMask mask = LayerMask.GetMask("FlashDetect");
+                        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 100.0f, mask))
+                        {
+                            string hittarget = hit.transform.parent.name;
+                            Debug.Log("Object '" + hittarget + "' in frame");
+                        }
                     }
                 }
             }

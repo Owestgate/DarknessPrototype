@@ -132,12 +132,23 @@ public class CameraObjectController : MonoBehaviour
                         }
 
                         //is object in frame code
+                        double walldistance = 100;
                         RaycastHit hit;
                         LayerMask mask = LayerMask.GetMask("FlashDetect");
-                        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 100.0f, mask))
+                        RaycastHit wallhit;
+                        LayerMask wallmask = LayerMask.GetMask("CameraDisplay");
+                        Vector3 cameraShift = transform.position + (transform.TransformDirection(Vector3.forward) * -2);
+                        if (Physics.Raycast(cameraShift, transform.TransformDirection(Vector3.forward), out wallhit, 50.0f, wallmask))
                         {
-                            string hittarget = hit.transform.parent.name;
-                            Debug.Log("Object '" + hittarget + "' in frame");
+                            walldistance = wallhit.distance;
+                        }
+                        if (Physics.Raycast(cameraShift, transform.TransformDirection(Vector3.forward), out hit, 30.0f, mask))
+                        {
+                            if (walldistance > hit.distance)
+                            {
+                                string hittarget = hit.transform.parent.name;
+                                Debug.Log("Object '" + hittarget + "' in frame");
+                            }
                         }
                     }
                 }

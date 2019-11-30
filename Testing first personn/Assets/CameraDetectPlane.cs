@@ -18,7 +18,7 @@ public class CameraDetectPlane : MonoBehaviour
     {
         var n = target.transform.position - transform.position;
         transform.rotation = Quaternion.LookRotation(n) * Quaternion.Euler(115, 0, 0);
-        transform.localScale = new Vector3(Mathf.Sqrt(n.magnitude)/10, Mathf.Sqrt(n.magnitude) / 10, Mathf.Sqrt(n.magnitude) / 10);
+        transform.localScale = new Vector3(Mathf.Sqrt(n.magnitude)/(3 * transform.parent.localScale.magnitude), Mathf.Sqrt(n.magnitude) / (3 * transform.parent.localScale.magnitude), Mathf.Sqrt(n.magnitude) / (3 * transform.parent.localScale.magnitude));
 
     }
 }

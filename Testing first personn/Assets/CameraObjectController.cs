@@ -33,6 +33,10 @@ public class CameraObjectController : MonoBehaviour
     public RawImage TakenPhoto;
     public float delay = 1;
 
+    private Shader shader1;
+    public int evidenceCount = 0;
+    
+
     private void Start()
     {
         orangeLight.enabled = false;
@@ -51,6 +55,8 @@ public class CameraObjectController : MonoBehaviour
         batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
         batteryLow.material.SetColor("_EmissionColor", normalColHdr);
         batteryFrame.material.SetColor("_EmissionColor", normalColHdr);
+
+        shader1 = Shader.Find("Standard");
     }
 
     void Update()
@@ -146,6 +152,13 @@ public class CameraObjectController : MonoBehaviour
                         {
                             if (walldistance > hit.distance)
                             {
+                                if (hit.transform.parent.tag == "Evidence")
+                                {
+                                    Debug.Log("evidence!");
+                                    Destroy(hit.transform.parent.transform.Find("Plane").gameObject);
+                                    hit.transform.parent.GetComponent<MeshRenderer>().material.shader = shader1;
+                                    evidenceCount += 1;
+                                }
                                 string hittarget = hit.transform.parent.name;
                                 Debug.Log("Object '" + hittarget + "' in frame");
                             }

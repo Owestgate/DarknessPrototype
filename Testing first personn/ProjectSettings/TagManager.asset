@@ -10,6 +10,7 @@ TagManager:
   - Checkpoint
   - Bypass
   - ColorPuzzle
+  - Evidence
   layers:
   - Default
   - TransparentFX

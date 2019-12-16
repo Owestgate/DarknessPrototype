@@ -87,6 +87,7 @@ public class CameraObjectController : MonoBehaviour
                         Anim.Play("CameraFlash", 0, 0);
                         orangeLight.enabled = false;
                         photosRemaining--;
+                        transform.Find("Camera").Find("RenderCamera").gameObject.SetActive(false);
                         float ratio = photosRemaining / (float)maxPhotos;
 
                         // Battery is full / can take many photos.
@@ -141,17 +142,24 @@ public class CameraObjectController : MonoBehaviour
                         double walldistance = 100;
                         RaycastHit hit;
                         LayerMask mask = LayerMask.GetMask("FlashDetect");
-                        RaycastHit wallhit;
-                        LayerMask wallmask = LayerMask.GetMask("CameraDisplay");
                         Vector3 cameraShift = transform.position + (transform.TransformDirection(Vector3.forward) * -2);
-                        if (Physics.Raycast(cameraShift, transform.TransformDirection(Vector3.forward), out wallhit, 50.0f, wallmask))
+                        Debug.Log("snap");
+                        RaycastHit[] hits;
+                        hits = Physics.RaycastAll(cameraShift, transform.TransformDirection(Vector3.forward), 50.0f);
+                        for (int i = 0; i < hits.Length; i++)
                         {
-                            walldistance = wallhit.distance;
+                            if (hits[i].transform.tag == "Wall")
+                            {
+                                walldistance = hits[i].distance;
+                            }
                         }
                         if (Physics.Raycast(cameraShift, transform.TransformDirection(Vector3.forward), out hit, 30.0f, mask))
                         {
+                            Debug.Log("wall: " + walldistance);
+                            Debug.Log("hit: " + hit.distance);
                             if (walldistance > hit.distance)
                             {
+                                Debug.Log("asdasda");
                                 if (hit.transform.parent.tag == "Evidence")
                                 {
                                     Debug.Log("evidence!");
@@ -198,6 +206,7 @@ public class CameraObjectController : MonoBehaviour
 
     void ClearTakenPhoto()
     {
+        transform.Find("Camera").Find("RenderCamera").gameObject.SetActive(true);
         TakenPhoto.color = Color.clear;
     }
 }

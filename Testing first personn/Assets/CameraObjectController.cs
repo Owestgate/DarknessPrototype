@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class CameraObjectController : MonoBehaviour
 {
@@ -36,7 +37,8 @@ public class CameraObjectController : MonoBehaviour
 
     private Shader shader1;
     public int evidenceCount = 0;
-    
+    public Camera renderCamera;
+    public GameObject renderCam;
 
     private void Start()
     {
@@ -88,7 +90,7 @@ public class CameraObjectController : MonoBehaviour
                         Anim.Play("CameraFlash", 0, 0);
                         orangeLight.enabled = false;
                         photosRemaining--;
-                        transform.Find("Camera").Find("RenderCamera").gameObject.SetActive(false);
+                        //renderCam.SetActive(false);
                         float ratio = photosRemaining / (float)maxPhotos;
 
                         // Battery is full / can take many photos.
@@ -201,11 +203,23 @@ public class CameraObjectController : MonoBehaviour
 
     void ClearTakenPhoto()
     {
-        transform.Find("Camera").Find("RenderCamera").gameObject.SetActive(true);
+       // renderCam.SetActive(true);
         TakenPhoto.color = Color.clear;
     }
 
-    void TakePhotoDelayed()
+    public void TakeNewPhoto()
+    {
+        StartCoroutine(TakePhoto());
+    }
+
+    IEnumerator TakePhoto()
+    {
+        yield return new WaitForEndOfFrame();
+        renderCamera.Render();
+        TakePhotoDelayed();
+    }
+
+    public void TakePhotoDelayed()
     {
         photo = new Texture2D(rendTex.width, rendTex.height);
         RenderTexture.active = rendTex;

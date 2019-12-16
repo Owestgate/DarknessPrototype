@@ -32,6 +32,7 @@ public class CameraObjectController : MonoBehaviour
     public Texture2D photo;
     public RawImage TakenPhoto;
     public float delay = 1;
+    public float delay2 = 0.1f;
 
     private Shader shader1;
     public int evidenceCount = 0;
@@ -195,12 +196,6 @@ public class CameraObjectController : MonoBehaviour
 
     public void UpdateCameraDisplay()
     {
-        photo = new Texture2D(rendTex.width, rendTex.height);
-        RenderTexture.active = rendTex;
-        photo.ReadPixels(new Rect(0, 0, RenderTexture.active.width, RenderTexture.active.height), 0, 0);
-        photo.Apply();
-        TakenPhoto.texture = photo;
-        TakenPhoto.color = Color.white;
         Invoke("ClearTakenPhoto", delay);
     }
 
@@ -208,5 +203,15 @@ public class CameraObjectController : MonoBehaviour
     {
         transform.Find("Camera").Find("RenderCamera").gameObject.SetActive(true);
         TakenPhoto.color = Color.clear;
+    }
+
+    void TakePhotoDelayed()
+    {
+        photo = new Texture2D(rendTex.width, rendTex.height);
+        RenderTexture.active = rendTex;
+        photo.ReadPixels(new Rect(0, 0, RenderTexture.active.width, RenderTexture.active.height), 0, 0);
+        photo.Apply();
+        TakenPhoto.texture = photo;
+        TakenPhoto.color = Color.white;
     }
 }

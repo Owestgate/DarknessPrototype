@@ -167,7 +167,7 @@ public class CameraObjectController : MonoBehaviour
                                 {
                                     Debug.Log("evidence!");
                                     Destroy(hit.transform.parent.transform.Find("Plane").gameObject);
-                                    hit.transform.parent.GetComponent<MeshRenderer>().material.shader = shader1;
+                                    hit.transform.parent.GetComponent<HintMusicFadeOut>().fading = true;
                                     evidenceCount += 1;
                                 }
                                 string hittarget = hit.transform.parent.name;

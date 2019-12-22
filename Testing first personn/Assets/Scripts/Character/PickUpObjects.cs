@@ -23,7 +23,7 @@ public class PickUpObjects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10.0f, Color.red);
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10.0f, Color.green);
         CheckForPickup();
         if(thingInHand == false){
             holdingItem = null;

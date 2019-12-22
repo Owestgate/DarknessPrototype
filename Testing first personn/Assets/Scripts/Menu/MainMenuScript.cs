@@ -8,11 +8,16 @@ public class MainMenuScript : MonoBehaviour
 {
     public AudioSource scarySound;
     bool loadOnce;
+    public string NextSceneName;
 
     void Start (){
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         loadOnce = false;
+    }
+    public void SetNextSceneName(string newSceneName)
+    {
+        NextSceneName = newSceneName;
     }
 
     public void PlayGame(){ //Play Game Button - doesnt load scene
@@ -21,8 +26,9 @@ public class MainMenuScript : MonoBehaviour
 
     public void ReadyButton(){     // on the fake pause menu - actually loads scene
     if(loadOnce == false){
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
-        loadOnce = true;
+            //SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadSceneAsync(NextSceneName);
+            loadOnce = true;
     }
     }
     

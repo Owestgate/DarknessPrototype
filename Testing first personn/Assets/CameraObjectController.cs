@@ -6,6 +6,8 @@ public class CameraObjectController : MonoBehaviour
 {
     public int photosRemaining = 60;
     public int maxPhotos = 60;
+    public float raycastDistance = 3;
+    private bool isFlashing;
 
     public RawImage batteryLow;
     public RawImage batteryMedium;
@@ -86,96 +88,100 @@ public class CameraObjectController : MonoBehaviour
 
                     if (currentHoldDownTime >= holdDownTime)
                     {
-                        nextFlashTime = Time.time + CameraFlashRate;
-                        Anim.Play("CameraFlash", 0, 0);
-                        orangeLight.enabled = false;
-                        photosRemaining--;
-                        //renderCam.SetActive(false);
-                        float ratio = photosRemaining / (float)maxPhotos;
-
-                        // Battery is full / can take many photos.
-                        if (ratio > 0.66f)
+                        if (!isFlashing)
                         {
-                            batteryHigh.enabled = true;
-                            batteryMedium.enabled = true;
-                            batteryLow.enabled = true;
+                            isFlashing = true;
+                            nextFlashTime = Time.time + CameraFlashRate;
+                            Anim.Play("CameraFlash", 0, 0);
+                            orangeLight.enabled = false;
+                            photosRemaining--;
+                            //renderCam.SetActive(false);
+                            float ratio = photosRemaining / (float)maxPhotos;
 
-                            batteryHigh.material.SetColor("_EmissionColor", normalColHdr);
-                            batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
-                            batteryLow.material.SetColor("_EmissionColor", normalColHdr);
-                            batteryFrame.material.SetColor("_EmissionColor", normalColHdr);
-                        }
-                        else if (ratio > 0.33f)
-                        {
-                            batteryHigh.enabled = false;
-                            batteryMedium.enabled = true;
-                            batteryLow.enabled = true;
-
-                            batteryHigh.material.SetColor("_EmissionColor", normalColHdr);
-                            batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
-                            batteryLow.material.SetColor("_EmissionColor", normalColHdr);
-                            batteryFrame.material.SetColor("_EmissionColor", normalColHdr);
-                        }
-                        else if (ratio > 0)
-                        {
-                            batteryHigh.enabled = false;
-                            batteryMedium.enabled = false;
-                            batteryLow.enabled = true;
-
-                            batteryHigh.material.SetColor("_EmissionColor", normalColHdr);
-                            batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
-                            batteryLow.material.SetColor("_EmissionColor", redColHdr);
-                            batteryFrame.material.SetColor("_EmissionColor", redColHdr);
-                            Anim2.Play("BatteryFlash", 0, 0);
-                        }
-                        else
-                        {
-                            batteryHigh.enabled = false;
-                            batteryMedium.enabled = false;
-                            batteryLow.enabled = false;
-
-                            batteryHigh.material.SetColor("_EmissionColor", normalColHdr);
-                            batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
-                            batteryLow.material.SetColor("_EmissionColor", normalColHdr);
-                            batteryFrame.material.SetColor("_EmissionColor", redColHdr);
-                            Anim2.Play("BatteryFlash 1", 0, 0);
-                        }
-
-                        //is object in frame code
-                        double walldistance = 100;
-                        RaycastHit hit;
-                        LayerMask mask = LayerMask.GetMask("FlashDetect");
-                        Vector3 cameraShift = transform.position + (transform.TransformDirection(Vector3.forward) * -2);
-                        Debug.Log("snap");
-                        RaycastHit[] hits;
-                        hits = Physics.RaycastAll(cameraShift, transform.TransformDirection(Vector3.forward), 50.0f);
-                        for (int i = 0; i < hits.Length; i++)
-                        {
-                            if (hits[i].transform.tag == "Wall")
+                            // Battery is full / can take many photos.
+                            if (ratio > 0.66f)
                             {
-                                walldistance = hits[i].distance;
+                                batteryHigh.enabled = true;
+                                batteryMedium.enabled = true;
+                                batteryLow.enabled = true;
+
+                                batteryHigh.material.SetColor("_EmissionColor", normalColHdr);
+                                batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
+                                batteryLow.material.SetColor("_EmissionColor", normalColHdr);
+                                batteryFrame.material.SetColor("_EmissionColor", normalColHdr);
                             }
-                        }
-                        if (Physics.Raycast(cameraShift, transform.TransformDirection(Vector3.forward), out hit, 30.0f, mask))
-                        {
-                            Debug.Log("wall: " + walldistance);
-                            Debug.Log("hit: " + hit.distance);
-                            if (walldistance > hit.distance)
+                            else if (ratio > 0.33f)
                             {
-                                Debug.Log("asdasda");
-                                if (hit.transform.parent.tag == "Evidence")
+                                batteryHigh.enabled = false;
+                                batteryMedium.enabled = true;
+                                batteryLow.enabled = true;
+
+                                batteryHigh.material.SetColor("_EmissionColor", normalColHdr);
+                                batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
+                                batteryLow.material.SetColor("_EmissionColor", normalColHdr);
+                                batteryFrame.material.SetColor("_EmissionColor", normalColHdr);
+                            }
+                            else if (ratio > 0)
+                            {
+                                batteryHigh.enabled = false;
+                                batteryMedium.enabled = false;
+                                batteryLow.enabled = true;
+
+                                batteryHigh.material.SetColor("_EmissionColor", normalColHdr);
+                                batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
+                                batteryLow.material.SetColor("_EmissionColor", redColHdr);
+                                batteryFrame.material.SetColor("_EmissionColor", redColHdr);
+                                Anim2.Play("BatteryFlash", 0, 0);
+                            }
+                            else
+                            {
+                                batteryHigh.enabled = false;
+                                batteryMedium.enabled = false;
+                                batteryLow.enabled = false;
+
+                                batteryHigh.material.SetColor("_EmissionColor", normalColHdr);
+                                batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
+                                batteryLow.material.SetColor("_EmissionColor", normalColHdr);
+                                batteryFrame.material.SetColor("_EmissionColor", redColHdr);
+                                Anim2.Play("BatteryFlash 1", 0, 0);
+                            }
+
+                            //is object in frame code
+                            double walldistance = 100;
+                            RaycastHit hit;
+                            LayerMask mask = LayerMask.GetMask("FlashDetect");
+                            Vector3 cameraShift = transform.position + (transform.TransformDirection(Vector3.forward) * -2);
+                            Debug.Log("snap");
+                            RaycastHit[] hits;
+                            hits = Physics.RaycastAll(cameraShift, transform.TransformDirection(Vector3.forward), raycastDistance);
+                            for (int i = 0; i < hits.Length; i++)
+                            {
+                                if (hits[i].transform.tag == "Wall")
                                 {
-                                    Debug.Log("evidence!");
-
-                                    CameraDetectPlane plane = hit.transform.parent.transform.Find("Plane").gameObject.GetComponent<CameraDetectPlane>();
-                                    plane.evidence.OnPhotoTaken?.Invoke();
-                                    plane.hintMusicFadeOut.fading = true;
-
-                                    Destroy(hit.transform.parent.transform.Find("Plane").gameObject);
-                                    evidenceCount += 1;
+                                    walldistance = hits[i].distance;
                                 }
-                                string hittarget = hit.transform.parent.name;
-                                Debug.Log("Object '" + hittarget + "' in frame");
+                            }
+                            if (Physics.Raycast(cameraShift, transform.TransformDirection(Vector3.forward), out hit, raycastDistance, mask))
+                            {
+                                Debug.Log("wall: " + walldistance);
+                                Debug.Log("hit: " + hit.distance);
+                                if (walldistance > hit.distance)
+                                {
+                                    Debug.Log("asdasda");
+                                    if (hit.transform.parent.tag == "Evidence")
+                                    {
+                                        Debug.Log("evidence!");
+
+                                        CameraDetectPlane plane = hit.transform.parent.transform.Find("Plane").gameObject.GetComponent<CameraDetectPlane>();
+                                        plane.evidence.OnPhotoTaken?.Invoke();
+                                        plane.hintMusicFadeOut.fading = true;
+
+                                        Destroy(hit.transform.parent.transform.Find("Plane").gameObject);
+                                        evidenceCount += 1;
+                                    }
+                                    string hittarget = hit.transform.parent.name;
+                                    Debug.Log("Object '" + hittarget + "' in frame");
+                                }
                             }
                         }
                     }
@@ -209,6 +215,7 @@ public class CameraObjectController : MonoBehaviour
     {
        // renderCam.SetActive(true);
         TakenPhoto.color = Color.clear;
+        isFlashing = false;
     }
 
     public void TakeNewPhoto()

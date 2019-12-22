@@ -64,7 +64,8 @@ public class MenuPopup : MonoBehaviour
             menuOpen = true;
             Time.timeScale = 0; // Pauses Game time (recheck)
             cursorLock = false;
-            gameObject.GetComponent<FirstPersonController>().enabled = false; // disables character movement while paused, might need changing
+            FirstPersonController fpsController = gameObject.GetComponent<FirstPersonController>();
+            if (fpsController) fpsController.enabled = false; // disables character movement while paused, might need changing
         }
 
         if (cursorLock == true){

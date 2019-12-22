@@ -75,7 +75,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Start()
         {
             Application.targetFrameRate = -1;
-          
+
 
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
@@ -106,7 +106,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 inBypass = false;
                 inColorPuzzle = false;
                 enabled = false;
-            } else
+            }
+            else
             {
                 lightsOn = true;
                 inBypass = false;
@@ -318,8 +319,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
 
             bool waswalking = m_IsWalking;
-    
-            #if !MOBILE_INPUT
+
+#if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
             //Prevents crouch sprinting. Remove if-else and keep line 246 to revert. - MW(03/09)
@@ -362,7 +363,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
             }
 
-            #endif
+#endif
             // set the desired speed to be walking or running
             speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
             m_Input = new Vector2(horizontal, vertical);

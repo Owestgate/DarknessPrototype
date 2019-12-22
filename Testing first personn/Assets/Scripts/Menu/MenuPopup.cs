@@ -18,11 +18,9 @@ public class MenuPopup : MonoBehaviour
     public GameObject paintUIController;
 
     private FirstPersonController fpsController;
-    
-    
+
     void Start()
     {
- 
        Cursor.lockState = CursorLockMode.Locked;
        cursorLock = true;    
        //StartCoroutine(DelayPause());
@@ -57,7 +55,11 @@ public class MenuPopup : MonoBehaviour
     {
         
         //OPENS MENU - cant open in intro or death or painting
-        if(Input.GetKeyDown(KeyCode.Escape) && menuOpen == false && pauseDelayed == true && this.gameObject.GetComponent<KillScreen>().cantPause == false/* && paintUIController.GetComponent<PaintingUI>().cantPauseNow == false*/){
+        if(Input.GetKeyDown(KeyCode.Escape) 
+            && !menuOpen
+            && pauseDelayed
+            && KillScreen.Instance
+            && !KillScreen.Instance.cantPause/* && paintUIController.GetComponent<PaintingUI>().cantPauseNow == false*/){
             menuPopup.SetActive(true);
             menuOpen = true;
             Time.timeScale = 0; // Pauses Game time (recheck)

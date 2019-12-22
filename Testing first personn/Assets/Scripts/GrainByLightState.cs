@@ -22,14 +22,20 @@ public class GrainByLightState : MonoBehaviour
 
     private void Start()
     {
-        RoomLights.Instance.OnLightSwitchStateOn.AddListener(OnLightSwitchOn);
-        RoomLights.Instance.OnLightSwitchStateOff.AddListener(OnLightSwitchOff);
+        if (RoomLights.Instance)
+        {
+            RoomLights.Instance.OnLightSwitchStateOn.AddListener(OnLightSwitchOn);
+            RoomLights.Instance.OnLightSwitchStateOff.AddListener(OnLightSwitchOff);
+        }
     }
 
     private void OnDestroy()
     {
-        RoomLights.Instance.OnLightSwitchStateOn.RemoveListener(OnLightSwitchOn);
-        RoomLights.Instance.OnLightSwitchStateOff.RemoveListener(OnLightSwitchOff);
+        if (RoomLights.Instance)
+        {
+            RoomLights.Instance.OnLightSwitchStateOn.RemoveListener(OnLightSwitchOn);
+            RoomLights.Instance.OnLightSwitchStateOff.RemoveListener(OnLightSwitchOff);
+        }
     }
 
     public void OnLightSwitchOn()

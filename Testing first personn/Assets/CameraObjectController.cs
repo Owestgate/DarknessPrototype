@@ -166,8 +166,12 @@ public class CameraObjectController : MonoBehaviour
                                 if (hit.transform.parent.tag == "Evidence")
                                 {
                                     Debug.Log("evidence!");
+
+                                    CameraDetectPlane plane = hit.transform.parent.transform.Find("Plane").gameObject.GetComponent<CameraDetectPlane>();
+                                    plane.evidence.OnPhotoTaken?.Invoke();
+                                    plane.hintMusicFadeOut.fading = true;
+
                                     Destroy(hit.transform.parent.transform.Find("Plane").gameObject);
-                                    hit.transform.parent.GetComponent<HintMusicFadeOut>().fading = true;
                                     evidenceCount += 1;
                                 }
                                 string hittarget = hit.transform.parent.name;

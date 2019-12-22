@@ -9,6 +9,7 @@ using EZCameraShake;
 
 public class KillScreen : MonoBehaviour
 {
+    public static KillScreen Instance { get; private set; }
     public GameObject enemyObj;
     public GameObject playerObj;
     public GameObject roomLights;
@@ -40,6 +41,11 @@ public class KillScreen : MonoBehaviour
     public UnityEvent OnDie;
     public bool cantPause = false;
     public GameObject abilityUI;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {

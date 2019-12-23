@@ -9,6 +9,7 @@ public class PickUpObjects : MonoBehaviour
     public GameObject playerMainController;
     public GameObject playerMainHand;
     public GameObject holdingItem;
+    public GameObject digitalCamera;
 
     public bool togglePickup;
 
@@ -32,7 +33,24 @@ public class PickUpObjects : MonoBehaviour
 
     private void CheckForPickup(){
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10.0f))
+        if (Input.GetKey(KeyCode.E))
+        {
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 20))
+            {
+                Debug.Log(hit.transform.name);
+                if (hit.transform.tag == "Battery")
+                {
+                    digitalCamera.GetComponent<CameraObjectController>().photosRemaining += 10;
+                    if (digitalCamera.GetComponent<CameraObjectController>().photosRemaining > digitalCamera.GetComponent<CameraObjectController>().maxPhotos)
+                    {
+                        digitalCamera.GetComponent<CameraObjectController>().photosRemaining = digitalCamera.GetComponent<CameraObjectController>().maxPhotos;
+                    }
+                    Destroy(hit.transform.gameObject);
+                }
+            }
+        }
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10.0f))
         {
             switch(togglePickup)
             {

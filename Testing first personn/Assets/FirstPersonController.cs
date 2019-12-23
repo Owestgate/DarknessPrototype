@@ -14,7 +14,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public Vector3 normalCameraLocalPos = new Vector3(0, 2.44f, 0);
         public Vector3 crouchedCameraLocalPos = new Vector3(0, 1, 0);
         public Animator cameraPivot;
-        public GameObject digitalCamera;
         [SerializeField] private bool m_IsWalking;
         public float m_WalkSpeed; //un-serialzed and made public so the light script can make player speed 0 while in light
         public float m_RunSpeed;
@@ -363,6 +362,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     cameraPivot.speed = 0;
                 }
             }
+
 #endif
             // set the desired speed to be walking or running
             speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;

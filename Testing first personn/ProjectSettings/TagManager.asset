@@ -11,6 +11,7 @@ TagManager:
   - Bypass
   - ColorPuzzle
   - Evidence
+  - Battery
   layers:
   - Default
   - TransparentFX

@@ -95,8 +95,12 @@ public class PickUpObjects : MonoBehaviour
                     }
                     if ((Input.GetKeyUp(KeyCode.Mouse0) || Input.GetKeyUp(KeyCode.E)) /*&& hit.transform.gameObject.GetComponent<PickUpableItem>()*/)
                     {
-                        if(holdingItem.transform.parent != null)
-                            holdingItem.transform.parent = null;
+                        if (holdingItem != null)
+                        {
+                            if (holdingItem.transform.parent != null)
+                                holdingItem.transform.parent = null;
+                        }
+                        
                         hit.transform.gameObject.transform.position = hit.transform.gameObject.transform.position;
                         thingInHand = false;
                     }

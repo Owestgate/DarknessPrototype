@@ -147,13 +147,13 @@ public class CameraObjectController : MonoBehaviour
                             }
 
                             //is object in frame code
-                            double walldistance = 100;
-                            RaycastHit hit;
+                            float walldistance = 100;
                             LayerMask mask = LayerMask.GetMask("FlashDetect");
                             Vector3 cameraShift = transform.position + (transform.TransformDirection(Vector3.forward) * -2);
                             Debug.Log("snap");
                             RaycastHit[] hits;
                             hits = Physics.RaycastAll(cameraShift, transform.TransformDirection(Vector3.forward), raycastDistance);
+
                             for (int i = 0; i < hits.Length; i++)
                             {
                                 if (hits[i].transform.tag == "Wall")
@@ -161,25 +161,29 @@ public class CameraObjectController : MonoBehaviour
                                     walldistance = hits[i].distance;
                                 }
                             }
-                            if (Physics.Raycast(cameraShift, transform.TransformDirection(Vector3.forward), out hit, raycastDistance, mask))
+
+                            if (Physics.Raycast(cameraShift, transform.forward, out RaycastHit hit, raycastDistance, mask))
                             {
                                 Debug.Log("wall: " + walldistance);
                                 Debug.Log("hit: " + hit.distance);
+
                                 if (walldistance > hit.distance)
                                 {
+                                    Debug.Log(hit.transform.name, hit.transform.gameObject);
                                     Debug.Log("asdasda");
-                                    if (hit.transform.parent.tag == "Evidence")
+
+                                    if (hit.transform.tag == "Evidence")
                                     {
                                         Debug.Log("evidence!");
 
-                                        CameraDetectPlane plane = hit.transform.parent.transform.Find("Plane").gameObject.GetComponent<CameraDetectPlane>();
+                                        CameraDetectPlane plane = hit.collider.transform.GetComponent<CameraDetectPlane>();
                                         plane.evidence.OnPhotoTaken?.Invoke();
                                         plane.hintMusicFadeOut.fading = true;
 
-                                        Destroy(hit.transform.parent.transform.Find("Plane").gameObject);
+                                        Destroy(hit.transform.gameObject);
                                         evidenceCount += 1;
                                     }
-                                    string hittarget = hit.transform.parent.name;
+                                    string hittarget = hit.transform.name;
                                     Debug.Log("Object '" + hittarget + "' in frame");
                                 }
                             }

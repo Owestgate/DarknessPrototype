@@ -12,6 +12,7 @@ TagManager:
   - ColorPuzzle
   - Evidence
   - Battery
+  - PickupCam
   layers:
   - Default
   - TransparentFX

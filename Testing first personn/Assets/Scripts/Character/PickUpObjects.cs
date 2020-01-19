@@ -10,6 +10,7 @@ public class PickUpObjects : MonoBehaviour
     public GameObject playerMainHand;
     public GameObject holdingItem;
     public GameObject digitalCamera;
+	public AudioSource batSound;
 
     public bool togglePickup;
 
@@ -33,19 +34,20 @@ public class PickUpObjects : MonoBehaviour
 
     private void CheckForPickup(){
         RaycastHit hit;
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E) || Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 20))
             {
                 Debug.Log(hit.transform.name);
                 if (hit.transform.tag == "Battery")
                 {
-                    digitalCamera.GetComponent<CameraObjectController>().photosRemaining += 10;
+                    digitalCamera.GetComponent<CameraObjectController>().photosRemaining += 30;
                     if (digitalCamera.GetComponent<CameraObjectController>().photosRemaining > digitalCamera.GetComponent<CameraObjectController>().maxPhotos)
                     {
                         digitalCamera.GetComponent<CameraObjectController>().photosRemaining = digitalCamera.GetComponent<CameraObjectController>().maxPhotos;
                     }
-                    Destroy(hit.transform.gameObject);
+					batSound.Play();
+					Destroy(hit.transform.gameObject);
                 }
             }
         }

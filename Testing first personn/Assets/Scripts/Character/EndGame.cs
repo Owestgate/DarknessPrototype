@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityStandardAssets.ImageEffects;
 using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class EndGame : MonoBehaviour
 {
     
     public GameObject cameraObj;
 
+	public UnityEvent finishGame;
     public GameObject enemy;
     public GameObject player;
 
@@ -23,6 +25,11 @@ public class EndGame : MonoBehaviour
     public Text d_Text;
 
     void OnTriggerEnter(Collider plyr){
+		if(plyr.tag == "Finish")
+		{
+			finishGame.Invoke();
+		}
+
         if(plyr.gameObject.tag == "Character"){
 
             cameraObj.GetComponent<BloomOptimized>().enabled = true;            

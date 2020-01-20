@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.Events;
 
 public class CameraObjectController : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class CameraObjectController : MonoBehaviour
 
     [ColorUsage(false, true)] public Color normalColHdr;
     [ColorUsage(false, true)] public Color redColHdr;
+
+	private Vector3 cameraShift;
+	private LayerMask mask;
+	private float walldistance = 100;
 
     public AudioSource ReadySound;
     public AudioSource FlashSound;
@@ -41,6 +46,15 @@ public class CameraObjectController : MonoBehaviour
     public int evidenceCount = 0;
     public Camera renderCamera;
     public GameObject renderCam;
+	public AudioSource scarySounds;
+	public AudioSource scarySoundsFirst;
+	public AudioSource scarySoundsNext;
+	public AudioSource scarySoundsLast;
+	public AudioSource scarySoundsFinale;
+	public UnityEvent escape;
+
+
+	public UnityEvent OnAllEvidencePickedUp;
 
     private void Start()
     {
@@ -62,7 +76,9 @@ public class CameraObjectController : MonoBehaviour
         batteryFrame.material.SetColor("_EmissionColor", normalColHdr);
 
         shader1 = Shader.Find("Standard");
-    }
+
+		mask = LayerMask.GetMask("FlashDetect");
+	}
 
     void Update()
     {
@@ -95,7 +111,7 @@ public class CameraObjectController : MonoBehaviour
                             Anim.Play("CameraFlash", 0, 0);
                             orangeLight.enabled = false;
                             photosRemaining--;
-                            //renderCam.SetActive(false);
+
                             float ratio = photosRemaining / (float)maxPhotos;
 
                             // Battery is full / can take many photos.
@@ -145,11 +161,8 @@ public class CameraObjectController : MonoBehaviour
                                 batteryFrame.material.SetColor("_EmissionColor", redColHdr);
                                 Anim2.Play("BatteryFlash 1", 0, 0);
                             }
-
-                            //is object in frame code
-                            float walldistance = 100;
-                            LayerMask mask = LayerMask.GetMask("FlashDetect");
-                            Vector3 cameraShift = transform.position + (transform.TransformDirection(Vector3.forward) * -2);
+                            
+                            cameraShift = transform.position + (transform.TransformDirection(Vector3.forward) * -2);
                             Debug.Log("snap");
                             RaycastHit[] hits;
                             hits = Physics.RaycastAll(cameraShift, transform.TransformDirection(Vector3.forward), raycastDistance);
@@ -162,31 +175,7 @@ public class CameraObjectController : MonoBehaviour
                                 }
                             }
 
-                            if (Physics.Raycast(cameraShift, transform.forward, out RaycastHit hit, raycastDistance, mask))
-                            {
-                                Debug.Log("wall: " + walldistance);
-                                Debug.Log("hit: " + hit.distance);
-
-                                if (walldistance > hit.distance)
-                                {
-                                    Debug.Log(hit.transform.name, hit.transform.gameObject);
-                                    Debug.Log("asdasda");
-
-                                    if (hit.transform.tag == "Evidence")
-                                    {
-                                        Debug.Log("evidence!");
-
-                                        CameraDetectPlane plane = hit.collider.transform.GetComponent<CameraDetectPlane>();
-                                        plane.evidence.OnPhotoTaken?.Invoke();
-                                        plane.hintMusicFadeOut.fading = true;
-
-                                        Destroy(hit.transform.gameObject);
-                                        evidenceCount += 1;
-                                    }
-                                    string hittarget = hit.transform.name;
-                                    Debug.Log("Object '" + hittarget + "' in frame");
-                                }
-                            }
+							Raycast();
                         }
                     }
                 }
@@ -199,6 +188,62 @@ public class CameraObjectController : MonoBehaviour
             orangeLight.enabled = false;
         }
     }
+
+	void Raycast()
+	{
+		if (!Physics.Raycast(cameraShift, transform.forward, out RaycastHit hit, raycastDistance, mask)) return;
+		
+		Debug.Log("wall: " + walldistance);
+		Debug.Log("hit: " + hit.distance);
+
+		if (walldistance <= hit.distance) return;
+		
+		Debug.Log(hit.transform.name, hit.transform.gameObject);
+
+		if (hit.transform.tag != "Evidence") return;
+		
+		Debug.Log("evidence!");
+
+		CameraDetectPlane plane = hit.collider.transform.GetComponent<CameraDetectPlane>();
+		plane.evidence.OnPhotoTaken?.Invoke();
+		plane.hintMusicFadeOut.fading = true;
+
+		Destroy(hit.transform.gameObject);
+		evidenceCount += 1;
+
+		if (evidenceCount > 2)
+		{
+			scarySoundsFirst.Play();
+		}
+
+		if (evidenceCount > 3)
+		{
+			scarySounds.Play();
+		}
+
+		if (evidenceCount > 4)
+		{
+			scarySoundsNext.Play();
+		}
+
+		if (evidenceCount > 5)
+		{
+			scarySoundsLast.Play();
+		}
+		if (evidenceCount > 6)
+		{
+			scarySoundsFirst.Stop();
+			scarySounds.Stop();
+			scarySoundsNext.Stop();
+			scarySoundsLast.Stop();
+			scarySoundsFinale.Play();
+			RenderSettings.reflectionIntensity = 0;
+			escape.Invoke();
+		}
+
+		if (evidenceCount != 7) return;
+		OnAllEvidencePickedUp.Invoke();
+	}
 
     public void PlayBeepSound()
     {

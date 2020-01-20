@@ -57,6 +57,7 @@ public class KillScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		if (SceneManager.GetActiveScene().name != "Test") return;
         //Gets the current distance, compares, then kills
         currentDist = Vector3.Distance(playerObj.transform.position, enemyObj.transform.position);
         if (currentDist < killDist && !roomLights.GetComponent<RoomLights>().switchingOn && !scaring)

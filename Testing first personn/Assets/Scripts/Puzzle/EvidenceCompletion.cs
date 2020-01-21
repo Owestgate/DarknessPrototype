@@ -1,82 +1,143 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
+using System;
 
 public class EvidenceCompletion : MonoBehaviour
 {
 
-    public List<GameObject> spawnPoints; // 8 spawn points
-    public List<GameObject> hardSpawnPoints;
-    public List<Transform> pieces; // 5 pieces + extra empty spots so placements change every game
-                                   // public GameObject puzzlePiece5;
+	public List<GameObject> spawnPoints; // 8 spawn points
+	public List<GameObject> hardSpawnPoints;
+	public List<GameObject> EnemySpawnPoints; // 10 spawn points
+	public List<Transform> pieces; // 5 pieces + extra empty spots so placements change every game
 
-    public Animator doorOpenAnimator; // change to what ever animation we use
-    public AudioSource doorAudio;
+	public List<Transform> enemy;
 
-    private bool doorOpened = false;
+	public Animator doorOpenAnimator; // change to what ever animation we use
+	public AudioSource doorAudio;
 
-    void Start()
-    {
-        RandomiseSpawnList();
-        SpawnPositions(pieces);
-    }
+	private bool doorOpened = false;
 
-    //spawn objects
-    public void SpawnPositions(List<Transform> objects)
-    {
-        if (PlayerPrefs.GetInt("difficulty") == 1)
-        {
-            for (int i = 0; i < objects.Count; i++)
-            {
-                objects[i].transform.position = hardSpawnPoints[i].transform.position;
-                objects[i].transform.rotation = hardSpawnPoints[i].transform.rotation;
-            }
-        }
-        else
-        {
-            for (int i = 0; i < objects.Count; i++)
-            {
-                objects[i].transform.position = spawnPoints[i].transform.position;
-                objects[i].transform.rotation = hardSpawnPoints[i].transform.rotation;
-            }
-        }
-    }
+	void Start()
+	{
+		RandomiseSpawnList();
+		SpawnPositions(pieces);
+		EnemySpawnPositions(enemy);
+	}
 
-    // Randomise order of puzzle pieces
-    void RandomiseSpawnList()
-    {
+	//spawn objects
+	public void SpawnPositions(List<Transform> objects)
+	{
+		if (PlayerPrefs.GetInt("difficulty") == 1)
+		{
+			for (int i = 0; i < objects.Count; i++)
+			{
+				objects[i].transform.position = hardSpawnPoints[i].transform.position;
+				objects[i].transform.rotation = hardSpawnPoints[i].transform.rotation;
+			}
+		}
+		else
+		{
+			for (int i = 0; i < objects.Count; i++)
+			{
+				objects[i].transform.position = spawnPoints[i].transform.position;
+				objects[i].transform.rotation = hardSpawnPoints[i].transform.rotation;
+			}
+		}
+	}
 
-        List<GameObject> tempList = new List<GameObject>();
+	public List<GameObject> usedSpawnPoints = new List<GameObject>();
 
-        if (PlayerPrefs.GetInt("difficulty") == 1 || PlayerPrefs.GetInt("difficulty") == 2)
-        {
-            for (int i = 0; i < hardSpawnPoints.Count; i++)
-            {
-                tempList.Add(hardSpawnPoints[i]);
-            }
+	// Randomise order of puzzle pieces
+	void RandomiseSpawnList()
+	{
+		usedSpawnPoints.Clear();
 
-            for (int i = 0; i < hardSpawnPoints.Count; i++)
-            {
-                GameObject tempColor = hardSpawnPoints[i];
-                int randomIndex = Random.Range(i, hardSpawnPoints.Count);
-                hardSpawnPoints[i] = hardSpawnPoints[randomIndex];
-                hardSpawnPoints[randomIndex] = tempColor;
-            }
-        }
-        else
-        {
-            for (int i = 0; i < spawnPoints.Count; i++)
-            {
-                tempList.Add(spawnPoints[i]);
-            }
+		if (PlayerPrefs.GetInt("difficulty") == 1 || PlayerPrefs.GetInt("difficulty") == 2)
+		{
+			//for (int i = 0; i < hardSpawnPoints.Count; i++)
+			//{
+			//    GameObject tempColor = hardSpawnPoints[i];
+			//    int randomIndex = UnityEngine.Random.Range(i, hardSpawnPoints.Count);
+			//    hardSpawnPoints[i] = hardSpawnPoints[randomIndex];
+			//    hardSpawnPoints[randomIndex] = tempColor;
+			//}
 
-            for (int i = 0; i < spawnPoints.Count; i++)
-            {
-                GameObject tempColor = spawnPoints[i];
-                int randomIndex = Random.Range(i, spawnPoints.Count);
-                spawnPoints[i] = spawnPoints[randomIndex];
-                spawnPoints[randomIndex] = tempColor;
-            }
-        }
-    }
+			IListExtensions.Shuffle(hardSpawnPoints);
+		}
+		else
+		{
+			IListExtensions.Shuffle(spawnPoints);
+		}
+	}
+
+
+
+	//spawn enemy
+	public void EnemySpawnPositions(List<Transform> objects)
+	{
+		if (PlayerPrefs.GetInt("difficulty") == 1)
+		{
+			for (int i = 0; i < objects.Count; i++)
+			{
+				objects[i].transform.position = EnemySpawnPoints[i].transform.position;
+				objects[i].transform.rotation = EnemySpawnPoints[i].transform.rotation;
+			}
+		}
+		else
+		{
+			for (int i = 0; i < objects.Count; i++)
+			{
+				objects[i].transform.position = EnemySpawnPoints[i].transform.position;
+				objects[i].transform.rotation = EnemySpawnPoints[i].transform.rotation;
+			}
+		}
+	}
+
+	public List<GameObject> EnemyusedSpawnPoints = new List<GameObject>();
+
+	// Randomise order of enemy
+	void EnemyRandomiseSpawnList()
+	{
+		EnemyusedSpawnPoints.Clear();
+
+		if (PlayerPrefs.GetInt("difficulty") == 1 || PlayerPrefs.GetInt("difficulty") == 2)
+		{
+			//for (int i = 0; i < hardSpawnPoints.Count; i++)
+			//{
+			//    GameObject tempColor = hardSpawnPoints[i];
+			//    int randomIndex = UnityEngine.Random.Range(i, hardSpawnPoints.Count);
+			//    hardSpawnPoints[i] = hardSpawnPoints[randomIndex];
+			//    hardSpawnPoints[randomIndex] = tempColor;
+			//}
+
+			IListExtensions.Shuffle(EnemySpawnPoints);
+		}
+	}
+}
+	//	else
+	//	{
+	//		IListExtensions.Shuffle(EnemySpawnPoints);
+	//	}
+	//}
+
+
+public static class IListExtensions
+{
+	/// <summary>
+	/// Shuffles the element order of the specified list.
+	/// </summary>
+	public static void Shuffle<T>(this IList<T> ts)
+	{
+		var count = ts.Count;
+		var last = count - 1;
+		for (var i = 0; i < last; ++i)
+		{
+			var r = UnityEngine.Random.Range(i, count);
+			var tmp = ts[i];
+			ts[i] = ts[r];
+			ts[r] = tmp;
+		}
+	}
 }

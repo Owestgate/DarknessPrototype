@@ -55,6 +55,7 @@ public class CameraObjectController : MonoBehaviour
 	public UnityEvent escape;
 	public UnityEvent fKey;
 	public UnityEvent rightKey;
+	public UnityEvent enemySpawn;
 
 
 	public UnityEvent OnAllEvidencePickedUp;
@@ -102,6 +103,12 @@ public class CameraObjectController : MonoBehaviour
 					orangeLight.enabled = true;
 					ReadySound.Play();
 				}
+			}
+
+			if (Input.GetMouseButtonUp(1))
+			{
+				orangeLight.enabled = false;
+				currentHoldDownTime = 0;
 			}
 
 			if (Input.GetMouseButton(1))
@@ -223,6 +230,7 @@ public class CameraObjectController : MonoBehaviour
 		if (evidenceCount > 2)
 		{
 			scarySoundsFirst.Play();
+			enemySpawn.Invoke();
 		}
 
 		if (evidenceCount > 3)

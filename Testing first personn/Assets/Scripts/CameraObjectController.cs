@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Events;
+using UnityEngine.AI;
 
 public class CameraObjectController : MonoBehaviour
 {
@@ -16,7 +17,10 @@ public class CameraObjectController : MonoBehaviour
     public RawImage batteryHigh;
     public RawImage batteryFrame;
 
-    [ColorUsage(false, true)] public Color normalColHdr;
+	public NavMeshAgent navAgent;
+	public float speedMultiplier;
+
+	[ColorUsage(false, true)] public Color normalColHdr;
     [ColorUsage(false, true)] public Color redColHdr;
 
 	private Vector3 cameraShift;
@@ -242,6 +246,7 @@ public class CameraObjectController : MonoBehaviour
 		if (evidenceCount > 4)
 		{
 			scarySoundsNext.Play();
+			navAgent.speed = navAgent.speed * 2;
 		}
 
 		if (evidenceCount > 5)
@@ -258,10 +263,12 @@ public class CameraObjectController : MonoBehaviour
 			scarySoundsFinale.Play();
 			RenderSettings.reflectionIntensity = 0;
 			escape.Invoke();
+			navAgent.speed = navAgent.speed * 2;
 		}
 
 		if (evidenceCount != 7) return;
 		OnAllEvidencePickedUp.Invoke();
+		navAgent.speed = navAgent.speed * 2;
 	}
 
     public void PlayBeepSound()

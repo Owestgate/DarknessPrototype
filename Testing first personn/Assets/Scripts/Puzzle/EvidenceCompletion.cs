@@ -9,7 +9,8 @@ public class EvidenceCompletion : MonoBehaviour
 
 	public List<GameObject> spawnPoints; // 8 spawn points
 	public List<GameObject> hardSpawnPoints;
-	public List<GameObject> EnemySpawnPoints; // 10 spawn points
+	public List<GameObject> enemySpawnPoints; // 10 spawn points
+	public List<GameObject> enemyHardSpawnPoints;
 	public List<Transform> pieces; // 5 pieces + extra empty spots so placements change every game
 
 	public List<Transform> enemy;
@@ -22,6 +23,7 @@ public class EvidenceCompletion : MonoBehaviour
 	void Start()
 	{
 		RandomiseSpawnList();
+		EnemyRandomiseSpawnList();
 		SpawnPositions(pieces);
 		EnemySpawnPositions(enemy);
 	}
@@ -81,23 +83,23 @@ public class EvidenceCompletion : MonoBehaviour
 		{
 			for (int i = 0; i < objects.Count; i++)
 			{
-				objects[i].transform.position = EnemySpawnPoints[i].transform.position;
-				objects[i].transform.rotation = EnemySpawnPoints[i].transform.rotation;
+				objects[i].transform.position = enemyHardSpawnPoints[i].transform.position;
+				objects[i].transform.rotation = enemyHardSpawnPoints[i].transform.rotation;
 			}
 		}
 		else
 		{
 			for (int i = 0; i < objects.Count; i++)
 			{
-				objects[i].transform.position = EnemySpawnPoints[i].transform.position;
-				objects[i].transform.rotation = EnemySpawnPoints[i].transform.rotation;
+				objects[i].transform.position = enemySpawnPoints[i].transform.position;
+				objects[i].transform.rotation = enemyHardSpawnPoints[i].transform.rotation;
 			}
 		}
 	}
 
 	public List<GameObject> EnemyusedSpawnPoints = new List<GameObject>();
 
-	// Randomise order of enemy
+	// Randomise order of enemySpawns
 	void EnemyRandomiseSpawnList()
 	{
 		EnemyusedSpawnPoints.Clear();
@@ -112,16 +114,14 @@ public class EvidenceCompletion : MonoBehaviour
 			//    hardSpawnPoints[randomIndex] = tempColor;
 			//}
 
-			IListExtensions.Shuffle(EnemySpawnPoints);
+			IListExtensions.Shuffle(enemyHardSpawnPoints);
+		}
+		else
+		{
+			IListExtensions.Shuffle(enemySpawnPoints);
 		}
 	}
 }
-	//	else
-	//	{
-	//		IListExtensions.Shuffle(EnemySpawnPoints);
-	//	}
-	//}
-
 
 public static class IListExtensions
 {
@@ -141,3 +141,5 @@ public static class IListExtensions
 		}
 	}
 }
+
+

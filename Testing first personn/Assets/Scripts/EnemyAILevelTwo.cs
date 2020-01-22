@@ -6,12 +6,15 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class EnemyAILevelTwo : MonoBehaviour
 {
+	public static EnemyAILevelTwo Instance;
 	public GameObject playerCharacter;
 	public GameObject PlyrKillScreen;
+	public Transform raycastOrigin;
+	public Transform raycastEnd;
 	public NavMeshAgent navAgent;
-	public bool lightsOn;
-	public Mesh model1; //These are the two models currently. Its currently set up for two only but it shouldnt take too long to make space for more if we want more
-	public Mesh model2;
+	public bool FlashInRange;
+	public Mesh[] models; //These are the two models currently. Its currently set up for two only but it shouldnt take too long to make space for more if we want more
+	public Mesh flashedPose;
 	public Mesh killPose;
 	public float navSpeed;
 	public float hardSpeed;
@@ -21,13 +24,22 @@ public class EnemyAILevelTwo : MonoBehaviour
 	public AudioSource EnemyCloseSound3;
 	public AudioSource EnemyCloseSound4;
 	public AudioSource EnemyCloseSound5;
+	public AudioSource flashedSound;
 	private float distToPlayer;
 	private float speedMultiplier;
+	public MeshFilter meshfilter;
+
+	public CameraObjectController camController;
+
+	public bool isInTrigger;
 
 	public Transform Player;
 	public Collider enemyChecker;
-	public GameObject AttackingPose;
-	public GameObject DefendingPose;
+	//public GameObject AttackingPose;
+	//public GameObject AttackingPoseTwo;
+	//public GameObject DeathPose;
+
+	//public GameObject DefendingPose;
 	public bool isDefending;
 	public float DefendingTimerRemain;
 	public float DefendingTimerDuration;
@@ -38,7 +50,6 @@ public class EnemyAILevelTwo : MonoBehaviour
 	private bool lightsJustOn = false; //The enemy figures out the exact moment the lights switch, and thats what lightsJustOn is
 	private bool currentModel;
 
-	public bool nearFlare;
 	public AudioSource[] enemySounds;
 	public float hardPitch = 1.3f;
 
@@ -46,10 +57,18 @@ public class EnemyAILevelTwo : MonoBehaviour
 	public Material brutalMat;
 	public GameObject brutalEffects;
 
+	public LayerMask ColLayerMask;
+	private void Awake()
+	{
+		Instance = this;
+	}
 	void Start()
 	{
+		OnCameraOff();
+		DefendingTimerRemain = 0;
+		isDefending = false;
+
 		modelSlot = GetComponent<MeshFilter>();
-		lightsOn = false;
 		playerCharacter = GameObject.FindGameObjectWithTag("Character");
 		navAgent = GetComponent<NavMeshAgent>();
 
@@ -85,73 +104,31 @@ public class EnemyAILevelTwo : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (PlyrKillScreen.GetComponent<KillScreen>().jumpScare2 == false)
+		OnCameraOff();
+		CheckDefendingTimer();
+		if (PlyrKillScreen.GetComponent<KillScreenLevelTwo>().jumpScare2 == false)
 		{
-			if (lightsOn && lightsJustOn)
-			{
-				currentModel = !currentModel; //if the lights just came on, switch models
-			}
-			if (currentModel == false)
-			{
-				modelSlot.mesh = model1;
-			}
-			else
-			{
-				modelSlot.mesh = model2;
-			}
-		}
-		if (lightsOn)
-		{
-			if (lightsJustOn == true) //if the lights are on, turn lightsJustOn off. if you want to use lightsJustOn, it has to be before this check
-			{
-				lightsJustOn = false;
-				if (EnemyCloseSound.isPlaying) EnemyCloseSound.Stop();
-				if (EnemyCloseSound2.isPlaying) EnemyCloseSound2.Stop();
-				if (EnemyCloseSound3.isPlaying) EnemyCloseSound3.Stop();
-				if (EnemyCloseSound4.isPlaying) EnemyCloseSound4.Stop();
-				if (!EnemyCloseSound5.isPlaying) EnemyCloseSound5.Play();
-			}
-			navAgent.speed = 0;
-		}
-		else
-		{
-			if (lightsJustOn == false) //lightsJustOn can also track when the lights just turned off (but the values will be opposite to when the lights come on). ask me (ewen) if you're confused
-			{
-				lightsJustOn = true;
-				if (!EnemyCloseSound.isPlaying) EnemyCloseSound.Play();
-				if (!EnemyCloseSound2.isPlaying) EnemyCloseSound2.Play();
-				if (!EnemyCloseSound3.isPlaying) EnemyCloseSound3.Play();
-				if (!EnemyCloseSound4.isPlaying) EnemyCloseSound4.Play();
-				if (EnemyCloseSound5.isPlaying) EnemyCloseSound5.Stop();
-			}
-			navAgent.speed = navSpeed;
+
 
 		}
 		if (navAgent.enabled)
 		{
-			NavMeshPath path = new NavMeshPath();
-			if (NavMesh.CalculatePath(transform.position, playerCharacter.transform.position, NavMesh.AllAreas, path))
+			if (camController.isActiveAndEnabled)
 			{
-				navAgent.SetPath(path);
+				NavMeshPath path = new NavMeshPath();
+				if (NavMesh.CalculatePath(transform.position, playerCharacter.transform.position, NavMesh.AllAreas, path))
+				{
+					navAgent.SetPath(path);
+				}
+			}
+
+			if (PlyrKillScreen.GetComponent<KillScreenLevelTwo>().jumpScare2 == true)
+			{
+				modelSlot.mesh = killPose;
 			}
 		}
-		if (nearFlare)
-		{
-			navAgent.speed = 0;
-		}
-
-
-		//make the chaser run faster if the player is too far ahead
-		distToPlayer = Vector3.Distance(playerCharacter.transform.position, transform.position);
-		//Debug.Log(distToPlayer);
-		speedMultiplier = distToPlayer / 100 + 1;
-		navAgent.speed = navAgent.speed * speedMultiplier;
-
-		if (PlyrKillScreen.GetComponent<KillScreen>().jumpScare2 == true)
-		{
-			modelSlot.mesh = killPose;
-		}
 	}
+
 	void CheckDefendingTimer()
 	{
 		if (isDefending == true && DefendingTimerRemain > 0)
@@ -161,13 +138,16 @@ public class EnemyAILevelTwo : MonoBehaviour
 
 		if (DefendingTimerRemain <= 0 && isDefending == true)
 		{
-			isDefending = false;
-			AttackingPose.SetActive(true);
-			DefendingPose.SetActive(false);
-			transform.LookAt(Player.transform);
+			if (camController.isActiveAndEnabled)
+			{
+				isDefending = false;
+				navAgent.isStopped = false;
+				meshfilter.mesh = models[Random.Range(0, models.Length)];
+				transform.LookAt(Player.transform);
 
-			Vector3 LookRotation = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
-			transform.eulerAngles = LookRotation;
+				Vector3 LookRotation = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+				transform.eulerAngles = LookRotation;
+			}
 		}
 	}
 
@@ -176,6 +156,19 @@ public class EnemyAILevelTwo : MonoBehaviour
 		// Enemy is exposed to the collider light.
 		if (other == enemyChecker)
 		{
+			isInTrigger = true;
+			Debug.Log("Was hit with flash trigger.");
+			RaycastToPlayer();
+		}
+	}
+
+	public void CheckDefend()
+	{
+		if (isInTrigger)
+		{
+			isDefending = true;
+			meshfilter.mesh = flashedPose;
+			flashedSound.Play();
 		}
 	}
 
@@ -184,7 +177,26 @@ public class EnemyAILevelTwo : MonoBehaviour
 		// Enemy is exposed to the collider light.
 		if (other == enemyChecker)
 		{
-			DefendingTimerRemain = DefendingTimerDuration; // Reset defendng timer.
+			if (isInTrigger)
+			{
+				DefendingTimerRemain = DefendingTimerDuration; // Reset defendng timer.
+			}
+		}
+	}
+
+	public void RaycastToPlayer()
+	{
+		if (Physics.Raycast(raycastOrigin.position, raycastEnd.position - raycastOrigin.position, out RaycastHit hit, 1000f, ColLayerMask))
+		{
+			Debug.DrawRay(raycastOrigin.position, raycastEnd.position - raycastOrigin.position, Color.yellow, 1);
+			Debug.Log(hit.collider.gameObject.name);
+
+			if (hit.collider.tag == "Character")
+			{
+				Debug.Log("Found charater.");
+				Debug.DrawRay(raycastOrigin.position, raycastEnd.position - raycastOrigin.position, Color.red, 1);
+				CheckDefend();
+			}
 		}
 	}
 
@@ -193,7 +205,24 @@ public class EnemyAILevelTwo : MonoBehaviour
 		// Enemy is not exposed to the collider light.
 		if (other == enemyChecker)
 		{
-			DefendingTimerRemain = DefendingTimerDuration; // Reset defendng timer.
+			if (isInTrigger)
+			{
+				isInTrigger = false;
+				DefendingTimerRemain = DefendingTimerDuration; // Reset defendng timer.
+				meshfilter.mesh = models[Random.Range(0, models.Length)];
+			}
+		}
+	}
+	void OnCameraOff()
+	{
+		// Enemy will stop if player turns off cam.
+
+		if (!camController.isActiveAndEnabled)
+		{
+			isDefending = true;
+			meshfilter.mesh = flashedPose;
+			if (navAgent.enabled && navAgent.gameObject.activeInHierarchy) navAgent.isStopped = true;
 		}
 	}
 }
+

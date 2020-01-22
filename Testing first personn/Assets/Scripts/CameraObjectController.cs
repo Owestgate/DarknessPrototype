@@ -10,7 +10,9 @@ public class CameraObjectController : MonoBehaviour
     public int photosRemaining = 60;
     public int maxPhotos = 60;
     public float raycastDistance = 3;
-    private bool isFlashing;
+    public bool isFlashing;
+
+	public EnemyAILevelTwo enemyScript;
 
     public RawImage batteryLow;
     public RawImage batteryMedium;
@@ -95,6 +97,16 @@ public class CameraObjectController : MonoBehaviour
 
 	void Update()
 	{
+		if (isFlashing)
+		{
+			Raycast();
+		}
+
+		if (navAgent.gameObject.activeInHierarchy && navAgent.enabled)
+		{
+			navAgent.isStopped = enemyScript.isDefending;
+		}
+
 		transform.parent.rotation = Quaternion.Slerp(transform.parent.rotation, PlayerCamera.rotation, Time.deltaTime * Smoothing);
 		transform.parent.position = new Vector3(PlayerCamera.position.x, PlayerCamera.position.y + verticalOffset, PlayerCamera.position.z);
 
@@ -231,30 +243,34 @@ public class CameraObjectController : MonoBehaviour
 		Destroy(hit.transform.gameObject);
 		evidenceCount += 1;
 
-		if (evidenceCount > 2)
+		if (evidenceCount == 3)
 		{
 			scarySoundsFirst.Play();
 			enemySpawn.Invoke();
+			navAgent.speed = 2f;
 		}
 
-		if (evidenceCount > 3)
+		if (evidenceCount == 4)
 		{
 			scarySounds.Play();
 			RenderSettings.reflectionIntensity = 0.5f;
+			navAgent.speed = 4f;
 		}
 
-		if (evidenceCount > 4)
+		if (evidenceCount == 5)
 		{
 			scarySoundsNext.Play();
-			navAgent.speed = navAgent.speed * 2;
-		}
-
-		if (evidenceCount > 5)
-		{
-			scarySoundsLast.Play();
+			navAgent.speed = 6f;
 			RenderSettings.reflectionIntensity = 0.4f;
 		}
-		if (evidenceCount > 6)
+
+		if (evidenceCount == 6)
+		{
+			scarySoundsLast.Play();
+			navAgent.speed = 7f;
+			RenderSettings.reflectionIntensity = 0.3f;
+		}
+		if (evidenceCount == 7)
 		{
 			scarySoundsFirst.Stop();
 			scarySounds.Stop();
@@ -263,12 +279,11 @@ public class CameraObjectController : MonoBehaviour
 			scarySoundsFinale.Play();
 			RenderSettings.reflectionIntensity = 0;
 			escape.Invoke();
-			navAgent.speed = navAgent.speed * 3;
+			navAgent.speed = 10f;
 		}
 
 		if (evidenceCount != 7) return;
 		OnAllEvidencePickedUp.Invoke();
-		navAgent.speed = navAgent.speed * 5;
 	}
 
     public void PlayBeepSound()

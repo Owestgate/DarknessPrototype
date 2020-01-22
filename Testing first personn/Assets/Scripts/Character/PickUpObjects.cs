@@ -23,6 +23,8 @@ public class PickUpObjects : MonoBehaviour
 
 	public bool thingInHand;
 
+	public LayerMask pickupLayerMask;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -65,44 +67,40 @@ public class PickUpObjects : MonoBehaviour
 			}
 		}
 	}
+
 	private void CheckForMouseHover()
 	{
-		RaycastHit hit;
+		if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, 20))
 		{
-			if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 20))
+			//Debug.Log(hit.transform.name);
+			if (hit.transform.tag == "Battery")
 			{
-				Debug.Log(hit.transform.name);
-				if (hit.transform.tag == "Battery")
-				{
-					crosshairOn.Invoke();
-				}
-				else
-				{
-					crosshairOff.Invoke();
-				}
+				crosshairOn.Invoke();
+			}
+			else
+			{
+				crosshairOff.Invoke();
 			}
 		}
 	}
+
 	private void CheckForEvidenceMouseHover()
 	{
-		RaycastHit hit;
+		if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out RaycastHit hit, 20))
 		{
-			if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 20))
+			//Debug.Log(hit.transform.name);
+
+			if (hit.transform.tag == "Evidence")
 			{
-				Debug.Log(hit.transform.name);
-				if (hit.transform.tag == "Evidence")
-				{
-					crosshairOnTwo.Invoke();
-				}
-				else
-				{
-					crosshairOffTwo.Invoke();
-				}
+				crosshairOnTwo.Invoke();
+			}
+			else
+			{
+				crosshairOffTwo.Invoke();
 			}
 		}
-	
 
-			if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10.0f))
+		if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10.0f))
         {
             switch(togglePickup)
             {

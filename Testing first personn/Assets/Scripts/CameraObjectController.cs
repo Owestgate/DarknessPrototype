@@ -263,12 +263,12 @@ public class CameraObjectController : MonoBehaviour
 			scarySoundsFinale.Play();
 			RenderSettings.reflectionIntensity = 0;
 			escape.Invoke();
-			navAgent.speed = navAgent.speed * 2;
+			navAgent.speed = navAgent.speed * 3;
 		}
 
 		if (evidenceCount != 7) return;
 		OnAllEvidencePickedUp.Invoke();
-		navAgent.speed = navAgent.speed * 2;
+		navAgent.speed = navAgent.speed * 5;
 	}
 
     public void PlayBeepSound()

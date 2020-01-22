@@ -24,6 +24,16 @@ public class EnemyAILevelTwo : MonoBehaviour
 	private float distToPlayer;
 	private float speedMultiplier;
 
+	public Transform Player;
+	public Collider enemyChecker;
+	public GameObject AttackingPose;
+	public GameObject DefendingPose;
+	public bool isDefending;
+	public float DefendingTimerRemain;
+	public float DefendingTimerDuration;
+
+	public Collider AngelAttackCol;
+
 	private MeshFilter modelSlot;
 	private bool lightsJustOn = false; //The enemy figures out the exact moment the lights switch, and thats what lightsJustOn is
 	private bool currentModel;
@@ -140,6 +150,50 @@ public class EnemyAILevelTwo : MonoBehaviour
 		if (PlyrKillScreen.GetComponent<KillScreen>().jumpScare2 == true)
 		{
 			modelSlot.mesh = killPose;
+		}
+	}
+	void CheckDefendingTimer()
+	{
+		if (isDefending == true && DefendingTimerRemain > 0)
+		{
+			DefendingTimerRemain -= Time.deltaTime;
+		}
+
+		if (DefendingTimerRemain <= 0 && isDefending == true)
+		{
+			isDefending = false;
+			AttackingPose.SetActive(true);
+			DefendingPose.SetActive(false);
+			transform.LookAt(Player.transform);
+
+			Vector3 LookRotation = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+			transform.eulerAngles = LookRotation;
+		}
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		// Enemy is exposed to the collider light.
+		if (other == enemyChecker)
+		{
+		}
+	}
+
+	void OnTriggerStay(Collider other)
+	{
+		// Enemy is exposed to the collider light.
+		if (other == enemyChecker)
+		{
+			DefendingTimerRemain = DefendingTimerDuration; // Reset defendng timer.
+		}
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		// Enemy is not exposed to the collider light.
+		if (other == enemyChecker)
+		{
+			DefendingTimerRemain = DefendingTimerDuration; // Reset defendng timer.
 		}
 	}
 }

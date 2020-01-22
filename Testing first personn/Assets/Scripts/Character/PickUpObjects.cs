@@ -1,58 +1,108 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PickUpObjects : MonoBehaviour
 {
 
-    public Transform onHandPos;
-    public GameObject playerMainController;
-    public GameObject playerMainHand;
-    public GameObject holdingItem;
-    public GameObject digitalCamera;
+	public Transform onHandPos;
+	public GameObject playerMainController;
+	public GameObject playerMainHand;
+	public GameObject holdingItem;
+	public GameObject digitalCamera;
 	public AudioSource batSound;
 
-    public bool togglePickup;
+	public UnityEvent crosshairOn;
+	public UnityEvent crosshairOff;
 
-    public bool thingInHand;
+	public UnityEvent crosshairOnTwo;
+	public UnityEvent crosshairOffTwo;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public bool togglePickup;
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10.0f, Color.green);
-        CheckForPickup();
-        if(thingInHand == false){
-            holdingItem = null;
-        }
-    }
+	public bool thingInHand;
 
-    private void CheckForPickup(){
-        RaycastHit hit;
-        if (Input.GetKey(KeyCode.E) || Input.GetMouseButtonDown(0))
-        {
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 20))
-            {
-                Debug.Log(hit.transform.name);
-                if (hit.transform.tag == "Battery")
-                {
-                    digitalCamera.GetComponent<CameraObjectController>().photosRemaining += 30;
-                    if (digitalCamera.GetComponent<CameraObjectController>().photosRemaining > digitalCamera.GetComponent<CameraObjectController>().maxPhotos)
-                    {
-                        digitalCamera.GetComponent<CameraObjectController>().photosRemaining = digitalCamera.GetComponent<CameraObjectController>().maxPhotos;
-                    }
+	// Start is called before the first frame update
+	void Start()
+	{
+
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+		Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10.0f, Color.green);
+		Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 10.0f, Color.yellow);
+		CheckForPickup();
+		CheckForMouseHover();
+		CheckForEvidenceMouseHover();
+
+
+		if (thingInHand == false) {
+			holdingItem = null;
+		}
+	}
+
+	private void CheckForPickup()
+	{
+		RaycastHit hit;
+		if (Input.GetKey(KeyCode.E) || Input.GetMouseButtonDown(0))
+		{
+			if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 20))
+			{
+				Debug.Log(hit.transform.name);
+				if (hit.transform.tag == "Battery")
+				{
+					digitalCamera.GetComponent<CameraObjectController>().photosRemaining += 40;
+					if (digitalCamera.GetComponent<CameraObjectController>().photosRemaining > digitalCamera.GetComponent<CameraObjectController>().maxPhotos)
+					{
+						digitalCamera.GetComponent<CameraObjectController>().photosRemaining = digitalCamera.GetComponent<CameraObjectController>().maxPhotos;
+					}
 					batSound.Play();
 					Destroy(hit.transform.gameObject);
-                }
-            }
-        }
+				}
+			}
+		}
+	}
+	private void CheckForMouseHover()
+	{
+		RaycastHit hit;
+		{
+			if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 20))
+			{
+				Debug.Log(hit.transform.name);
+				if (hit.transform.tag == "Battery")
+				{
+					crosshairOn.Invoke();
+				}
+				else
+				{
+					crosshairOff.Invoke();
+				}
+			}
+		}
+	}
+	private void CheckForEvidenceMouseHover()
+	{
+		RaycastHit hit;
+		{
+			if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 20))
+			{
+				Debug.Log(hit.transform.name);
+				if (hit.transform.tag == "Evidence")
+				{
+					crosshairOnTwo.Invoke();
+				}
+				else
+				{
+					crosshairOffTwo.Invoke();
+				}
+			}
+		}
+	
 
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10.0f))
+			if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10.0f))
         {
             switch(togglePickup)
             {

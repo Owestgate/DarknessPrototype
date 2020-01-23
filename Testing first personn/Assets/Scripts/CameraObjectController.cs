@@ -60,6 +60,7 @@ public class CameraObjectController : MonoBehaviour
 	public AudioSource scarySoundsNext;
 	public AudioSource scarySoundsLast;
 	public AudioSource scarySoundsFinale;
+	public AudioSource scaryMusicFinale;
 	public UnityEvent escape;
 	public UnityEvent useFKey;
 	public UnityEvent rightKey;
@@ -270,20 +271,20 @@ public class CameraObjectController : MonoBehaviour
 		{
 			scarySounds.Play();
 			RenderSettings.reflectionIntensity = 0.5f;
-			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 5f : 10f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 6f : 10f;
 		}
 
 		if (evidenceCount == 5)
 		{
 			scarySoundsNext.Play();
-			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 8f : 12f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 9f : 13f;
 			RenderSettings.reflectionIntensity = 0.4f;
 		}
 
 		if (evidenceCount == 6)
 		{
 			scarySoundsLast.Play();
-			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 10f : 16f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 12f : 16f;
 			RenderSettings.reflectionIntensity = 0.3f;
 		}
 		if (evidenceCount == 7)
@@ -293,9 +294,10 @@ public class CameraObjectController : MonoBehaviour
 			scarySoundsNext.Stop();
 			scarySoundsLast.Stop();
 			scarySoundsFinale.Play();
+			scaryMusicFinale.Play();
 			RenderSettings.reflectionIntensity = 0;
 			escape.Invoke();
-			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 13f : 20f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 15f : 20f;
 		}
 
 		if (evidenceCount != 7) return;

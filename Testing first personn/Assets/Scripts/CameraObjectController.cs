@@ -64,6 +64,7 @@ public class CameraObjectController : MonoBehaviour
 	public UnityEvent useFKey;
 	public UnityEvent rightKey;
 	public UnityEvent enemySpawn;
+	public UnityEvent onFlash;
 
 
 	public UnityEvent OnAllEvidencePickedUp;
@@ -154,6 +155,7 @@ public class CameraObjectController : MonoBehaviour
 							Anim.Play("CameraFlash", 0, 0);
 							orangeLight.enabled = false;
 							photosRemaining--;
+							onFlash.Invoke();
 
 							CheckCameraPhotos();
 

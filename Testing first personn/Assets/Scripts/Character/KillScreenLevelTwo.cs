@@ -54,6 +54,17 @@ public class KillScreenLevelTwo : MonoBehaviour
 		postProcessing.GetComponent<PostProcessVolume>().profile.TryGetSettings(out chroma);
 		postProcessing.GetComponent<PostProcessVolume>().profile.TryGetSettings(out vig);
 		jumpScareAudioObject = preserveNoise.Instance();
+		camObjectController.onFlash.AddListener(OnFlash);
+	}
+
+	void OnFlash()
+	{
+		if (currentDist < killDist && !scaring)
+		{
+			silenceTime = silenceTimer;
+			scaring = true;
+			EnemyAILevelTwo.Instance.meshfilter.mesh = EnemyAILevelTwo.Instance.killPose;
+		}
 	}
 
 	// Update is called once per frame
@@ -64,12 +75,12 @@ public class KillScreenLevelTwo : MonoBehaviour
 		//Gets the current distance, compares, then kills
 		currentDist = Vector3.Distance(playerObj.transform.position, enemyObj.transform.position);
 		//DUNNO IF WORKS - LEWIS
-		if (currentDist < killDist && CameraObjectController.Instance.isFlashing && !scaring)
-		{
-			silenceTime = silenceTimer;
-			scaring = true;
-			EnemyAILevelTwo.Instance.meshfilter.mesh = EnemyAILevelTwo.Instance.killPose;
-		}
+		//if (currentDist < killDist && CameraObjectController.Instance.isFlashing && !scaring)
+		//{
+		//	silenceTime = silenceTimer;
+		//	scaring = true;
+		//	EnemyAILevelTwo.Instance.meshfilter.mesh = EnemyAILevelTwo.Instance.killPose;
+		//}
 
 		if (currentDist < killDist && !hasAddedExtraSpeed)
 		{

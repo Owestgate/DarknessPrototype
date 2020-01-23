@@ -59,7 +59,9 @@ public class MenuPopup : MonoBehaviour
             && !menuOpen
             && pauseDelayed
             && KillScreen.Instance
-            && !KillScreen.Instance.cantPause/* && paintUIController.GetComponent<PaintingUI>().cantPauseNow == false*/){
+            && !KillScreen.Instance.cantPause/* && paintUIController.GetComponent<PaintingUI>().cantPauseNow == false*/)
+		{
+			Debug.Log("Paused");
             menuPopup.SetActive(true);
             menuOpen = true;
             Time.timeScale = 0; // Pauses Game time (recheck)

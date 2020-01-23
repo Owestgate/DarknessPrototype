@@ -1355,6 +1355,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296721598}
   m_CullTransparentMesh: 0
+--- !u!1 &314394169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 314394170}
+  - component: {fileID: 314394172}
+  - component: {fileID: 314394171}
+  m_Layer: 5
+  m_Name: TMP SubMeshUI [CODE Bold Atlas Material + LiberationSans SDF Atlas]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &314394170
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314394169}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1029997488}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &314394171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314394169}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_spriteAsset: {fileID: 0}
+  m_material: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
+  m_isDefaultMaterial: 0
+  m_padding: 4.7526875
+  m_canvasRenderer: {fileID: 314394172}
+  m_TextComponent: {fileID: 1029997489}
+  m_materialReferenceIndex: 1
+--- !u!222 &314394172
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314394169}
+  m_CullTransparentMesh: 0
 --- !u!1 &341521672
 GameObject:
   m_ObjectHideFlags: 0
@@ -2525,7 +2599,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -19.6, y: -41.8}
+  m_AnchoredPosition: {x: -32.25, y: -41.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &582558431
@@ -4503,7 +4577,8 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 314394170}
   m_Father: {fileID: 178983089}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4532,7 +4607,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Team Aardvark
+  m_text: Team Aardvark + Spalato Bros
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f8230030bfa1b8f439af9c6cfea5aa30, type: 2}
   m_sharedMaterial: {fileID: -4754418254683185165, guid: f8230030bfa1b8f439af9c6cfea5aa30,
@@ -4599,24 +4674,24 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 8.783583, y: 0, z: 57.03291, w: 26.73122}
+  m_margin: {x: 8.783583, y: 0, z: -71.20865, w: 26.73122}
   m_textInfo:
     textComponent: {fileID: 1029997489}
-    characterCount: 13
+    characterCount: 28
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 4
+    wordCount: 4
     linkCount: 0
     lineCount: 1
     pageCount: 1
-    materialCount: 1
+    materialCount: 2
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 314394171}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -5883,13 +5958,14 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.11081349, y: 0.21167155, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1376382356}
   m_Father: {fileID: 1528696964}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 57.7, y: 7.5}
+  m_AnchoredPosition: {x: 61.7, y: -6.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1303264234
@@ -5912,10 +5988,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "Use mirror (hold)\n\nPick up/Hold item\n\n    Jump\n\nPause/Settings"
+  m_text: "Use mirror/ Flash Cam\n\nPick up/Hold item\n\n    Jump\n\nPause/Settings"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b9b728572e77948478db577e70309243, type: 2}
-  m_sharedMaterial: {fileID: -3612896897788026027, guid: b9b728572e77948478db577e70309243,
+  m_fontAsset: {fileID: 11400000, guid: 6e21f36d2e39d884880e9b05fbdee031, type: 2}
+  m_sharedMaterial: {fileID: 455594396668302114, guid: 6e21f36d2e39d884880e9b05fbdee031,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -5941,8 +6017,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5958,7 +6034,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 47
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -5979,24 +6055,24 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -231.75887, y: 0, z: 54.11968, w: -172.48294}
+  m_margin: {x: -231.75887, y: -136.44313, z: 54.11968, w: -172.48294}
   m_textInfo:
     textComponent: {fileID: 1303264234}
-    characterCount: 62
+    characterCount: 66
     spriteCount: 0
-    spaceCount: 14
-    wordCount: 10
+    spaceCount: 15
+    wordCount: 11
     linkCount: 0
     lineCount: 7
     pageCount: 1
-    materialCount: 1
+    materialCount: 2
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
   m_hasFontAssetChanged: 0
   m_subTextObjects:
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1376382357}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -6490,6 +6566,80 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1345387844}
+  m_CullTransparentMesh: 0
+--- !u!1 &1376382355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1376382356}
+  - component: {fileID: 1376382358}
+  - component: {fileID: 1376382357}
+  m_Layer: 5
+  m_Name: TMP SubMeshUI [KolnMesseDeutz SDF Material + LiberationSans SDF Atlas]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1376382356
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376382355}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1303264233}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1376382357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376382355}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_spriteAsset: {fileID: 0}
+  m_material: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
+  m_isDefaultMaterial: 0
+  m_padding: 1.25
+  m_canvasRenderer: {fileID: 1376382358}
+  m_TextComponent: {fileID: 1303264234}
+  m_materialReferenceIndex: 1
+--- !u!222 &1376382358
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376382355}
   m_CullTransparentMesh: 0
 --- !u!1 &1406964924
 GameObject:
@@ -9039,7 +9189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.0999985, y: 18.599998}
+  m_AnchoredPosition: {x: 5.3, y: 19}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1751440972
@@ -9062,10 +9212,11 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "  \n Look\n\n  Movement\n\n    Run\n\n   Crouch\n\n Flare "
+  m_text: "  \n Look\n\n  Movement\n\n    Run\n\n   Crouch\n\n     Flare/Turn off
+    Cam"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b9b728572e77948478db577e70309243, type: 2}
-  m_sharedMaterial: {fileID: -3612896897788026027, guid: b9b728572e77948478db577e70309243,
+  m_fontAsset: {fileID: 11400000, guid: 6e21f36d2e39d884880e9b05fbdee031, type: 2}
+  m_sharedMaterial: {fileID: 455594396668302114, guid: 6e21f36d2e39d884880e9b05fbdee031,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -9091,8 +9242,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9129,13 +9280,13 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -231.75887, y: -73.05811, z: 54.11968, w: -305.8345}
+  m_margin: {x: -231.75887, y: -73.05811, z: 87.45836, w: -305.8345}
   m_textInfo:
     textComponent: {fileID: 1751440972}
-    characterCount: 49
+    characterCount: 65
     spriteCount: 0
-    spaceCount: 23
-    wordCount: 6
+    spaceCount: 28
+    wordCount: 9
     linkCount: 0
     lineCount: 10
     pageCount: 1
@@ -9371,7 +9522,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "Use mirror (hold)\n\nPick up/Hold item\n\n    Jump\n\nPause/Settings"
+  m_text: "Use mirror/ Flash Cam\n\nPick up/Hold item\n\n    Jump\n\nPause/Settings"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e21f36d2e39d884880e9b05fbdee031, type: 2}
   m_sharedMaterial: {fileID: 455594396668302114, guid: 6e21f36d2e39d884880e9b05fbdee031,
@@ -9417,7 +9568,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 47
+  m_firstOverflowCharacterIndex: 51
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -9441,10 +9592,10 @@ MonoBehaviour:
   m_margin: {x: -231.75887, y: 0, z: 54.11968, w: -172.48294}
   m_textInfo:
     textComponent: {fileID: 1787399643}
-    characterCount: 62
+    characterCount: 66
     spriteCount: 0
-    spaceCount: 14
-    wordCount: 10
+    spaceCount: 15
+    wordCount: 11
     linkCount: 0
     lineCount: 7
     pageCount: 1
@@ -10320,7 +10471,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -17.300001, y: -41.8}
+  m_AnchoredPosition: {x: -31, y: -41.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1934960672
@@ -10418,7 +10569,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "  \n Vision\n\n  Movement\n\n    Run\n\n   Crouch\n\n Flare "
+  m_text: "  \n Look\n\n  Movement\n\n    Run\n\n   Crouch\n\n     Flare/Turn off
+    Cam"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e21f36d2e39d884880e9b05fbdee031, type: 2}
   m_sharedMaterial: {fileID: 455594396668302114, guid: 6e21f36d2e39d884880e9b05fbdee031,
@@ -10488,10 +10640,10 @@ MonoBehaviour:
   m_margin: {x: -231.75887, y: -73.05811, z: 54.11968, w: -305.8345}
   m_textInfo:
     textComponent: {fileID: 1957869605}
-    characterCount: 51
+    characterCount: 65
     spriteCount: 0
-    spaceCount: 23
-    wordCount: 6
+    spaceCount: 28
+    wordCount: 9
     linkCount: 0
     lineCount: 10
     pageCount: 1
@@ -12632,6 +12784,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1914412474}
+    - target: {fileID: 44287025373043350, guid: e41a198bbabe0c041ad5b545ce7c0edd,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e41a198bbabe0c041ad5b545ce7c0edd, type: 3}
 --- !u!1001 &4232200328231025162

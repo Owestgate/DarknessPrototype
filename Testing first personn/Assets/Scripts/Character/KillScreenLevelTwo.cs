@@ -9,66 +9,81 @@ using EZCameraShake;
 
 public class KillScreenLevelTwo : MonoBehaviour
 {
-    public static KillScreenLevelTwo Instance { get; private set; }
-    public GameObject enemyObj;
-    public GameObject playerObj;
-    //Name of the screen to transition to
-    public string killScreen;
-    //If currentDist is less than this, you die.
-    public float killDist;
-    //Distance between player and chaser.
-    private float currentDist;
+	public static KillScreenLevelTwo Instance { get; private set; }
+	public GameObject enemyObj;
+	public GameObject playerObj;
+	//Name of the screen to transition to
+	public string killScreen;
+	//If currentDist is less than this, you die.
+	public float killDist;
+	//Distance between player and chaser.
+	private float currentDist;
+	public float extraSpeed = 50f;
+	private bool hasAddedExtraSpeed;
+	public MenuPopup1 menuPopup1;
 
 	public CameraObjectController camObjectController;
-    //Jumpscare testing 
-    public GameObject jumpScarePosition;
-    public preserveNoise jumpScareAudioObject; // game object with audio source set to play on awake
-    public GameObject playerCamera;    
-    public GameObject jumpScareLookAt;
-    public GameObject postProcessing;
+	//Jumpscare testing 
+	public GameObject jumpScarePosition;
+	public preserveNoise jumpScareAudioObject; // game object with audio source set to play on awake
+	public GameObject playerCamera;
+	public GameObject jumpScareLookAt;
+	public GameObject postProcessing;
 
-    private ChromaticAberration chroma;
-    private Vignette vig;
+	private ChromaticAberration chroma;
+	private Vignette vig;
 
-    public GameObject jumpScarePos2;
-    public bool jumpScare2 = false;
+	public GameObject jumpScarePos2;
+	public bool jumpScare2 = false;
 
-    private float silenceTime;
-    private float silenceTimer = 0f;
-    private bool scaring = false;
+	private float silenceTime;
+	private float silenceTimer = 0f;
+	private bool scaring = false;
 
-    public UnityEvent OnDie;
-    public bool cantPause = false;
-    public GameObject abilityUI;
+	public UnityEvent OnDie;
+	public bool cantPause = false;
+	public GameObject abilityUI;
 
-    private void Awake()
-    {
-		 //Instance = this;
-    }
+	private void Awake()
+	{
+		Instance = this;
+	}
 
-    void Start()
-    {
-        postProcessing.GetComponent<PostProcessVolume>().profile.TryGetSettings(out chroma);
-        postProcessing.GetComponent<PostProcessVolume>().profile.TryGetSettings(out vig);
-        jumpScareAudioObject = preserveNoise.Instance();
-    }
+	void Start()
+	{
+		postProcessing.GetComponent<PostProcessVolume>().profile.TryGetSettings(out chroma);
+		postProcessing.GetComponent<PostProcessVolume>().profile.TryGetSettings(out vig);
+		jumpScareAudioObject = preserveNoise.Instance();
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
+	// Update is called once per frame
+	void Update()
+	{
 		if (SceneManager.GetActiveScene().name != "Chapter2") return;
 		if (!CameraObjectController.Instance) return;
-        //Gets the current distance, compares, then kills
-        currentDist = Vector3.Distance(playerObj.transform.position, enemyObj.transform.position);
+		//Gets the current distance, compares, then kills
+		currentDist = Vector3.Distance(playerObj.transform.position, enemyObj.transform.position);
 		//DUNNO IF WORKS - LEWIS
-        if (currentDist < killDist && CameraObjectController.Instance.isFlashing && !scaring)
-        {
-            silenceTime = silenceTimer;
-            scaring = true;
+		if (currentDist < killDist && CameraObjectController.Instance.isFlashing && !scaring)
+		{
+			silenceTime = silenceTimer;
+			scaring = true;
 			EnemyAILevelTwo.Instance.meshfilter.mesh = EnemyAILevelTwo.Instance.killPose;
 		}
 
-        if (scaring)
+		if (currentDist < killDist && !hasAddedExtraSpeed)
+		{
+			camObjectController.navAgent.speed += extraSpeed;
+			hasAddedExtraSpeed = true;
+		}
+
+		if (currentDist > killDist && hasAddedExtraSpeed)
+		{
+			camObjectController.navAgent.speed -= extraSpeed;
+			hasAddedExtraSpeed = false;
+		}
+
+		if (scaring)
         {
             silenceTime -= Time.deltaTime;
             if (silenceTime <= 0)
@@ -97,6 +112,12 @@ public class KillScreenLevelTwo : MonoBehaviour
             }
         }
     }
+
+	public void ResetTimeScale()
+	{
+		menuPopup1.menuOpen = false;
+		Time.timeScale = 1;
+	}
 
     IEnumerator Lookat(){             // fix for not looking
         yield return new WaitForSeconds(0.1f);

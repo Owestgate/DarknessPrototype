@@ -11,6 +11,8 @@ public class CameraObjectController : MonoBehaviour
     public int maxPhotos = 60;
     public float raycastDistance = 3;
     public bool isFlashing;
+	public GameObject startLight;
+	public GameObject startLightTwo;
 
 	public EnemyAILevelTwo enemyScript;
 
@@ -59,7 +61,7 @@ public class CameraObjectController : MonoBehaviour
 	public AudioSource scarySoundsLast;
 	public AudioSource scarySoundsFinale;
 	public UnityEvent escape;
-	public UnityEvent fKey;
+	public UnityEvent useFKey;
 	public UnityEvent rightKey;
 	public UnityEvent enemySpawn;
 
@@ -100,6 +102,16 @@ public class CameraObjectController : MonoBehaviour
 		if (isFlashing)
 		{
 			Raycast();
+		}
+
+		if (Input.GetKeyDown(KeyCode.F))
+		{
+			Anim.Play("CamFlashRest");
+			currentHoldDownTime = 0;
+			orangeLight.enabled = false;
+			isFlashing = false;
+			CheckCameraPhotos();
+			useFKey.Invoke();
 		}
 
 		if (navAgent.gameObject.activeInHierarchy && navAgent.enabled)
@@ -203,7 +215,7 @@ public class CameraObjectController : MonoBehaviour
 			batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
 			batteryLow.material.SetColor("_EmissionColor", redColHdr);
 			batteryFrame.material.SetColor("_EmissionColor", redColHdr);
-			Anim2.Play("BatteryFlash", 0, 0);
+			if (Anim2.gameObject.activeInHierarchy) Anim2.Play("BatteryFlash", 0, 0);
 		}
 		else
 		{
@@ -215,7 +227,7 @@ public class CameraObjectController : MonoBehaviour
 			batteryMedium.material.SetColor("_EmissionColor", normalColHdr);
 			batteryLow.material.SetColor("_EmissionColor", normalColHdr);
 			batteryFrame.material.SetColor("_EmissionColor", redColHdr);
-			Anim2.Play("BatteryFlash 1", 0, 0);
+			if (Anim2.gameObject.activeInHierarchy) Anim2.Play("BatteryFlash 1", 0, 0);
 		}
 
 		photosRemaining = Mathf.Max(photosRemaining, 0);
@@ -245,29 +257,31 @@ public class CameraObjectController : MonoBehaviour
 
 		if (evidenceCount == 3)
 		{
+			startLight.SetActive(false);
+			startLightTwo.SetActive(false);
 			scarySoundsFirst.Play();
 			enemySpawn.Invoke();
-			navAgent.speed = 2f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 3f : 6f;
 		}
 
 		if (evidenceCount == 4)
 		{
 			scarySounds.Play();
 			RenderSettings.reflectionIntensity = 0.5f;
-			navAgent.speed = 4f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 5f : 10f;
 		}
 
 		if (evidenceCount == 5)
 		{
 			scarySoundsNext.Play();
-			navAgent.speed = 6f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 8f : 12f;
 			RenderSettings.reflectionIntensity = 0.4f;
 		}
 
 		if (evidenceCount == 6)
 		{
 			scarySoundsLast.Play();
-			navAgent.speed = 7f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 10f : 16f;
 			RenderSettings.reflectionIntensity = 0.3f;
 		}
 		if (evidenceCount == 7)
@@ -279,7 +293,7 @@ public class CameraObjectController : MonoBehaviour
 			scarySoundsFinale.Play();
 			RenderSettings.reflectionIntensity = 0;
 			escape.Invoke();
-			navAgent.speed = 10f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 13f : 20f;
 		}
 
 		if (evidenceCount != 7) return;

@@ -36,7 +36,7 @@ public class EndGame : MonoBehaviour
             cameraObj.SendMessage("EndGame");
                        
             player.GetComponent<FirstPersonController>().enabled = false;
-            player.GetComponent<MenuPopup>().cursorLock = false;            // overrides the menu script cursor lock
+            player.GetComponent<MenuPopup>().cursorLock = false;// overrides the menu script cursor lock
 
             enemy.SetActive(false);
 

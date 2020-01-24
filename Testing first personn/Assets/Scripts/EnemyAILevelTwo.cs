@@ -104,12 +104,28 @@ public class EnemyAILevelTwo : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		OnCameraOff();
+		//OnCameraOff();
+		bool wasStopped = navAgent.isStopped;
+		if (LightningState.instance.lightningActive)
+		{
+			isDefending = false;
+			meshfilter.mesh = killPose;
+			if (navAgent.enabled && navAgent.gameObject.activeInHierarchy) navAgent.isStopped = false;
+		}
+		else
+		{
+			if (!camController.gameObject.activeInHierarchy)
+			{
+				if (navAgent.enabled && navAgent.gameObject.activeInHierarchy) navAgent.isStopped = wasStopped;
+
+			}
+			
+		}
+
 		CheckDefendingTimer();
+
 		if (PlyrKillScreen.GetComponent<KillScreenLevelTwo>().jumpScare2 == false)
 		{
-
-
 		}
 		if (navAgent.enabled)
 		{
@@ -138,7 +154,7 @@ public class EnemyAILevelTwo : MonoBehaviour
 
 		if (DefendingTimerRemain <= 0 && isDefending == true)
 		{
-			if (camController.isActiveAndEnabled)
+			if (camController.gameObject.activeInHierarchy)
 			{
 				isDefending = false;
 				navAgent.isStopped = false;
@@ -213,11 +229,11 @@ public class EnemyAILevelTwo : MonoBehaviour
 			}
 		}
 	}
-	void OnCameraOff()
+	public void OnCameraOff()
 	{
 		// Enemy will stop if player turns off cam.
 
-		if (!camController.isActiveAndEnabled)
+		if (!camController.gameObject.activeInHierarchy)
 		{
 			isDefending = true;
 			meshfilter.mesh = flashedPose;

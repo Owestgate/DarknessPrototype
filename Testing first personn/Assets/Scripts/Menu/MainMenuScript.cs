@@ -14,7 +14,8 @@ public class MainMenuScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         loadOnce = false;
-    }
+		Application.targetFrameRate = Screen.currentResolution.refreshRate;
+	}
     public void SetNextSceneName(string newSceneName)
     {
         NextSceneName = newSceneName;

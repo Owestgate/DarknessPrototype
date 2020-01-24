@@ -112,14 +112,15 @@ public class CameraObjectController : MonoBehaviour
 		{
 			if (lightningStateScript.lightningActive)
 			{
-				navAgent.speed += 8f;
+				navAgent.speed += 9f;
 				enemyScript.isDefending = false;
 				enemyScript.meshfilter.mesh = enemyScript.killPose;
 				if (navAgent.enabled && navAgent.gameObject.activeInHierarchy) navAgent.isStopped = false;
+				Debug.Log("Final thing");
 			}
 			else
 			{
-				navAgent.speed -= 8f;
+				navAgent.speed -= 9f;
 			}
 		}
 
@@ -133,6 +134,7 @@ public class CameraObjectController : MonoBehaviour
 			isFlashing = false;
 			CheckCameraPhotos();
 			useFKey.Invoke();
+
 		}
 
 		if (navAgent.gameObject.activeInHierarchy && navAgent.enabled)
@@ -296,14 +298,14 @@ public class CameraObjectController : MonoBehaviour
 		if (evidenceCount == 5)
 		{
 			scarySoundsNext.Play();
-			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 9f : 16f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 9f : 14f;
 			RenderSettings.reflectionIntensity = 0.4f;
 		}
 
 		if (evidenceCount == 6)
 		{
 			scarySoundsLast.Play();
-			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 12f : 19f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 10f : 16f;
 			RenderSettings.reflectionIntensity = 0.3f;
 		}
 		if (evidenceCount == 7)
@@ -316,8 +318,8 @@ public class CameraObjectController : MonoBehaviour
 			scaryMusicFinale.Play();
 			RenderSettings.reflectionIntensity = 0;
 			escape.Invoke();
-			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 15f : 24f;
-			WeatherSystem.instance.LightningTime = new Vector2(1, 3);
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 13f : 20f;
+			WeatherSystem.instance.LightningTime = new Vector2(3, 5);
 			WeatherSystem.instance.ResetLightningTime();
 		}
 

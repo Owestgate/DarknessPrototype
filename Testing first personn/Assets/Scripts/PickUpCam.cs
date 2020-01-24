@@ -21,6 +21,7 @@ public class PickUpCam : MonoBehaviour
 			{
 				CameraObjectController.Instance.photosRemaining -= photosLossAmount;
 				CameraObjectController.Instance.CheckCameraPhotos();
+				CameraObjectController.Instance.enemyScript.OnCameraOff();
 			}
 
 			fKey.Invoke();

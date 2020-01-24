@@ -71,7 +71,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Use this for initialization
         private void Start()
         {
-            Application.targetFrameRate = -1;
+           // Application.targetFrameRate = -1;
           
 
             m_CharacterController = GetComponent<CharacterController>();

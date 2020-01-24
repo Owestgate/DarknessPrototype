@@ -43,6 +43,7 @@ public class KillScreenLevelTwo : MonoBehaviour
 	public UnityEvent OnDie;
 	public bool cantPause = false;
 	public GameObject abilityUI;
+	public LightningState lightningStateScript;
 
 	private void Awake()
 	{
@@ -55,11 +56,22 @@ public class KillScreenLevelTwo : MonoBehaviour
 		postProcessing.GetComponent<PostProcessVolume>().profile.TryGetSettings(out vig);
 		jumpScareAudioObject = preserveNoise.Instance();
 		camObjectController.onFlash.AddListener(OnFlash);
+		WeatherSystem.instance.OnLightning.AddListener(OnLightningFlash);
 	}
 
 	void OnFlash()
 	{
 		if (currentDist < killDist && !scaring)
+		{
+			silenceTime = silenceTimer;
+			scaring = true;
+			EnemyAILevelTwo.Instance.meshfilter.mesh = EnemyAILevelTwo.Instance.killPose;
+		}
+	}
+
+	void OnLightningFlash()
+	{
+		if (currentDist < killDist)
 		{
 			silenceTime = silenceTimer;
 			scaring = true;
@@ -81,6 +93,13 @@ public class KillScreenLevelTwo : MonoBehaviour
 		//	scaring = true;
 		//	EnemyAILevelTwo.Instance.meshfilter.mesh = EnemyAILevelTwo.Instance.killPose;
 		//}
+
+		if (currentDist < killDist && lightningStateScript.lightningActive)
+		{
+			silenceTime = silenceTimer;
+			scaring = true;
+			EnemyAILevelTwo.Instance.meshfilter.mesh = EnemyAILevelTwo.Instance.killPose;
+		}
 
 		if (currentDist < killDist && !hasAddedExtraSpeed)
 		{
@@ -114,6 +133,7 @@ public class KillScreenLevelTwo : MonoBehaviour
                 jumpScare2 = true;
 
                 Invoke("LoadScreen", 2.0f); // auto loads menu after delay
+				PlayerPrefs.SetInt("evidenceCollected", CameraObjectController.Instance.evidenceCount);
                 OnDie.Invoke();
 				EnemyAILevelTwo.Instance.meshfilter.mesh = EnemyAILevelTwo.Instance.killPose;
 

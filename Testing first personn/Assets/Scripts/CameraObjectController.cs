@@ -69,6 +69,8 @@ public class CameraObjectController : MonoBehaviour
 
 
 	public UnityEvent OnAllEvidencePickedUp;
+	public LightningState lightningStateScript;
+	private bool lastLightningState;
 
 	private void Awake()
 	{
@@ -105,6 +107,23 @@ public class CameraObjectController : MonoBehaviour
 		{
 			Raycast();
 		}
+
+		if (lastLightningState != lightningStateScript.lightningActive)
+		{
+			if (lightningStateScript.lightningActive)
+			{
+				navAgent.speed += 8f;
+				enemyScript.isDefending = false;
+				enemyScript.meshfilter.mesh = enemyScript.killPose;
+				if (navAgent.enabled && navAgent.gameObject.activeInHierarchy) navAgent.isStopped = false;
+			}
+			else
+			{
+				navAgent.speed -= 8f;
+			}
+		}
+
+		lastLightningState = lightningStateScript.lightningActive;
 
 		if (Input.GetKeyDown(KeyCode.F))
 		{
@@ -271,20 +290,20 @@ public class CameraObjectController : MonoBehaviour
 		{
 			scarySounds.Play();
 			RenderSettings.reflectionIntensity = 0.5f;
-			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 6f : 10f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 6f : 11f;
 		}
 
 		if (evidenceCount == 5)
 		{
 			scarySoundsNext.Play();
-			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 9f : 13f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 9f : 16f;
 			RenderSettings.reflectionIntensity = 0.4f;
 		}
 
 		if (evidenceCount == 6)
 		{
 			scarySoundsLast.Play();
-			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 12f : 16f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 12f : 19f;
 			RenderSettings.reflectionIntensity = 0.3f;
 		}
 		if (evidenceCount == 7)
@@ -297,12 +316,15 @@ public class CameraObjectController : MonoBehaviour
 			scaryMusicFinale.Play();
 			RenderSettings.reflectionIntensity = 0;
 			escape.Invoke();
-			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 15f : 20f;
+			navAgent.speed = PlayerPrefs.GetInt("difficulty") == 0 ? 15f : 24f;
+			WeatherSystem.instance.LightningTime = new Vector2(1, 3);
+			WeatherSystem.instance.ResetLightningTime();
 		}
 
 		if (evidenceCount != 7) return;
 		OnAllEvidencePickedUp.Invoke();
 	}
+
 
     public void PlayBeepSound()
     {

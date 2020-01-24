@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.Utility;
 using UnityStandardAssets.ImageEffects;
+using UnityEngine.Events;
 
 public class WeatherSystem : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class WeatherSystem : MonoBehaviour
 
     [Header("Wind")]
     public WindZone GlobalWind;
+	public UnityEvent OnLightning;
+
 
     void Awake()
     {
@@ -75,8 +78,10 @@ public class WeatherSystem : MonoBehaviour
             Thunder.pitch = Random.Range(ThunderPitchRange.x, ThunderPitchRange.y);
             Thunder.Play();
         }
+
+		OnLightning.Invoke();
     }
-    void ResetLightningTime()
+    public void ResetLightningTime()
     {
         NewLightningTime = Random.Range(LightningTime.x, LightningTime.y);
     }

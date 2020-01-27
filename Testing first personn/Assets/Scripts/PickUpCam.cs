@@ -15,6 +15,7 @@ public class PickUpCam : MonoBehaviour
 			if (CameraObjectController.Instance)
 			{
 				CameraObjectController.Instance.gameObject.SetActive(!CameraObjectController.Instance.gameObject.activeSelf);
+				CameraObjectController.Instance.ClearTakenPhoto();
 			}
 
 			if (!CameraObjectController.Instance.gameObject.activeSelf)

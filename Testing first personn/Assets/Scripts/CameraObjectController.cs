@@ -343,7 +343,7 @@ public class CameraObjectController : MonoBehaviour
         Invoke("ClearTakenPhoto", delay);
     }
 
-    void ClearTakenPhoto()
+    public void ClearTakenPhoto()
     {
        // renderCam.SetActive(true);
         TakenPhoto.color = Color.clear;

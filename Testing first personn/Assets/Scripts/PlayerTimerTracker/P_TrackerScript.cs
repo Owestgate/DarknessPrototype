@@ -42,11 +42,11 @@ public class P_TrackerScript : MonoBehaviour
             currentScene = SceneManager.GetActiveScene();
             distTravelled = 0;
 
-            if (currentScene.name == "Test")
+            if (currentScene.name == "Level1")
             {
                 pt_player = GameObject.Find("FPSController").GetComponent<FirstPersonController>();
             }
-            if (currentScene.name == "MainMenu")
+            if (currentScene.name == "Main Menu")
             {
                 iniTime = Time.time;
             }

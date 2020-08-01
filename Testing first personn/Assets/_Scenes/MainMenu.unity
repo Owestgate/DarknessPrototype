@@ -3541,7 +3541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: db4442dba17c0054aa3491eeb6329148, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 30cd4985d9f359246981407b5d43f5a8, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1
@@ -5153,7 +5153,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: V1.1.1
+  m_text: V1.1.2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f8230030bfa1b8f439af9c6cfea5aa30, type: 2}
   m_sharedMaterial: {fileID: -4754418254683185165, guid: f8230030bfa1b8f439af9c6cfea5aa30,
